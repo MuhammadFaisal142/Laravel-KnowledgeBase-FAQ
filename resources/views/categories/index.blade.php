@@ -10,11 +10,11 @@
                         <i class="fa fa-home"></i>
                     </a>
                 </li>
-                <li class="active">Knowledge Base</li>
+                <li class="active">MMW Consultants</li>
             </ol>
         </div>
         <div class="fb-heading">
-            Knowledge Base
+            MMW Consultants
         </div>
         <hr class="style-three">
         <div class="row">

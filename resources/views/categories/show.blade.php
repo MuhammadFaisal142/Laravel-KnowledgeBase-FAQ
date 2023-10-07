@@ -11,7 +11,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home') }}">Knowledge Base</a>
+                    <a href="{{ route('home') }}">MMW Consultants</a>
                 </li>
                 <li class="active">{{ $category->name }}</li>
             </ol>

@@ -12,7 +12,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('home') }}">Knowledge Base</a>
+                    <a href="{{ route('home') }}">MMW Consultants</a>
                 </li>
                 <li>
                     <a href="{{ route('categories.show', [$article->category->slug, $article->category->id]) }}">{{ $article->category->name }}</a>
