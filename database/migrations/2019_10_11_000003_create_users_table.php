@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
 
             $table->string('name');
 
-            $table->string('email')->unique();
+            $table->string('email',191)->unique();
 
             $table->datetime('email_verified_at')->nullable();
 

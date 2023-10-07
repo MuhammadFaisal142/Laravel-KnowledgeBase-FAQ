@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,13 +13,13 @@ class AddSlugToMultipleTables extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->string('slug')->unique();
+            $table->string('slug', 191)->unique(); // Specify a custom index length (191 bytes)
         });
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('slug')->unique();
+            $table->string('slug', 191)->unique(); // Specify a custom index length (191 bytes)
         });
         Schema::table('tags', function (Blueprint $table) {
-            $table->string('slug')->unique();
+            $table->string('slug', 191)->unique(); // Specify a custom index length (191 bytes)
         });
     }
 
@@ -45,3 +44,7 @@ class AddSlugToMultipleTables extends Migration
         });
     }
 }
+
+
+
+?>
