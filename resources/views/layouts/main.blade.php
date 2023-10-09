@@ -13,11 +13,11 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="header">
-                    <div class="logo">
-                        <img src="{{ asset('images/logo.png') }}" alt="logo">
-                    </div>
-                </div>
+
+
+                        <h1 class="mb-5">{{ trans('panel.site_title') }}</h1>
+
+
             </div>
         </div>
 
@@ -36,10 +36,12 @@
 
         <div class="container featured-area-default padding-30">
             <div class="row">
-                @yield('content')
+                {{-- @yield('content')  --}}
+
+
 
                 @if(!isset($exception))
-                    @include('partials.sidebar')
+                    {{-- @include('partials.sidebar') --}}
                 @endif
             </div>
         </div>

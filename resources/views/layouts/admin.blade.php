@@ -157,8 +157,6 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- core:js -->
-<script src="{{asset('js/code.js')}}"></script>
-
     @yield('scripts')
 </body>
 
