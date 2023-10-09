@@ -52,6 +52,10 @@
                     </ul>
                 </li>
             @endcan
+
+
+{{--
+
             @can('category_access')
                 <li class="nav-item">
                     <a href="{{ route("admin.categories.index") }}" class="nav-link {{ request()->is('admin/categories') || request()->is('admin/categories/*') ? 'active' : '' }}">
@@ -113,7 +117,7 @@
                         @endcan
                     </ul>
                 </li>
-            @endcan
+            @endcan --}}
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                     <i class="nav-icon fas fa-fw fa-sign-out-alt">
