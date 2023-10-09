@@ -29,6 +29,7 @@ class UsersController extends Controller
 
         $roles = Role::all()->pluck('title', 'id');
 
+
         return view('admin.users.create', compact('roles'));
     }
 
@@ -36,8 +37,12 @@ class UsersController extends Controller
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $notification= array(
+            'message' => 'User Create successfully',
+            'alert-type' => 'success'
 
-        return redirect()->route('admin.users.index');
+       );
+       return redirect()->route('admin.users.index')->with($notification);
     }
 
     public function edit(User $user)
@@ -55,8 +60,12 @@ class UsersController extends Controller
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $notification= array(
+            'message' => 'User Updated successfully',
+            'alert-type' => 'success'
 
-        return redirect()->route('admin.users.index');
+       );
+        return redirect()->route('admin.users.index')->with($notification);
     }
 
     public function show(User $user)
@@ -73,8 +82,12 @@ class UsersController extends Controller
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user->delete();
+        $notification= array(
+            'message' => 'User Deleted successfully',
+            'alert-type' => 'success',
+        );
 
-        return back();
+        return back()->with($notification);
     }
 
     public function massDestroy(MassDestroyUserRequest $request)
