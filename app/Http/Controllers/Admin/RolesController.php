@@ -36,8 +36,12 @@ class RolesController extends Controller
     {
         $role = Role::create($request->all());
         $role->permissions()->sync($request->input('permissions', []));
+        $notification= array(
+            'message' => 'Role Create successfully',
+            'alert-type' => 'success'
 
-        return redirect()->route('admin.roles.index');
+       );
+        return redirect()->route('admin.roles.index')->with($notification);
     }
 
     public function edit(Role $role)
@@ -55,8 +59,12 @@ class RolesController extends Controller
     {
         $role->update($request->all());
         $role->permissions()->sync($request->input('permissions', []));
+        $notification= array(
+            'message' => 'Role Updated successfully',
+            'alert-type' => 'success'
 
-        return redirect()->route('admin.roles.index');
+       );
+        return redirect()->route('admin.roles.index')->with($notification);
     }
 
     public function show(Role $role)
@@ -73,8 +81,12 @@ class RolesController extends Controller
         abort_if(Gate::denies('role_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $role->delete();
+        $notification= array(
+            'message' => 'Role Delete successfully',
+            'alert-type' => 'success'
 
-        return back();
+       );
+        return back()->with($notification);
     }
 
     public function massDestroy(MassDestroyRoleRequest $request)

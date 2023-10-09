@@ -32,8 +32,12 @@ class PermissionsController extends Controller
     public function store(StorePermissionRequest $request)
     {
         $permission = Permission::create($request->all());
+        $notification= array(
+            'message' => 'Permission Create successfully',
+            'alert-type' => 'success'
 
-        return redirect()->route('admin.permissions.index');
+       );
+        return redirect()->route('admin.permissions.index')->with($notification);
     }
 
     public function edit(Permission $permission)
@@ -46,8 +50,12 @@ class PermissionsController extends Controller
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
         $permission->update($request->all());
+        $notification= array(
+            'message' => 'Permission Updated successfully',
+            'alert-type' => 'success'
 
-        return redirect()->route('admin.permissions.index');
+       );
+        return redirect()->route('admin.permissions.index')->with($notification);
     }
 
     public function show(Permission $permission)
@@ -62,8 +70,12 @@ class PermissionsController extends Controller
         abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $permission->delete();
+        $notification= array(
+            'message' => 'Permissions Delete successfully',
+            'alert-type' => 'success'
 
-        return back();
+       );
+        return back()->with($notification);
     }
 
     public function massDestroy(MassDestroyPermissionRequest $request)

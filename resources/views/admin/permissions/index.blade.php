@@ -59,12 +59,13 @@
                                 @endcan
 
                                 @can('permission_delete')
-                                    <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
+                                <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST" style="display: inline-block;" id="delete-permission-form">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="button" class="btn btn-xs btn-danger" id="delete-permission-button">{{ trans('global.delete') }}</button>
+                                </form>
                                 @endcan
+
 
                             </td>
 
@@ -81,6 +82,27 @@
 @section('scripts')
 @parent
 <script>
+    $(document).ready(function() {
+    $(document).on('click', '#delete-permission-button', function(e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Delete This Permission?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Proceed with the form submission
+                $('#delete-permission-form').submit();
+            }
+        });
+    });
+});
+
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('permission_delete')
