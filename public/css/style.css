@@ -929,3 +929,23 @@ form.comment-form button {
 	color: #155469;
 	text-decoration: none;
 }
+
+
+/* css of the test page  */
+
+.donutChart{
+    height: 225px !important ;
+    width: 225px !important ;
+}
+#highChartMap {
+    height: 500px;
+    min-width: 310px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
+}

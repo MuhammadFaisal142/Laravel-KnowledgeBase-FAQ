@@ -16,4 +16,7 @@ class HomeController extends Controller
 
         return view('index', compact('categories'));
     }
+    public function test(){
+        return view('Test.test');
+    }
 }

@@ -3,7 +3,8 @@
 Route::redirect('/home', '/admin');
 Auth::routes(['register' => false]);
 
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@test')->name('home');
 
 Route::get('categories/check_slug', 'CategoryController@check_slug')->name('categories.check_slug');
 Route::get('categories/{slug}/{category}', 'CategoryController@show')->name('categories.show');
@@ -16,6 +17,7 @@ Route::get('faq', 'FaqController@index')->name('faq.index');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
+    //
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');
