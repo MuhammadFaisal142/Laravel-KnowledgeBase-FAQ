@@ -24,7 +24,7 @@
     </div>
 @endsection
 
-@section('about')
+{{-- @section('about')
     <div class="container-fluid featured-area-grey padding-30">
         <div class="container">
             <div class="row">
@@ -43,4 +43,4 @@
     </div>
 </div>
 
-@endsection
+@endsection --}}
