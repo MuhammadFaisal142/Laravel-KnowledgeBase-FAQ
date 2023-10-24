@@ -17,6 +17,9 @@
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    {{-- new chart scripts --}}
+
 </head>
 
 <body>
@@ -59,8 +62,6 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src='https://cdn.rawgit.com/VPenkov/okayNav/master/app/js/jquery.okayNav.js'></script>
-
-
 
 </body>
 

@@ -5,6 +5,7 @@ Auth::routes(['register' => false]);
 
 // Route::get('/', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@test')->name('home');
+Route::get('/housing', 'HomeController@housing')->name('housing');
 
 Route::get('categories/check_slug', 'CategoryController@check_slug')->name('categories.check_slug');
 Route::get('categories/{slug}/{category}', 'CategoryController@show')->name('categories.show');

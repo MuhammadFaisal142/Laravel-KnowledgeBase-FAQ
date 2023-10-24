@@ -934,8 +934,8 @@ form.comment-form button {
 /* css of the test page  */
 
 .donutChart{
-    height: 225px !important ;
-    width: 225px !important ;
+    height: 300px !important ;
+    width: 300px !important ;
 }
 #highChartMap {
     height: 500px;
@@ -949,3 +949,5 @@ form.comment-form button {
     text-align: center;
     color: gray;
 }
+
+

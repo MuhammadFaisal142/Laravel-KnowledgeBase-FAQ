@@ -7,6 +7,9 @@
                     <a href="{{ route('home') }}">
                         <i class="fa fa-home"></i> Home
                     </a>
+                    <a href="{{ route('housing') }}">
+                        <i class="fa fa-bar-chart"></i> Housing
+                    </a>
                 </li>
 
                 <li class="icon">

@@ -19,4 +19,7 @@ class HomeController extends Controller
     public function test(){
         return view('Test.test');
     }
+    public function housing(){
+        return view('Test.threeChart');
+    }
 }
