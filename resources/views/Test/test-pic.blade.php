@@ -21,58 +21,28 @@
         <p><b class="h011btn">Year</b></p>
 
         <div class="col-md-4 ">
-          <button class="btn btn-block margin-botton btn-sm " style="color:white; background-color: #E9ADBF;">2011</button>
+          <button class="btn btn-block btn-color1  margin-botton btn-sm " style="color:white; ">2011</button>
         </div>
         <div class="col-md-4 ">
           <button class="btn btn-color btn-block margin-botton btn-sm">2021</button>
         </div>
       </div>
-      <div class="highChartMap"></div>
+      <div class="highChartMaptest"></div>
     </div>
 
     <div class="col-md-8">
-      <div class="chart1"></div>
-      <div class="chart2"></div>
-      <div class="chart3"></div>
+        <img src="{{ asset('images/testpic.jpg') }}" alt="Test Picture" style="width: 100%; height: auto;">
+    </div>
 
-      <div class="row justify-content-center">
-        <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Show Occupancy of Rooms</button>
-        </div>
-        <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Show Number of Rooms</button>
-        </div>
-        <div class="col-md-4 padding">
-          <button class="btn btn-color1 btn-block margin-botton">More Data<i class="fa fa-arrow-up"></i></button>
-        </div>
-      </div>
 
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="chart-title">
-            <h3>Rooms</h3>
-          </div>
-          <div class="newPieChart donutChart"></div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="chart-title">
-            <h3>Bedrooms</h3>
-          </div>
-          <div class="newPieChart donutChart"></div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
 
 <style>
   .btn-color {
-    background: #D73564;
+    background: #658EA4;
     color: white;
-  }
-  .highcharts-text-outline{
-    /* font-size: 9.0rem; */
   }
 
   .chart-title {
@@ -92,7 +62,7 @@
   }
 
   .btn-color1 {
-    background: #834495;
+    background: #658EA4;
     color: white;
   }
 
@@ -201,6 +171,63 @@
   chart1.render();
   chart2.render();
   chart3.render();
+
+
+
+  (async () => {
+    const topology = await fetch(
+      'https://code.highcharts.com/mapdata/countries/mz/mz-all.topo.json'
+    ).then(response => response.json());
+
+    const data = [
+      ['mz-nm', 10], ['mz-in', 11], ['mz-mp', 12], ['mz-za', 13],
+      ['mz-7278', 14], ['mz-te', 15], ['mz-mn', 16], ['mz-cd', 17],
+      ['mz-ns', 18], ['mz-ga', 19], ['mz-so', 20]
+    ];
+
+    // Find all elements with the "highChartMap" class and initialize a chart for each one.
+    const chartElements = document.querySelectorAll('.highChartMaptest');
+
+    chartElements.forEach(element => {
+      Highcharts.mapChart(element, {
+        chart: {
+          map: topology
+        },
+        title: {
+          text: 'Map ward'
+        },
+        subtitle: {
+          text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/mz/mz-all.topo.json">Mozambique</a>'
+        },
+        mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+            verticalAlign: 'bottom'
+          }
+        },
+        colorAxis: {
+          min: 0,
+          // Change the default map color to a light blue shade
+          minColor: '#658EA4',
+          maxColor: '#658EA4' // Adjust as needed for darker/lighter shades
+        },
+        series: [{
+          data: data,
+          name: 'Random data',
+          states: {
+            hover: {
+              color: '#658EA4' // Color on hover
+            }
+          },
+          dataLabels: {
+            enabled: true,
+            format: '{point.name}'
+          }
+        }]
+      });
+    });
+  })();
+
 </script>
 @endsection
 

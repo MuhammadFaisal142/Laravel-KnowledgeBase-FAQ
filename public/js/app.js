@@ -14,150 +14,99 @@ $(function() {
 // test chart javascripts
 
 (async () => {
-  const topology = await fetch(
-    'https://code.highcharts.com/mapdata/countries/pk/pk-all.topo.json'
-  ).then(response => response.json());
+    const topology = await fetch(
+      'https://code.highcharts.com/mapdata/countries/mz/mz-all.topo.json'
+    ).then(response => response.json());
 
-  const data = [
-    ['pk-sd', 10],
-    ['pk-ba', 11],
-    ['pk-jk', 12],
-    ['pk-na', 13],
-    ['pk-nw', 14],
-    ['pk-ta', 15],
-    ['pk-is', 16],
-    ['pk-pb', 17]
-  ];
+    const data = [
+      ['mz-nm', 10], ['mz-in', 11], ['mz-mp', 12], ['mz-za', 13],
+      ['mz-7278', 14], ['mz-te', 15], ['mz-mn', 16], ['mz-cd', 17],
+      ['mz-ns', 18], ['mz-ga', 19], ['mz-so', 20]
+    ];
 
-  // Find all elements with the "highChartMap" class and initialize a chart for each one.
-  const chartElements = document.querySelectorAll('.highChartMap');
+    // Find all elements with the "highChartMap" class and initialize a chart for each one.
+    const chartElements = document.querySelectorAll('.highChartMap');
 
-  chartElements.forEach(element => {
-    Highcharts.mapChart(element, {
-      chart: {
-        map: topology
-      },
-      title: {
-        text: 'Map ward'
-      },
-      subtitle: {
-        text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/pk/pk-all.topo.json">Pakistan</a>'
-      },
-      mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-          verticalAlign: 'bottom'
-        }
-      },
-      colorAxis: {
-        min: 0
-      },
-      series: [
-        {
+    chartElements.forEach(element => {
+      Highcharts.mapChart(element, {
+        chart: {
+          map: topology
+        },
+        title: {
+          text: 'Map ward'
+        },
+        subtitle: {
+          text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/mz/mz-all.topo.json">Mozambique</a>'
+        },
+        mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+            verticalAlign: 'bottom'
+          }
+        },
+        colorAxis: {
+          min: 0,
+          // Change the default map color to a light blue shade
+          minColor: '#B5969C',
+          maxColor: '#B5969C' // Adjust as needed for darker/lighter shades
+        },
+        series: [{
           data: data,
           name: 'Random data',
           states: {
             hover: {
-              color: '#BADA55'
+              color: '#D73564' // Color on hover
             }
           },
           dataLabels: {
             enabled: true,
             format: '{point.name}'
           }
-        }
-      ]
+        }]
+      });
     });
-  });
-})();
+  })();
+
 
 
 // this code for horizontal line chart
-var options = {
-    series: [{
-    name: 'Marine Sprite',
-    data: [44, 55, 41, 37, 22, 43, 21]
-  }, {
-    name: 'Striking Calf',
-    data: [53, 32, 33, 52, 13, 43, 32]
-  }, {
-    name: 'Tank Picture',
-    data: [12, 17, 11, 9, 15, 11, 20]
-  }, {
-    name: 'Bucket Slope',
-    data: [9, 7, 5, 8, 6, 9, 4]
-  }, {
-    name: 'Reborn Kid',
-    data: [25, 12, 19, 32, 25, 24, 10]
-  }],
-    chart: {
-    type: 'bar',
-    height: 350,
-    stacked: true,
-    stackType: '100%'
-  },
-  plotOptions: {
-    bar: {
-      horizontal: true,
-    },
-  },
-  stroke: {
-    width: 1,
-    colors: ['#fff']
-  },
-  title: {
-    text: 'Tenure of household as a percentage of the number of households'
-  },
-
-
-  tooltip: {
-    y: {
-      formatter: function (val) {
-        return val + "K"
-      }
-    }
-  },
-  fill: {
-    opacity: 1
-
-  },
-  legend: {
-    position: 'top',
-    horizontalAlign: 'left',
-    offsetX: 40
-  }
-  };
-
-  var chart = new ApexCharts(document.querySelector("#chart"), options);
-  chart.render();
 
 
 // new pie chart js
 // Create the chart
 var chartElements = document.getElementsByClassName('newPieChart');
 
+var totalRoomsValue1 = 5;
+var roomsPrice1 = '130.5k';
+var yValue1 = 30.0;
+
+var totalRoomsValue2 = 6;
+var roomsPrice2 = '25.7k';
+var yValue2 = 6.1;
+
+var totalRoomsValue3 = 3;
+var roomsPrice3 = '4.5k';
+var yValue3 = 20;
+
+var totalRoomsValue4 = 2;
+var roomsPrice4 = '52.6k';
+var yValue4 = 12.4;
+
+var totalRoomsValue5 = 6;
+var roomsPrice5 = '78.6k';
+var yValue5 = 15.06;
+
+var totalRoomsValue6 = 4;
+var roomsPrice6 = '115.2k';
+var yValue6 = 27.06;
+
+var roomsPrice5 = '1.1k'; // Change this value as needed
 for (var i = 0; i < chartElements.length; i++) {
     Highcharts.chart(chartElements[i], {
         chart: {
             type: 'pie'
         },
-            // title: {
-    //     text: 'Browser market shares. January, 2022',
-    //     align: 'left'
-    // },
-    // subtitle: {
-    //     text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>',
-    //     align: 'left'
-    // },
 
-    // accessibility: {
-    //     announceNewData: {
-    //         enabled: true
-    //     },
-    //     point: {
-    //         valueSuffix: '%'
-    //     }
-    // },
 
     plotOptions: {
         series: {
@@ -190,42 +139,52 @@ for (var i = 0; i < chartElements.length; i++) {
 
     series: [
         {
-            name: 'Browsers',
+            name: 'Rooms',
             colorByPoint: true,
-            data: [
-                {
-                    name: 'Chrome',
-                    y: 61.04,
-                    drilldown: 'Chrome'
-                },
-                {
-                    name: 'Safari',
-                    y: 9.47,
-                    drilldown: 'Safari'
-                },
-                {
-                    name: 'Edge',
-                    y: 9.32,
-                    drilldown: 'Edge'
-                },
-                {
-                    name: 'Firefox',
-                    y: 8.15,
-                    drilldown: 'Firefox'
-                },
-                {
-                    name: 'Other',
-                    y: 11.02,
-                    drilldown: null
-                }
+            data: [{
+                totalRooms: totalRoomsValue1,
+                name: totalRoomsValue1 + ' rooms ' + roomsPrice1  + yValue1 ,
+                y: yValue1,
+                drilldown: 'Rooms'
+            },
+            {
+                totalRooms: totalRoomsValue2,
+                name: totalRoomsValue2 + ' rooms ' + roomsPrice2  + yValue2 ,
+                y: yValue2,
+                drilldown: 'Rooms'
+            },
+            {
+                totalRooms: totalRoomsValue3,
+                name: totalRoomsValue3 + ' rooms ' + roomsPrice3  + yValue3 ,
+                y: yValue3,
+                drilldown: 'Rooms'
+            },
+            {
+                totalRooms: totalRoomsValue4,
+                name: totalRoomsValue4 + ' rooms ' + roomsPrice4  + yValue4 ,
+                y: yValue4,
+                drilldown: 'Rooms'
+            },
+            {
+                totalRooms: totalRoomsValue5,
+                name: totalRoomsValue5 + ' rooms ' + roomsPrice5  +" "+ yValue5 ,
+                y: yValue5,
+                drilldown: 'Rooms'
+            },
+            {
+                totalRooms: totalRoomsValue6,
+                name: totalRoomsValue6 + ' rooms ' + roomsPrice6  + yValue6 ,
+                y: yValue6,
+                drilldown: 'Rooms'
+            }
             ]
         }
     ],
     drilldown: {
         series: [
             {
-                name: 'Chrome',
-                id: 'Chrome',
+                name: 'Rooms',
+                id: 'Rooms',
                 data: [
                     [
                         'v97.0',
@@ -334,8 +293,8 @@ for (var i = 0; i < chartElements.length; i++) {
                 ]
             },
             {
-                name: 'Safari',
-                id: 'Safari',
+                name: 'Rooms',
+                id: 'Rooms',
                 data: [
                     [
                         'v15.3',
@@ -376,8 +335,8 @@ for (var i = 0; i < chartElements.length; i++) {
                 ]
             },
             {
-                name: 'Edge',
-                id: 'Edge',
+                name: 'Rooms',
+                id: 'Rooms',
                 data: [
                     [
                         'v97',
@@ -394,8 +353,8 @@ for (var i = 0; i < chartElements.length; i++) {
                 ]
             },
             {
-                name: 'Firefox',
-                id: 'Firefox',
+                name: 'Rooms',
+                id: 'Rooms',
                 data: [
                     [
                         'v96.0',

@@ -22,4 +22,7 @@ class HomeController extends Controller
     public function housing(){
         return view('Test.threeChart');
     }
+    public function testpic(){
+        return view('Test.test-pic');
+    }
 }
