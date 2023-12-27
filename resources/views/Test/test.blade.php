@@ -27,7 +27,8 @@
           <button class="btn btn-color btn-block margin-botton btn-sm">2021</button>
         </div>
       </div>
-      <div class="highChartMap"></div>
+      <div  class="highChartMap" id="map2"></div>
+      {{-- <div  style="margin-top:5px;"></div> --}}
     </div>
 
     <div class="col-md-8">
@@ -66,141 +67,106 @@
   </div>
 </div>
 
-<style>
-  .btn-color {
-    background: #D73564;
-    color: white;
-  }
-  .highcharts-text-outline{
-    /* font-size: 9.0rem; */
-  }
+<!-- Include Leaflet and Highcharts libraries -->
+<!-- Leaflet CSS/JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="{{ asset('js/us-state.js') }}"></script>
 
-  .chart-title {
-    text-align: left;
-    padding-left: 10px;
-    /* Adjust the padding as needed */
-  }
-
-  .chart-title h3 {
-    margin-bottom: 0;
-    color: #B5969C;
-    /* Remove default margin for h3 */
-  }
-  .h011btn {
-    color: #B5969C;
-    /* Remove default margin for h3 */
-  }
-
-  .btn-color1 {
-    background: #834495;
-    color: white;
-  }
-
-  .highcharts-background {
-    opacity: 0;
-  }
-
-  .padding {
-    padding: 0 5px;
-  }
-
-  .margin-botton {
-    margin-bottom: 10px;
-
-  }
-
-  .margin-botton i {
-    margin-left: 5px;
-  }
-
-  .apexcharts-legend {
-    left: 19px !important;
-  }
-
-  .apexcharts-legend-marker {
-    border-radius: 7px !important;
-  }
-
-  g line,
-  .apexcharts-menu-icon,
-  .apexcharts-xaxis-texts-g,
-  .apexcharts-yaxis,
-  .highcharts-button-symbol {
-    display: none;
-  }
-
-  .highcharts-title {
-    text-align: left !important;
-    font-size: 2rem !important;
-    transform: translateX(0) !important;
-    display: none !important;
-  }
-</style>
 <script>
-  var options = {
-    series: [{
-      name: 'Marine Sprite',
-      data: [44]
-    }, {
-      name: 'Striking Calf',
-      data: [53]
-    }, {
-      name: 'Tank Picture',
-      data: [12]
-    }, {
-      name: 'Bucket Slope',
-      data: [9]
-    }, {
-      name: 'Reborn Kid',
-      data: [25]
-    }],
-    chart: {
-      type: 'bar',
-      height: 140,
-      stacked: true,
-      stackType: '100%'
+// Mozambiquie  chart javascripts
+function getColor(d) {
+    return d < 1000 ? '#B5969C' : '#B5969C';
+}
 
-    },
-    plotOptions: {
-      bar: {
-        horizontal: true,
-      },
+function style(feature) {
+    const density = feature.properties.codigo; // Make sure this property name matches your data
+    console.log("Density: ", density); // Debug statement, check the density values in the console
+    return {
+        fillColor: getColor(density),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
 
-    },
-    stroke: {
-      width: 1,
-      colors: ['#fff']
-    },
-    title: {
-      text: 'Tenure of household as a percentage of the number of households'
-    },
+var map2 = L.map('map2').setView([-19.00, 34.00], 5);
 
+// var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map2);
 
-    tooltip: {
-      y: {
-        formatter: function(val) {
-          return val + "K"
-        }
-      }
-    },
-    fill: {
-      opacity: 1
+L.geoJson(mozambiquefulldistricts, {
+    style: style
+}).addTo(map2);
 
-    },
-    legend: {
-      position: 'top',
-      horizontalAlign: 'left',
-      offsetX: 40
+// Define global variable to track the highlighted layer
+var highlightedLayer;
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    if (highlightedLayer && highlightedLayer !== layer) {
+        // Reset the style of the previous highlighted layer
+        geojson.resetStyle(highlightedLayer);
     }
-  };
 
-  var chart1 = new ApexCharts(document.querySelector(".chart1"), options);
-  var chart2 = new ApexCharts(document.querySelector(".chart2"), options);
-  var chart3 = new ApexCharts(document.querySelector(".chart3"), options);
+    highlightedLayer = layer;
 
-  chart1.render();
-  chart2.render();
-  chart3.render();
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    layer.bringToFront();
+
+    // Create and show the popup with district information
+    var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br />' +
+        layer.feature.properties.codigo + ' people / mi<sup>2</sup>';
+
+    layer.bindPopup(popupContent).openPopup();
+}
+
+
+function resetHighlight(e) {
+    if (highlightedLayer) {
+        geojson.resetStyle(highlightedLayer);
+    }
+    highlightedLayer = null;
+    info.update();
+}
+var geojson;
+// ... our listeners
+geojson = L.geoJson(mozambiquefulldistricts);
+
+function zoomToFeature(e) {
+    map2.fitBounds(e.target.getBounds());
+}
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+geojson = L.geoJson(mozambiquefulldistricts, {
+    style: style,
+    onEachFeature: onEachFeature
+}).addTo(map2);
+
+var info = L.control();
+
+info.onAdd = function (map2) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
 </script>
 @endsection
 

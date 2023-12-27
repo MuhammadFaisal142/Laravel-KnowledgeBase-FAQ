@@ -951,3 +951,71 @@ form.comment-form button {
 }
 
 
+.btn-color {
+    background: #D73564;
+    color: white;
+  }
+  .highcharts-text-outline{
+    /* font-size: 9.0rem; */
+  }
+
+  .chart-title {
+    text-align: left;
+    padding-left: 10px;
+    /* Adjust the padding as needed */
+  }
+
+  .chart-title h3 {
+    margin-bottom: 0;
+    color: #B5969C;
+    /* Remove default margin for h3 */
+  }
+  .h011btn {
+    color: #B5969C;
+    /* Remove default margin for h3 */
+  }
+
+  .btn-color1 {
+    background: #834495;
+    color: white;
+  }
+
+  .highcharts-background {
+    opacity: 0;
+  }
+
+  .padding {
+    padding: 0 5px;
+  }
+
+  .margin-botton {
+    margin-bottom: 10px;
+
+  }
+
+  .margin-botton i {
+    margin-left: 5px;
+  }
+
+  .apexcharts-legend {
+    left: 19px !important;
+  }
+
+  .apexcharts-legend-marker {
+    border-radius: 7px !important;
+  }
+
+  g line,
+  .apexcharts-menu-icon,
+  .apexcharts-xaxis-texts-g,
+  .apexcharts-yaxis,
+  .highcharts-button-symbol {
+    display: none;
+  }
+
+  .highcharts-title {
+    text-align: left !important;
+    font-size: 2rem !important;
+    transform: translateX(0) !important;
+    display: none !important;
+  }

@@ -8,6 +8,7 @@
                     <i class="nav-icon fas fa-fw fa-tachometer-alt">
 
                     </i>
+                   {{-- {{dd(app()->getLocale())}}  --}}
                     {{ trans('global.dashboard') }}
                 </a>
             </li>
@@ -17,7 +18,7 @@
                         <i class="fa-fw fas fa-users nav-icon">
 
                         </i>
-                        {{ trans('cruds.userManagement.title') }}
+                        {{ trans('cruds.userManagement.title')}}
                     </a>
                     <ul class="nav-dropdown-items">
                         @can('permission_access')

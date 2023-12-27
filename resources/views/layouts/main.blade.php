@@ -9,18 +9,44 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {{-- leaflet css --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css">
+     {{-- end leaflet  css --}}
 
-<!-- Latest compiled and minified JavaScript -->
 
     <!-- Google Font: Source Sans Pro -->
-   
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.highcharts.com/maps/highmaps.js"></script>
     <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    {{-- new chart scripts --}}
 
+    {{-- new shape file chart  scripts --}}
+ <script src="{{ asset('js/mozambiquejson.js') }}"></script>
+{{-- leaflet js --}}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+ {{-- leaflet js end --}}
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+ <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
+ <style>
+           #map2 {
+      height: 400px;
+    }
+    .info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+    </style>
 </head>
 
 <body>
@@ -63,7 +89,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src='https://cdn.rawgit.com/VPenkov/okayNav/master/app/js/jquery.okayNav.js'></script>
- 
+
 </body>
 
 </html>

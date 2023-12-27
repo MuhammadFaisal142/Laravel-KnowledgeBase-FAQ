@@ -1,5 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+Route::get('locale/{locale}', function ($locale) {
+    if (array_key_exists($locale, config('panel.available_languages'))) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+});
+
 Route::redirect('/home', '/admin');
 Auth::routes(['register' => false]);
 

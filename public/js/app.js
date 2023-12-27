@@ -13,63 +13,12 @@ $(function() {
 
 // test chart javascripts
 
-(async () => {
-    const topology = await fetch(
-      'https://code.highcharts.com/mapdata/countries/mz/mz-all.topo.json'
-    ).then(response => response.json());
-
-    const data = [
-      ['mz-nm', 10], ['mz-in', 11], ['mz-mp', 12], ['mz-za', 13],
-      ['mz-7278', 14], ['mz-te', 15], ['mz-mn', 16], ['mz-cd', 17],
-      ['mz-ns', 18], ['mz-ga', 19], ['mz-so', 20]
-    ];
-
-    // Find all elements with the "highChartMap" class and initialize a chart for each one.
-    const chartElements = document.querySelectorAll('.highChartMap');
-
-    chartElements.forEach(element => {
-      Highcharts.mapChart(element, {
-        chart: {
-          map: topology
-        },
-        title: {
-          text: 'Map ward'
-        },
-        subtitle: {
-          text: 'Source map: <a href="http://code.highcharts.com/mapdata/countries/mz/mz-all.topo.json">Mozambique</a>'
-        },
-        mapNavigation: {
-          enabled: true,
-          buttonOptions: {
-            verticalAlign: 'bottom'
-          }
-        },
-        colorAxis: {
-          min: 0,
-          // Change the default map color to a light blue shade
-          minColor: '#B5969C',
-          maxColor: '#B5969C' // Adjust as needed for darker/lighter shades
-        },
-        series: [{
-          data: data,
-          name: 'Random data',
-          states: {
-            hover: {
-              color: '#D73564' // Color on hover
-            }
-          },
-          dataLabels: {
-            enabled: true,
-            format: '{point.name}'
-          }
-        }]
-      });
-    });
-  })();
 
 
 
-// this code for horizontal line chart
+// this is shape chart js code
+
+// var  mozambiquechapchart = L.geoJSON(mozambiquedistrictsdata).addTo(chartElements);
 
 
 // new pie chart js
@@ -387,3 +336,67 @@ for (var i = 0; i < chartElements.length; i++) {
     });
 }
 // new pie chart js end code
+var options = {
+    series: [{
+      name: 'Marine Sprite',
+      data: [44]
+    }, {
+      name: 'Striking Calf',
+      data: [53]
+    }, {
+      name: 'Tank Picture',
+      data: [12]
+    }, {
+      name: 'Bucket Slope',
+      data: [9]
+    }, {
+      name: 'Reborn Kid',
+      data: [25]
+    }],
+    chart: {
+      type: 'bar',
+      height: 140,
+      stacked: true,
+      stackType: '100%'
+
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      },
+
+    },
+    stroke: {
+      width: 1,
+      colors: ['#fff']
+    },
+    title: {
+      text: 'Tenure of household as a percentage of the number of households'
+    },
+
+
+    tooltip: {
+      y: {
+        formatter: function(val) {
+          return val + "K"
+        }
+      }
+    },
+    fill: {
+      opacity: 1
+
+    },
+    legend: {
+      position: 'top',
+      horizontalAlign: 'left',
+      offsetX: 40
+    }
+  };
+
+  var chart1 = new ApexCharts(document.querySelector(".chart1"), options);
+  var chart2 = new ApexCharts(document.querySelector(".chart2"), options);
+  var chart3 = new ApexCharts(document.querySelector(".chart3"), options);
+
+  chart1.render();
+  chart2.render();
+  chart3.render();

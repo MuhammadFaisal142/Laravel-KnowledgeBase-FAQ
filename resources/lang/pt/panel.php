@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'MMW Consultants',
+    'site_title' => 'Consultores MMW',
 ];
