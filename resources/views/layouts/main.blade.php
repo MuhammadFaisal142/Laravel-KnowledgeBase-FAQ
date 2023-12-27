@@ -46,6 +46,9 @@
     margin: 0 0 5px;
     color: #777;
 }
+.leaflet-control-attribution{
+    display: none;
+}
     </style>
 </head>
 
