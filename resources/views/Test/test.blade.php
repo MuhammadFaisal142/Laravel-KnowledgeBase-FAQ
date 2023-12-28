@@ -80,8 +80,8 @@ function getColor(d) {
 }
 
 function style(feature) {
-    const density = feature.properties.codigo; // Make sure this property name matches your data
-    console.log("Density: ", density); // Debug statement, check the density values in the console
+    const density = feature.properties.Pop_Total; // Make sure this property name matches your data
+    console.log("Total Population: ", density); // Debug statement, check the Total Population values in the console
     return {
         fillColor: getColor(density),
         weight: 2,
@@ -126,8 +126,8 @@ function highlightFeature(e) {
     layer.bringToFront();
 
     // Create and show the popup with district information
-    var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br />' +
-        layer.feature.properties.codigo + ' people / mi<sup>2</sup>';
+    var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br/>' +
+     'Total Population : ' + layer.feature.properties.Pop_Total +'<br/>' + 'Home population : ' + layer.feature.properties.Pop_Hom +'<br/>' + 'MULH Population : ' + layer.feature.properties.Pop_Hom;
 
     layer.bindPopup(popupContent).openPopup();
 }
@@ -138,7 +138,7 @@ function resetHighlight(e) {
         geojson.resetStyle(highlightedLayer);
     }
     highlightedLayer = null;
-    info.update();
+    // info.update();
 }
 var geojson;
 // ... our listeners

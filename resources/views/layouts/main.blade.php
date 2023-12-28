@@ -23,7 +23,8 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
     {{-- new shape file chart  scripts --}}
- <script src="{{ asset('js/mozambiquejson.js') }}"></script>
+ {{-- <script src="{{ asset('js/mozambiquejson.js') }}"></script> --}}
+ <script src="{{ asset('js/districtsfinalfile.js') }}"></script>
 {{-- leaflet js --}}
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
  {{-- leaflet js end --}}
