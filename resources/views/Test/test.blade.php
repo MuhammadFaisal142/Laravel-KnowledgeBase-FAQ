@@ -27,7 +27,7 @@
           <button class="btn btn-color btn-block margin-botton btn-sm">2021</button>
         </div>
       </div>
-      <div  class="highChartMap" id="map2"></div>
+      <div  id="map2"></div>
       {{-- <div  style="margin-top:5px;"></div> --}}
     </div>
 
@@ -67,11 +67,7 @@
   </div>
 </div>
 
-<!-- Include Leaflet and Highcharts libraries -->
-<!-- Leaflet CSS/JS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="{{ asset('js/us-state.js') }}"></script>
+
 
 <script>
 // Mozambiquie  chart javascripts
@@ -127,7 +123,7 @@ function highlightFeature(e) {
 
     // Create and show the popup with district information
     var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br/>' +
-     'Total Population : ' + layer.feature.properties.Pop_Total +'<br/>' + 'Home population : ' + layer.feature.properties.Pop_Hom +'<br/>' + 'MULH Population : ' + layer.feature.properties.Pop_Hom;
+     'Total Population : ' + layer.feature.properties.Pop_Total +'<br/>' + 'Home population : ' + layer.feature.properties.Pop_Hom +'<br/>' + 'MULH Population : ' + layer.feature.properties.Pop_Mulh;
 
     layer.bindPopup(popupContent).openPopup();
 }
