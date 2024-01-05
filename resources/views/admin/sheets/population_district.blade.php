@@ -1,18 +1,17 @@
-<h1>hello districts population</h1>
 @extends('layouts.admin')
 @section('content')
 {{-- @can('permission_create') --}}
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.permissions.create") }}">
+            {{-- <a class="btn btn-success" href="{{ route("admin.permissions.create") }}">
                 {{ trans('global.add') }} {{ trans('cruds.permission.title_singular') }}
-            </a>
+            </a> --}}
         </div>
     </div>
 {{-- @endcan --}}
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.permission.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.sheetData.District') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
@@ -24,10 +23,23 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.permission.fields.id') }}
+                            {{ trans('cruds.sheetData.id') }}
+
                         </th>
                         <th>
-                            {{ trans('cruds.permission.fields.title') }}
+                            {{ trans('cruds.sheetData.Province') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.sheetData.District') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.sheetData.Total_Population') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.sheetData.Population_men') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.sheetData.Population_women') }}
                         </th>
                         <th>
                             &nbsp;
@@ -35,39 +47,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($permissions as $key => $permission)
-                        <tr data-entry-id="{{ $permission->id }}">
+                    @foreach($population_Districts as $key => $pop_District)
+                        <tr data-entry-id="{{ $pop_District->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $permission->id ?? '' }}
+                                {{ $pop_District->id ?? '' }}
                             </td>
                             <td>
-                                {{ $permission->title ?? '' }}
+                                {{ $pop_District->Provincia ?? '' }}
+                            </td>
+
+                            <td>
+                                {{ $pop_District->Distrito ?? '' }}
+                            </td>
+
+                            <td>
+                                {{ $pop_District->Pop_total ?? '' }}
                             </td>
                             <td>
-                                @can('permission_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.permissions.show', $permission->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('permission_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.permissions.edit', $permission->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('permission_delete')
-                                <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST" style="display: inline-block;" id="delete-permission-form">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="button" class="btn btn-xs btn-danger" id="delete-permission-button">{{ trans('global.delete') }}</button>
-                                </form>
-                                @endcan
-
-
+                                {{ $pop_District->Pop_homens ?? '' }}
+                            </td>
+                            <td>
+                                {{ $pop_District->Pop_mulheres ?? '' }}
                             </td>
 
                         </tr>
@@ -83,26 +86,7 @@
 @section('scripts')
 @parent
 <script>
-    $(document).ready(function() {
-    $(document).on('click', '#delete-permission-button', function(e) {
-        e.preventDefault();
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'Delete This Permission?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Proceed with the form submission
-                $('#delete-permission-form').submit();
-            }
-        });
-    });
-});
 
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)

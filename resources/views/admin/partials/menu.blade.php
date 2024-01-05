@@ -59,7 +59,7 @@
                         <i class="fa-fw fas fa-users nav-icon">
 
                         </i>
-                        {{ trans('cruds.sheetData.title')}}
+                        {{ trans('cruds.sheetData.mozambique_classification')}}
                     </a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
