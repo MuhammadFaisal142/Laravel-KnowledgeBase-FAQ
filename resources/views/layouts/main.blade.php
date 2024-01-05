@@ -65,6 +65,11 @@
 <body>
     <div class="container">
         <div class="row">
+<p>hello</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
             <h1 class="mb-5">{{ trans('panel.site_title') }}</h1>
         </div>
     </div>

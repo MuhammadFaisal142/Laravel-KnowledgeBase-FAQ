@@ -335,23 +335,31 @@ for (var i = 0; i < chartElements.length; i++) {
     }
     });
 }
+
+// this code fetch the data from the lang folder
+
+
+
+
+
+
 // new pie chart js end code
 var options = {
     series: [{
-      name: 'Marine Sprite',
-      data: [44]
+        name: translations.marine_sprite,
+        data: [44]
     }, {
-      name: 'Striking Calf',
-      data: [53]
+        name: translations.striking_calf,
+        data: [53]
     }, {
-      name: 'Tank Picture',
-      data: [12]
+        name: translations.tank_picture,
+        data: [12]
     }, {
-      name: 'Bucket Slope',
-      data: [9]
+        name: translations.bucket_slope,
+        data: [9]
     }, {
-      name: 'Reborn Kid',
-      data: [25]
+        name: translations.reborn_kid,
+        data: [25]
     }],
     chart: {
       type: 'bar',
@@ -371,7 +379,7 @@ var options = {
       colors: ['#fff']
     },
     title: {
-      text: 'Tenure of household as a percentage of the number of households'
+      text: translations.tenure_household_percentage,
     },
 
 

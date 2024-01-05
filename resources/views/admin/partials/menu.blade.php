@@ -1,7 +1,6 @@
 
 <div class="sidebar">
-    <nav class="sidebar-nav">
-
+    <nav class="sidebar-nav" style="width: fit-content;">
         <ul class="nav">
             <li class="nav-item">
                 <a href="{{ route("admin.home") }}" class="nav-link">
@@ -54,6 +53,50 @@
                     </ul>
                 </li>
             @endcan
+            {{-- @can('sheet data ') --}}
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link  nav-dropdown-toggle" href="#">
+                        <i class="fa-fw fas fa-users nav-icon">
+
+                        </i>
+                        {{ trans('cruds.sheetData.title')}}
+                    </a>
+                    <ul class="nav-dropdown-items">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.sheets.population_District') }}" class="nav-link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+                                <i class="fas fa-arrow-right fa-fw nav-icon"></i>
+                                {{ trans('cruds.sheetData.Population_District') }}
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route("admin.sheets.population_Large_Groups_Age") }}" class="nav-link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+                                <i class="fas fa-arrow-right fa-fw nav-icon"></i>
+                                {{ trans('cruds.sheetData.Population_Large_Groups_Age') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.sheets.foreign_Population") }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                                <i class="fas fa-arrow-right fa-fw nav-icon"></i>
+                                {{ trans('cruds.sheetData.Foreign_Population') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.sheets.population_Growth") }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                                <i class="fas fa-arrow-right fa-fw nav-icon"></i>
+                                {{ trans('cruds.sheetData.Population_growth') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route("admin.sheets.population_Density") }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                                <i class="fas fa-arrow-right fa-fw nav-icon"></i>
+                                {{ trans('cruds.sheetData.Population_density') }}
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+            {{-- @endcan --}}
 
 
 {{--

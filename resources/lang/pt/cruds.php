@@ -5,6 +5,15 @@ return [
         'title'          => 'Gestão de Usuários',
         'title_singular' => 'Gestão de Usuário',
     ],
+    'sheetData' => [
+        'title'          => 'Sheets Data',
+        'title_singular' => 'Sheets Data',
+        'Population_District' => 'População_Distrito',
+        'Population_Large_Groups_Age' => 'Grandes Grupos Idade',
+        'Foreign_Population' => 'População Estrangeira',
+        'Population_growth' => 'Crescimento Populacional',
+        'Population_density' => 'Densidade Populacional',
+    ],
     'permission'     => [
         'title'          => 'Permissões',
         'title_singular' => 'Permissão',

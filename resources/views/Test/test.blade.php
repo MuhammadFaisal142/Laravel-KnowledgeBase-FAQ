@@ -7,18 +7,18 @@
     <div class="col-md-4">
       <div class="row justify-content-center">
         <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Output Area</button>
+          <button class="btn btn-color btn-block margin-botton">{{ trans('global.output_area') }}</button>
         </div>
         <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Ward</button>
+          <button class="btn btn-color btn-block margin-botton">{{ trans('global.ward') }}</button>
         </div>
         <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Constituency</button>
+          <button class="btn btn-color btn-block margin-botton">{{ trans('global.constituency') }}</button>
         </div>
       </div>
       <div class="row" class="h011btn" style="display:grid; width:-webkit-fill-available;">
-        <p><b class="h011btn">Map - word</b></p>
-        <p><b class="h011btn">Year</b></p>
+        <p><b class="h011btn">{{ trans('global.map_word') }}</b></p>
+        <p><b class="h011btn">{{ trans('global.year') }}</b></p>
 
         <div class="col-md-4 ">
           <button class="btn btn-block margin-botton btn-sm " style="color:white; background-color: #E9ADBF;">2011</button>
@@ -38,27 +38,27 @@
 
       <div class="row justify-content-center">
         <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Show Occupancy of Rooms</button>
+          <button class="btn btn-color btn-block margin-botton">{{ trans('global.show_occupancy_of_rooms') }}</button>
         </div>
         <div class="col-md-4 padding">
-          <button class="btn btn-color btn-block margin-botton">Show Number of Rooms</button>
+          <button class="btn btn-color btn-block margin-botton">{{ trans('global.show_number_of_rooms') }}</button>
         </div>
         <div class="col-md-4 padding">
-          <button class="btn btn-color1 btn-block margin-botton">More Data<i class="fa fa-arrow-up"></i></button>
+          <button class="btn btn-color1 btn-block margin-botton">{{ trans('global.more_data') }}<i class="fa fa-arrow-up"></i></button>
         </div>
       </div>
 
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="chart-title">
-            <h3>Rooms</h3>
+            <h3>{{ trans('global.rooms') }}</h3>
           </div>
           <div class="newPieChart donutChart"></div>
         </div>
 
         <div class="col-md-6">
           <div class="chart-title">
-            <h3>Bedrooms</h3>
+            <h3>{{ trans('global.bedrooms') }}</h3>
           </div>
           <div class="newPieChart donutChart"></div>
         </div>
@@ -123,7 +123,7 @@ function highlightFeature(e) {
 
     // Create and show the popup with district information
     var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br/>' +
-     'Total Population : ' + layer.feature.properties.Pop_Total +'<br/>' + 'Home population : ' + layer.feature.properties.Pop_Hom +'<br/>' + 'MULH Population : ' + layer.feature.properties.Pop_Mulh;
+    translations.total_population + ' : ' + layer.feature.properties.Pop_Total +'<br/>' + translations.home_population + ' : ' + layer.feature.properties.Pop_Hom +'<br/>' + translations.female_population + ' : ' + layer.feature.properties.Pop_Mulh;
 
     layer.bindPopup(popupContent).openPopup();
 }
@@ -163,6 +163,21 @@ info.onAdd = function (map2) {
     this.update();
     return this._div;
 };
+
+
+var translations = {
+        marine_sprite: '{{ __("global.marine_sprite") }}',
+        striking_calf: '{{ __("global.striking_calf") }}',
+        tank_picture: '{{ __("global.tank_picture") }}',
+        bucket_slope: '{{ __("global.bucket_slope") }}',
+        reborn_kid: '{{ __("global.reborn_kid") }}',
+        tenure_household_percentage: '{{ __("global.tenure_household_percentage") }}',
+        total_population: '{{ __("global.total_population") }}',
+        home_population: '{{ __("global.home_population") }}',
+        female_population: '{{ __("global.female_population") }}',
+
+};
+
 </script>
 @endsection
 

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\SheetsController;
+use App\Http\Controllers\Admin\PopulationController;
 Route::get('locale/{locale}', function ($locale) {
     if (array_key_exists($locale, config('panel.available_languages'))) {
         Session::put('locale', $locale);
@@ -40,7 +41,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
-
     // // Categories
     // Route::delete('categories/destroy', 'CategoriesController@massDestroy')->name('categories.massDestroy');
     // Route::resource('categories', 'CategoriesController');
@@ -61,3 +61,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Route::delete('faq-questions/destroy', 'FaqQuestionController@massDestroy')->name('faq-questions.massDestroy');
     // Route::resource('faq-questions', 'FaqQuestionController');
 });
+// Sheets Data
+Route::get('/admin/sheets/population/district', 'Admin\SheetsController@population_District')->name('admin.sheets.population_District');
+Route::get('/admin/sheets/population/foreign', 'Admin\SheetsController@foreign_Population')->name('admin.sheets.foreign_Population');
+Route::get('/admin/sheets/population/density', 'Admin\SheetsController@population_Density')->name('admin.sheets.population_Density');
+Route::get('/admin/sheets/population/growth', 'Admin\SheetsController@population_Growth')->name('admin.sheets.population_Growth');
+Route::get('/admin/sheets/population/LargeGroupsAge', 'Admin\SheetsController@population_Large_Groups_Age')->name('admin.sheets.population_Large_Groups_Age');
