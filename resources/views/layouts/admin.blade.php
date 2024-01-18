@@ -27,7 +27,7 @@
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show">
-    <header class="app-header navbar">
+    <header class="app-header navbar ">
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,7 +39,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <ul class="nav navbar-nav ml-auto">
+        {{-- <ul class="nav navbar-nav ml-auto">
             @if(count(config('panel.available_languages', [])) > 1)
                 <li class="nav-item dropdown d-md-down-none">
                     <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -54,7 +54,17 @@
             @endif
 
 
+        </ul> --}}
+        <ul class="navbar-nav ml-auto mr-4">
+            <li class="nav-item">
+                <span class="nav-link">
+                    {{ trans('panel.lang') }}:
+                    <a href="{{ url('locale/en') }}">{{ trans('panel.english') }}</a> |
+                    <a href="{{ url('locale/pt') }}">{{ trans('panel.portuguese') }}</a>
+                </span>
+            </li>
         </ul>
+
     </header>
 
     <div class="app-body">

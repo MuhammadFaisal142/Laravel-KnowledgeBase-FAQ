@@ -178,6 +178,9 @@ var translations = {
 
 };
 
+var dataFromServer = @json($population_Districts); // Convert PHP array to JSON
+// Print data in the console
+console.log(dataFromServer);
 </script>
 @endsection
 

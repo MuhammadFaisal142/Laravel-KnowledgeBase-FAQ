@@ -63,14 +63,16 @@
 </head>
 
 <body>
+
     <div class="container">
-        <div class="row">
-<p>hello</p>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <h1 class="mb-5">{{ trans('panel.site_title') }}</h1>
+        <div class="row" style="margin-top: 7px">
+            <h1 class="mb-5" style="display: inline">{{ trans('panel.site_title') }}</h1>
+            <div class="ml-auto mr-3" style="float: inline-end;display: inline;margin-top: inherit;">
+                <span class="mr-2">{{ trans('panel.lang') }}:</span>
+                <a class="nav-link" href="{{ url('locale/en') }}">{{ trans('panel.english') }}</a>
+                <span class="mx-2">|</span>
+                <a class="nav-link" href="{{ url('locale/pt') }}">{{ trans('panel.portuguese') }}</a>
+            </div>
         </div>
     </div>
 

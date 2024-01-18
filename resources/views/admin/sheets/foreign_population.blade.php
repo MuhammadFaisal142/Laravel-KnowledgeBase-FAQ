@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($foreign_Population as $key => $foreignPopulation)
+                    @foreach($population_data as $key => $foreignPopulation)
                         <tr data-entry-id="{{ $foreignPopulation->id }}">
                             <td>
 
@@ -62,7 +62,7 @@
                             </td>
 
                             <td>
-                                {{ $foreignPopulation->Distrito ?? '' }}
+                                {{ $foreignPopulation->District ?? '' }}
                             </td>
 
                             <td>

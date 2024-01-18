@@ -74,7 +74,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($pop_Large_Groups_Age as $key => $popLargeGroupAge)
+                    @foreach($population_data as $key => $popLargeGroupAge)
                         <tr data-entry-id="{{ $popLargeGroupAge->id }}">
                             <td>
 
@@ -87,7 +87,7 @@
                             </td>
 
                             <td>
-                                {{ $popLargeGroupAge->Distrito ?? '' }}
+                                {{ $popLargeGroupAge->District ?? '' }}
                             </td>
 
                             <td>

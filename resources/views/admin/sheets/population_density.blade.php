@@ -42,7 +42,7 @@
                        </tr>
                    </thead>
                    <tbody>
-                       @foreach($population_Density as $key => $populationDensity)
+                       @foreach($population_data as $key => $populationDensity)
                            <tr data-entry-id="{{ $populationDensity->id }}">
                                <td>
 
@@ -55,7 +55,7 @@
                                </td>
 
                                <td>
-                                   {{ $populationDensity->Distrito ?? '' }}
+                                   {{ $populationDensity->District ?? '' }}
                                </td>
 
                                <td>
