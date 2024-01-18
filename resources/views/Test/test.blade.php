@@ -77,7 +77,7 @@ function getColor(d) {
 
 function style(feature) {
     const density = feature.properties.Pop_Total; // Make sure this property name matches your data
-    console.log("Total Population: ", density); // Debug statement, check the Total Population values in the console
+    // console.log("Total Population: ", density); // Debug statement, check the Total Population values in the console
     return {
         fillColor: getColor(density),
         weight: 2,
@@ -119,8 +119,9 @@ function highlightFeature(e) {
         fillOpacity: 0.7
     });
 
-    layer.bringToFront();
 
+    layer.bringToFront();
+    console.log(layer.feature.properties.id);
     // Create and show the popup with district information
     var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br/>' +
     translations.total_population + ' : ' + layer.feature.properties.Pop_Total +'<br/>' + translations.home_population + ' : ' + layer.feature.properties.Pop_Hom +'<br/>' + translations.female_population + ' : ' + layer.feature.properties.Pop_Mulh;
@@ -178,7 +179,7 @@ var translations = {
 
 };
 
-var dataFromServer = @json($population_Districts); // Convert PHP array to JSON
+var dataFromServer = @json($population_data); // Convert PHP array to JSON
 // Print data in the console
 console.log(dataFromServer);
 </script>

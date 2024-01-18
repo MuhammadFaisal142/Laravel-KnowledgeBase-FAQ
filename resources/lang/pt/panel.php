@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site_title' => 'Consultores MMW',
+    'site_title' => 'Painel de População',
     'english' => 'Inglês',
     'lang' => 'linguagem',
     'portuguese' => 'Português',

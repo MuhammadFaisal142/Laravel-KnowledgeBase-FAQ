@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site_title' => 'MMW Consultants',
+    'site_title' => 'Population Dashboard',
     'english' => 'English',
     'lang' => 'Language',
     'portuguese' => 'Portuguese',

@@ -17,9 +17,9 @@ class HomeController extends Controller
         return view('index', compact('categories'));
     }
     public function test(){
-
-        $population_Districts = DB::table('population_district')->get();
-        return view('Test.test', compact('population_Districts'));
+        $population_data=DB::table('districts_all_data_list')->get();
+        // $population_Districts = DB::table('population_district')->get();
+        return view('Test.test', compact('population_data'));
     }
     public function housing(){
         return view('Test.threeChart');

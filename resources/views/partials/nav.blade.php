@@ -62,13 +62,6 @@
                         <i class="fa fa-bar-chart"></i> {{ trans('global.housing') }}
                     </a>
                 </li>
-                <!-- Dropdown button -->
-                <li class="dropdown">
-                    <div class="dropdown">
-                          <a href="{{ url('locale/en') }}">English</a>
-                          <a href="{{ url('locale/pt') }}">portugeus</a>
-                      </div>
-                  </li>
                 <!-- End of dropdown -->
                 <li class="icon">
                     <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
