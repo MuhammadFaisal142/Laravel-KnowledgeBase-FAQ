@@ -119,15 +119,41 @@ function highlightFeature(e) {
         fillOpacity: 0.7
     });
 
-
     layer.bringToFront();
-    console.log(layer.feature.properties.id);
-    // Create and show the popup with district information
-    var popupContent = '<b>' + layer.feature.properties.Distrito + '</b><br/>' +
-    translations.total_population + ' : ' + layer.feature.properties.Pop_Total +'<br/>' + translations.home_population + ' : ' + layer.feature.properties.Pop_Hom +'<br/>' + translations.female_population + ' : ' + layer.feature.properties.Pop_Mulh;
+    var id_of_districts = layer.feature.properties.id;
+    // console.log(id_of_districts);
 
-    layer.bindPopup(popupContent).openPopup();
+
+    var dataFromServer = @json($population_data); // Convert PHP array to JSON
+
+    // Filter data to include only records where id is equal to id_of_districts
+    var filteredData = dataFromServer.filter(function (record) {
+        return record.id === id_of_districts;
+    });
+
+    // Extract the "Pop_Total" value from the filtered data
+    var popID = filteredData[0].id;
+    var popTotalValue = filteredData[0].Pop_Total;
+    var popDistrictName = filteredData[0].District;
+    var popWomenName = filteredData[0].Pop_mulheres;
+    var popMenName = filteredData[0].Pop_homens;
+
+    // Print the extracted values in the console
+    console.log("Pop_ID: " + popID );
+    console.log("Pop_Total: " + popTotalValue);
+    console.log("District Name: " + popDistrictName);
+    console.log("Population women: " + popWomenName);
+    console.log("Population men: " + popMenName);
+
+     // Create and show the popup with district information
+     var popupContent =
+        '<b>' + popDistrictName + '</b><br/>'+
+        translations.total_population + ' : ' + popTotalValue + '<br/>' +
+        translations.men_population   + ' : ' + popMenName    + '<br/>' +
+        translations.women_population + ' : ' + popWomenName  + '<br/>';
+        layer.bindPopup(popupContent).openPopup();
 }
+
 
 
 function resetHighlight(e) {
@@ -173,15 +199,13 @@ var translations = {
         bucket_slope: '{{ __("global.bucket_slope") }}',
         reborn_kid: '{{ __("global.reborn_kid") }}',
         tenure_household_percentage: '{{ __("global.tenure_household_percentage") }}',
+
         total_population: '{{ __("global.total_population") }}',
-        home_population: '{{ __("global.home_population") }}',
-        female_population: '{{ __("global.female_population") }}',
+        men_population: '{{ __("global.mens_population") }}',
+        women_population: '{{ __("global.womens_population") }}',
 
 };
 
-var dataFromServer = @json($population_data); // Convert PHP array to JSON
-// Print data in the console
-console.log(dataFromServer);
 </script>
 @endsection
 

@@ -267,6 +267,6 @@ return [
     'map_word' => 'Map - word',
     'year' => 'Year',
     'total_population' => 'Total Population',
-    'home_population' => 'Home Population',
-    'female_population' => 'Mulh Population',
+    'mens_population' => 'Mens Population',
+    'womens_population' => 'Womens Population',
 ];

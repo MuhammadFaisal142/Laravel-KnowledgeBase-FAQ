@@ -10,11 +10,11 @@
                         <i class="fa fa-home"></i>
                     </a>
                 </li>
-                <li class="active">MMW Consultants</li>
+                <li class="active">Population Dashboard</li>
             </ol>
         </div>
         <div class="fb-heading">
-            MMW Consultants
+            Population Dashboard
         </div>
         <hr class="style-three">
         <div class="row">

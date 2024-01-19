@@ -20,7 +20,7 @@ return [
         'Population_men' => 'Population Mens',
         'Population_women' => 'Population Womens',
         'title'             => 'Title',
-        'mozambique_classification'  => 'Classification',
+        'mozambique_classification'  => 'All Populations',
         'Total_Age_0_14' => 'Total Age Group 0-14',
         'Male_Age_0_14' => 'Male Age Group 0-14',
         'Female_Age_0_14' => 'Female Age Group 0-14',

@@ -267,6 +267,6 @@ return [
     'map_word' => 'Mapa',
     'year' => 'Ano',
     'total_population' => 'População Total',
-    'home_population' => 'População Residencial',
-    'female_population' => 'População Feminina',
+    'mens_population' => 'População masculina',
+    'womens_population' => 'População Feminina',
 ];
