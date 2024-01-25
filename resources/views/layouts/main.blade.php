@@ -31,6 +31,7 @@
     {{-- new shape file chart  scripts --}}
     {{-- <script src="{{ asset('js/mozambiquejson.js') }}"></script> --}}
     <script src="{{ asset('js/districtsfinalfile.js') }}"></script>
+    {{-- <script src="{{ asset('js/check.js') }}"></script> --}}
     {{-- leaflet js --}}
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     {{-- leaflet js end --}}
@@ -92,7 +93,6 @@
     <div class="container featured-area-default padding-30">
         <div class="row">
             @yield('content')
-
 
 
             @if (!isset($exception))

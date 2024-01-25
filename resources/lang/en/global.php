@@ -269,4 +269,7 @@ return [
     'total_population' => 'Total Population',
     'mens_population' => 'Mens Population',
     'womens_population' => 'Womens Population',
+    'national' => 'National',
+    'all_provinces' => 'Provinces',
+
 ];
