@@ -21,7 +21,17 @@ class HomeController extends Controller
         // $population_Districts = DB::table('population_district')->get();
         return view('Home.home', compact('population_data', 'province'));
     }
+    public function growthrate($province = null){
+        $population_data = DB::table('districts_all_data_list')->get();
+        // $population_Districts = DB::table('population_district')->get();
+        return view('Home.average', compact('population_data', 'province'));
+    }
 
+    public function provinceGrowthRate($province){
+        $population_data = DB::table('districts_all_data_list')->get();
+        // $population_Districts = DB::table('population_district')->get();
+        return view('Home.average', compact('population_data', 'province'));
+    }
     public function province($province){
         $population_data = DB::table('districts_all_data_list')->get();
         // $population_Districts = DB::table('population_district')->get();
@@ -29,9 +39,9 @@ class HomeController extends Controller
     }
 
     public function housing(){
-        return view('Test.threeChart');
+        return view('Home.threeChart');
     }
     public function testpic(){
-        return view('Test.test-pic');
+        return view('Home.test-pic');
     }
 }

@@ -1,72 +1,52 @@
-<style>
-/* Style The Dropdown Button */
-.dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
+<header class="main-header">
+    <!-- Logo -->
+    <a href="{{ route('home') }}" class="logo">
+        <!-- mini logo -->
+        <b class="logo-mini">
+            <span class="light-logo"><img src="{{ asset('html/images/logo-light.png') }}" alt="logo"></span>
+            <b>{{ trans('panel.site_title') }} </b>
+        </b>
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-}
-</style>
-
-
-<div class="container-fluid">
-    <div class="navigation">
-        <div class="row">
-            <ul class="topnav">
-                <li>
-                    <a href="{{ route('home') }}">
-                        <i class="fa fa-home"></i> {{ trans('global.home') }}
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+        <div class="ml-10 app-menu">
+             <ul class="header-megamenu nav">
+               <li class="btn-group nav-item" >
+                    <a href="{{ route('home') }}" class="nav-link rounded font-color-btn">
+                        {{ trans('global.home') }}
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('housing') }}">
-                        <i class="fa fa-bar-chart"></i> {{ trans('global.housing') }}
+                {{-- <li class="btn-group nav-item">
+                    <a href="{{ route('housing') }}" class="nav-link rounded font-color-btn" >
+                        {{ trans('global.housing') }}
                     </a>
-                </li>
-                <!-- End of dropdown -->
-                <li class="icon">
-                    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+
+                </li> --}}
+                <li class="btn-group nav-item">
+                    <a href="{{ route('growthRate') }}" class="nav-link rounded font-color-btn" >
+                        {{ trans('global.growth_rate') }}
+                    </a>
+
                 </li>
             </ul>
         </div>
-    </div>
-</div>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+
+                {{-- search box here  --}}
+
+                <!-- Notifications -->
+
+                <!-- Control Sidebar Toggle Button -->
+                <li class="nav-item" style="display: flex; align-items:center;">
+                    <span class="mr-2">{{ trans('panel.lang') }}:</span>
+                    <a href="{{ url('locale/pt') }}" class="nav-link p-0">{{ trans('panel.portuguese') }}</a>
+                    <span class="mx-2">|</span>
+                    <a href="{{ url('locale/en') }}" class="nav- p-0" style="margin-right: 6px" >{{ trans('panel.english') }}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
