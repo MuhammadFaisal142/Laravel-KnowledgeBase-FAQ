@@ -1,52 +1,31 @@
-<header class="main-header">
-    <!-- Logo -->
-    <a href="{{ route('home') }}" class="logo">
-        <!-- mini logo -->
-        <b class="logo-mini">
-            <span class="light-logo"><img src="{{ asset('html/images/logo-light.png') }}" alt="logo"></span>
-            <b>{{ trans('panel.site_title') }} </b>
-        </b>
-
-    </a>
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top">
-        <div class="ml-10 app-menu">
-             <ul class="header-megamenu nav">
-               <li class="btn-group nav-item" >
-                    <a href="{{ route('home') }}" class="nav-link rounded font-color-btn">
-                        {{ trans('global.home') }}
-                    </a>
-                </li>
-                {{-- <li class="btn-group nav-item">
-                    <a href="{{ route('housing') }}" class="nav-link rounded font-color-btn" >
-                        {{ trans('global.housing') }}
-                    </a>
-
-                </li> --}}
-                <li class="btn-group nav-item">
-                    <a href="{{ route('growthRate') }}" class="nav-link rounded font-color-btn" >
-                        {{ trans('global.growth_rate') }}
-                    </a>
-
-                </li>
+<div class="header-holder">
+    <div class="top-bar">
+        <div class="logo">
+            <a href="{{ route('home') }}"><img src="{{ asset('theme_of_mozambique/img/logo.png') }}" alt=""></a>
+        </div>
+        <div class="languages desktop">
+            <ul class="countries">
+                <li><a href="{{ url('locale/en') }}"><span>En</span> <img src="{{ asset('theme_of_mozambique/img/england.png') }}" alt=""></a></li>
+                <li><a href="{{ url('locale/pt') }}"><span>Po</span> <img src="{{ asset('theme_of_mozambique/img/polish.png') }}" alt=""></a></li>
             </ul>
         </div>
-
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-
-                {{-- search box here  --}}
-
-                <!-- Notifications -->
-
-                <!-- Control Sidebar Toggle Button -->
-                <li class="nav-item" style="display: flex; align-items:center;">
-                    <span class="mr-2">{{ trans('panel.lang') }}:</span>
-                    <a href="{{ url('locale/pt') }}" class="nav-link p-0">{{ trans('panel.portuguese') }}</a>
-                    <span class="mx-2">|</span>
-                    <a href="{{ url('locale/en') }}" class="nav- p-0" style="margin-right: 6px" >{{ trans('panel.english') }}</a>
-                </li>
+        <div class="menu btn2" data-menu="2">
+            <div class="icon"></div>
+          </div>
+    </div>
+    <div class="navigation-holder">
+        <ul class="navigation">
+            <li class="active"><a href="{{ route('home') }}">{{ trans('global.home') }}</a></li>
+            <li><a href="{{ route('growthRate') }}">{{ trans('global.growth_rate') }}</a></li>
+        </ul>
+        <div class="mobiles">
+            <ul class="countries">
+                <li><a href="{{ url('locale/en') }}"><span>En</span> <img src="{{ asset('theme_of_mozambique/img/england.png') }}" alt=""></a></li>
+                <li><a href="{{ url('locale/pt') }}"><span>Po</span> <img src="{{ asset('theme_of_mozambique/img/polish.png') }}" alt=""></a></li>
             </ul>
         </div>
-    </nav>
-</header>
+    </div>
+</div>
+
+{{-- <b>{{ trans('panel.site_title') }}</b> --}}
+

@@ -1,17 +1,8 @@
-
-<div class="wrapper">
-<footer class="main-footer  ms-auto">
-    <div class="pull-right d-none d-sm-inline-block">
-        <ul class="nav nav-primary nav-dotted nav-dot-separated justify-content-center justify-content-md-end">
-		  <li class="nav-item">
-			{{-- <a class="nav-link" href="javascript:void(0)">FAQ</a> --}}
-		  </li>
-		  {{-- <li class="nav-item">
-			<a class="nav-link" href="#">Purchase Now</a>
-		  </li> --}}
-		</ul>
+<div class="footer-holder">
+    <div class="copyrights">&copy; 2024 Copyrights. All rights reserved.</div>
+    <div class="footer-links">
+        <a href="{{ route('home') }}">{{ trans('global.home') }}</a>
+        <span>|</span>
+        <a href="{{ route('growthRate') }}">{{ trans('global.growth_rate') }}</a>
     </div>
-	  &copy; 2023 <a href="https://www.multipurposethemes.com/">Population Dashboard</a>
-  </footer>
 </div>
-<!-- END COPYRIGHT INFO -->

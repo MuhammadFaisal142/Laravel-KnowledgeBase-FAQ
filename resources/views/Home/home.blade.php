@@ -1,11 +1,184 @@
 @extends('layouts.main')
 
 @section('content')
+    <div class="content-holdder">
+        <div class="row">
+            <div class="col">
+                <div class="counter-box male-population">
+                    <div class="counter">290</div>
+                    <h2>{{ trans('global.total_population') }}</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="counter-box female-population">
+                    <div class="counter">245</div>
+                    <h2>Sex Ratio By Birth</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="counter-box total-population">
+                    <div class="counter">490</div>
+                    <h2>Population Growth</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="graphs-row">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-visual">
+                    <h2> <span><img src="{{ asset('theme_of_mozambique/img/male.png') }}" alt=""></span>Male
+                        Population</h2>
+                    <div class="chart-holder" id="malePopulation"></div>
+                </div>
+            </div>
+            {{-- <div class="col-md-6">
+                <div class="chart-visual">
+                    <h2> <span><img src="{{ asset('theme_of_mozambique/img/female.png')}}" alt=""></span>Male Population</h2>
+                    <div class="chart-holder" id="femalePopulation"></div>
+                </div>
+
+            </div> --}}
+        </div>
+    </div>
+
+    <div class="filters-holder">
+        <div class="filters-header">
+            <div class="left">
+                <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
+                <span>Filter</span>
+            </div>
+            <div class="plus-icon">+</div>
+        </div>
+        <div class="form-holder">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="custom-select" for="styledSelect1">
+                        <select id="styledSelect1" name="options">
+                            <option value="">
+                                {{ trans('global.national') }}
+                            </option>
+                            <option value="1" data-url="{{ route('home') }}">
+                                All Districts
+                            </option>
+
+                        </select>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label class="custom-select" for="styledSelect2">
+                        <select id="styledSelect2" name="options">
+                            <option value="">
+                                {{ trans('global.all_provinces') }}
+                            </option>
+                            <option value="1" data-url="{{ url('/province/Niassa') }}">
+                                Niassa
+                            </option>
+                            <option value="2" data-url="{{ url('/province/Tete') }}">
+                                Tete
+                            </option>
+                            <option value="3" data-url="{{ url('/province/Nampula') }}">
+                                Nampula
+                            </option>
+                            <option value="4" data-url="{{ url('/province/Cabo Delgado') }}">
+                                Cabo Delgado
+                            </option>
+                            <option value="5" data-url="{{ url('/province/Zambezia') }}">
+                                Zambezia
+                            </option>
+                            <option value="6" data-url="{{ url('/province/Manica') }}">
+                                Manica
+                            </option>
+                            <option value="7" data-url="{{ url('/province/Sofala') }}">
+                                Sofala
+                            </option>
+                            <option value="8" data-url="{{ url('/province/Inhambane') }}">
+                                Inhambane
+                            </option>
+                            <option value="9" data-url="{{ url('/province/Gaza') }}">
+                                Gaza
+                            </option>
+                            <option value="10" data-url="{{ url('/province/Maputo Cidade') }}">
+                                Maputo Cidade
+                            </option>
+                            <option value="11" data-url="{{ url('/province/Maputo Provincia') }}">
+                                Maputo Provincia
+                            </option>
+                        </select>
+                    </label>
+                </div>
+                {{-- <div class="col-md-3">
+                    <label class="custom-select" for="styledSelect3">
+                        <select id="styledSelect3" name="options">
+                            <option value="">
+                                Filter Three
+                            </option>
+                        </select>
+                    </label>
+                </div> --}}
+                <div class="col-md-2">
+                    <input type="submit" value="Search" class="search-btn" onclick="performSearch()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="graphs-row">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="map-holder">
+                    <h2>{{ trans('global.mozambique-map') }}</h2>
+                    <div class="box-body">
+                        <div id="map2" style="height: 600px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+
+                <div>
+                    <div id="rev-chart1" class="counter"></div>
+                </div>
+
+
+                <div>
+                    <div id="rev-chart2" class="counter"></div>
+
+                </div>
+
+
+                <div>
+                    <div id="rev-chart3" class="counter"></div>
+                </div>
+
+            </div>
+            <div class="col-md-2">
+
+                <div >
+                    <div id="chart_total_marital" class="counter"></div>
+                </div>
+
+
+                <div>
+                    <div id="chart_mens_marital" class="counter"></div>
+                </div>
+
+
+                <div>
+                    <div id="chart_womens_marital" class="counter"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+<div id="newmapexample"></div>
     <!-- START Map -->
     <div class="container mt-10">
         {{-- TABLE --}}
         <div class="row">
-            <div class="col-12 ">
+            {{-- <div class="col-12 ">
                 <div class="box">
                     <div class="box-header with-border td-align-center  box-primary">
                         <h4 class="box-title text-center text-white ">{{ trans('global.overall_conversion_rate') }}</h4>
@@ -52,108 +225,9 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
-            </div>
+            </div> --}}
 
 
-            <div class="col-md-6">
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border">
-                        <h4 class="box-title">
-                            {{ trans('global.mozambique-map') }}
-                            <div class="btn-group ml-10">
-                                <a href="{{ route('home') }}"
-                                    class="btn btn-info btn-primary text-white">{{ trans('global.national') }}</a>
-                                <button type="button" class="btn btn-info dropdown-toggle text-white"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ trans('global.all_provinces') }}
-                                </button>
-                                <div class="dropdown-menu">
-                                    <!-- Add your province options here -->
-                                    <a class="dropdown-item" href="{{ url('/province/Niassa') }}">Niassa</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Tete') }}">Tete</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Nampula') }}">Nampula</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Cabo Delgado') }}">Cabo Delgado</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Zambezia') }}">Zambezia</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Manica') }}">Manica</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Sofala') }}">Sofala</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Inhambane') }}">Inhambane</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Gaza') }}">Gaza</a>
-                                    <a class="dropdown-item" href="{{ url('/province/Maputo Cidade') }}">Maputo Cidade </a>
-                                    <a class="dropdown-item" href="{{ url('/province/Maputo Provincia') }}">Maputo
-                                        Provincia</a>
-                                    <!-- Add more provinces as needed -->
-                                </div>
-                            </div>
-                        </h4>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div id="map2" style="height: 600px"></div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-            </div>
-            <!-- /.col -->
-
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h4 class="box-title">{{ trans('global.population-contribution') }}</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="">
-                                        <h5 class="box-title">{{ trans('global.total_population') }}</h5>
-                                        <div id="rev-chart1"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="">
-                                        <h5 class="box-title">{{ trans('global.mens_population') }}</h5>
-                                        <div id="rev-chart2"></div>
-                                    </div>
-                                    <div class="">
-                                        <h5 class="box-title">{{ trans('global.womens_population') }}</h5>
-                                        <div id="rev-chart3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h4 class="box-title">{{ trans('global.marital_Ratio') }}</h4>
-                            </div>
-                            <div class="box-body">
-                                <div class="row">
-                                    <div class="">
-                                        <h5 class="box-title">{{ trans('global.total_marital_ratio') }}</h5>
-                                        <div id="chart_total_marital"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="">
-                                        <h5 class="box-title">{{ trans('global.mens_marital_ratio') }}</h5>
-                                        <div id="chart_mens_marital"></div>
-                                    </div>
-                                    <div class="">
-                                        <h5 class="box-title">{{ trans('global.womens_marital_ratio') }}</h5>
-                                        <div id="chart_womens_marital"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- /.col-md-4 -->
         </div>
         <!-- /.row -->
@@ -450,12 +524,8 @@
                 });
 
                 // Add tooltip to the layer
-                layer1.bindTooltip(translations.name_of_district + ': ' + nameOfDistrict + '</br>' +
-                    '<b>' + translations.total_population + ": " + '</b>' + popTotalValue + '</br>' + '<b>' +
-                    translations
-                    .men_population + '</b>' + ": " + popMenName +
-                    '</br>' +
-                    '<b>' + translations.women_population + '</b>' + ": " + popWomenName, {
+                layer1.bindTooltip(nameOfDistrict + '</br>' +
+                    '<b>' + translations.total_population + ": " + '</b>' + popTotalValue, {
                         sticky: true
                     }).openTooltip();
 
@@ -493,7 +563,24 @@
 
         legend.addTo(map2);
 
+        function performSearch() {
+            // Get selected option for styledSelect1
+            var selectedOption1 = document.getElementById('styledSelect1');
+            var selectedUrl1 = selectedOption1.options[selectedOption1.selectedIndex].getAttribute('data-url');
 
+            // Get selected option for styledSelect2
+            var selectedOption2 = document.getElementById('styledSelect2');
+            var selectedUrl2 = selectedOption2.options[selectedOption2.selectedIndex].getAttribute('data-url');
+
+            // Use selected URL for redirection
+            if (selectedUrl1) {
+                window.location.href = selectedUrl1;
+            } else if (selectedUrl2) {
+                window.location.href = selectedUrl2;
+            } else {
+                alert('Please select an option.');
+            }
+        }
 
         // These are pie charts code
 
@@ -525,7 +612,7 @@
             // Update the chart options with the new series data
             var options = {
                 chart: {
-                    width: 280,
+                    width: 240,
                     type: 'pie',
                 },
                 colors: ['#BD0026', '#FC4E2A', '#FEB24C'],
@@ -538,7 +625,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 100,
+                            width: 90,
                         },
                         legend: {
                             position: 'bottom',
@@ -562,7 +649,7 @@
 
             var options = {
                 chart: {
-                    width: 280,
+                    width: 240,
                     type: 'pie',
                 },
                 colors: ['#BD0026', '#FC4E2A', '#FEB24C'],
@@ -575,7 +662,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 100
+                            width: 90,
                         },
                         legend: {
                             position: 'bottom'
@@ -598,7 +685,7 @@
 
             var options = {
                 chart: {
-                    width: 280,
+                    width: 240,
                     type: 'pie',
                 },
                 colors: ['#BD0026', '#FC4E2A', '#FEB24C'],
@@ -611,7 +698,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 100
+                            width: 90,
                         },
                         legend: {
                             position: 'bottom'
@@ -660,7 +747,7 @@
             // Update the chart options with the new series data
             var options = {
                 chart: {
-                    width: 280,
+                    width: 240,
                     type: 'pie',
                 },
                 colors: ['#BD0026', 'E31A1C', '#FC4E2A', 'FD8D3C', '#FEB24C'],
@@ -673,7 +760,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 100,
+                            width: 90,
                         },
                         legend: {
                             position: 'bottom',
@@ -706,7 +793,7 @@
             // Update the chart options with the new series data
             var options = {
                 chart: {
-                    width: 280,
+                    width: 240,
                     type: 'pie',
                 },
                 colors: ['#BD0026', 'E31A1C', '#FC4E2A', 'FD8D3C', '#FEB24C'],
@@ -719,7 +806,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 100,
+                            width: 90,
                         },
                         legend: {
                             position: 'bottom',
@@ -751,7 +838,7 @@
             // Update the chart options with the new series data
             var options = {
                 chart: {
-                    width: 280,
+                    width: 240,
                     type: 'pie',
                 },
                 colors: ['#BD0026', 'E31A1C', '#FC4E2A', 'FD8D3C', '#FEB24C'],
@@ -764,7 +851,7 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 100,
+                            width: 90,
                         },
                         legend: {
                             position: 'bottom',
@@ -790,5 +877,6 @@
         geojson.on('mouseout', function() {
             map2.scrollWheelZoom.disable();
         });
+
     </script>
 @endsection

@@ -7,17 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ trans('panel.site_title') }}</title>
     {{-- themes files add here  --}}
-    <!-- Bootstrap 4.0-->
-    <link rel="stylesheet" href="{{ asset('html/assets/vendor_components/bootstrap/dist/css/bootstrap.css') }}">
-
-    <!-- Bootstrap extend-->
-    <link rel="stylesheet" href="{{ asset('html/css/bootstrap-extend.css') }}">
-
-    <!-- theme style -->
-    <link rel="stylesheet" href="{{ asset('html/css/master_style.css') }}">
-
-    <!-- Uicod Admin skins -->
-    <link rel="stylesheet" href="{{ asset('html/css/skins/_all-skins.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme_of_mozambique/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme_of_mozambique/css/all.css')}}">
     {{-- leaflet css --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css">
     {{-- end leaflet  css --}}
@@ -43,11 +34,8 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     {{-- leaflet js end --}}
 
-
-
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
-    <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script>
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script> --}}
     <style>
         /* #map2 {
             height: 400px;
@@ -129,48 +117,96 @@
     @endif
 
     @yield('about')
-
     @include('partials.footer')
 
-    {{-- <script src='https://cdn.rawgit.com/VPenkov/okayNav/master/app/js/jquery.okayNav.js'></script> --}}
 
-    <!-- ./wrapper jQuery 3 -->
-    <script src="{{ asset('html/assets/vendor_components/jquery/dist/jquery.js') }}"></script>
 
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('html/assets/vendor_components/jquery-ui/jquery-ui.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="{{ asset('theme_of_mozambique/js/linecharts.js')}}"></script>
 
-    <!-- popper -->
-    <script src="{{ asset('html/assets/vendor_components/popper/dist/popper.min.js') }}"></script>
 
-    <!-- Bootstrap 4.0-->
-    <script src="{{ asset('html/assets/vendor_components/bootstrap/dist/js/bootstrap.js') }}"></script>
 
-    <!-- Slimscroll -->
-    <script src="{{ asset('html/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
+    <script>
+      var categories = [
+    '0-4', '5-9', '10-14', '15-19',
+    '20-24', '25-29', '30-34', '35-39', '40-44',
+    '45-49', '50-54', '55-59', '60-64', '65-69',
+    '70-74', '75-79', '80-84', '85-89', '90-94',
+    '95-99', '100 + '
+];
 
-    <!-- FastClick -->
-    <script src="{{ asset('html/assets/vendor_components/fastclick/lib/fastclick.js') }}"></script>
+Highcharts.chart('malePopulation', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Population pyramid for Germany, 2018'
+    },
+    subtitle: {
+        text: 'Source: <a href="http://populationpyramid.net/germany/2018/">Population Pyramids of the World from 1950 to 2100</a>'
+    },
+    xAxis: [{
+        categories: categories,
+        reversed: false,
+        labels: {
+            step: 1
+        }
+    }, { // mirror axis on right side
+        opposite: true,
+        reversed: false,
+        categories: categories,
+        linkedTo: 0,
+        labels: {
+            step: 1
+        }
+    }],
+    yAxis: {
+        title: {
+            text: null
+        },
+        labels: {
+            formatter: function () {
+                return Math.abs(this.value) + '%';
+            }
+        }
+    },
 
-    <!-- apexcharts -->
-    {{-- <script src="{{ asset('html/assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script> --}}
-    {{-- <script src="{{ asset('html/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script> --}}
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
+    },
 
-    <!-- amcharts -->
-    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    tooltip: {
+        formatter: function () {
+            return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 2);
+        }
+    },
 
-    <!-- Uicod Admin App -->
-    <script src="{{ asset('html/js/template.js') }}"></script>
-
-    <!-- Uicod Admin dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('html/js/pages/dashboard.js') }}"></script>
-    <script src="{{ asset('html/js/pages/dashboard-chart.js') }}"></script>
-
-    <!-- Uicod Admin for demo purposes -->
-    <script src="{{ asset('html/js/demo.js') }}"></script>
-
+    series: [{
+        name: 'Male',
+        data: [
+            -2.2, -2.1, -2.2, -2.4,
+            -2.7, -3.0, -3.3, -3.2,
+            -2.9, -3.5, -4.4, -4.1,
+            -13.4, -2.7, -2.3, -2.2,
+            -1.6, -0.6, -0.3, -0.0,
+            -0.0
+        ]
+    }, {
+        name: 'Female',
+        data: [
+            2.1, 2.0, 2.1, 2.3, 2.6,
+            2.9, 3.2, 3.1, 2.9, 3.4,
+            14.3, 4.0, 3.5, 2.9, 2.5,
+            2.7, 2.2, 1.1, 0.6, 0.2,
+            0.0
+        ]
+    }]
+});
+    </script>
 </body>
 
 </html>
