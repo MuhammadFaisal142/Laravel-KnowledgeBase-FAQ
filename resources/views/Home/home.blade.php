@@ -12,13 +12,13 @@
             <div class="col">
                 <div class="counter-box female-population">
                     <div class="counter">245</div>
-                    <h2>Sex Ratio By Birth</h2>
+                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
                 </div>
             </div>
             <div class="col">
                 <div class="counter-box total-population">
                     <div class="counter">490</div>
-                    <h2>Population Growth</h2>
+                    <h2>{{ trans('global.population_growth') }}</h2>
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="chart-visual">
-                    <h2> <span><img src="{{ asset('theme_of_mozambique/img/male.png') }}" alt=""></span>Male
-                        Population</h2>
+                    <h2> <span><img src="{{ asset('theme_of_mozambique/img/male.png') }}"
+                                alt=""></span>{{ trans('global.mens_population') }}</h2>
                     <div class="chart-holder" id="malePopulation"></div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
         <div class="filters-header">
             <div class="left">
                 <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
-                <span>Filter</span>
+                <span>{{ trans('global.filter') }}</span>
             </div>
             <div class="plus-icon">+</div>
         </div>
@@ -61,7 +61,7 @@
                                 {{ trans('global.national') }}
                             </option>
                             <option value="1" data-url="{{ route('home') }}">
-                                All Districts
+                                {{ trans('global.all_districts') }}
                             </option>
 
                         </select>
@@ -70,44 +70,22 @@
                 <div class="col-md-3">
                     <label class="custom-select" for="styledSelect2">
                         <select id="styledSelect2" name="options">
-                            <option value="">
-                                {{ trans('global.all_provinces') }}
-                            </option>
-                            <option value="1" data-url="{{ url('/province/Niassa') }}">
-                                Niassa
-                            </option>
-                            <option value="2" data-url="{{ url('/province/Tete') }}">
-                                Tete
-                            </option>
-                            <option value="3" data-url="{{ url('/province/Nampula') }}">
-                                Nampula
-                            </option>
-                            <option value="4" data-url="{{ url('/province/Cabo Delgado') }}">
-                                Cabo Delgado
-                            </option>
-                            <option value="5" data-url="{{ url('/province/Zambezia') }}">
-                                Zambezia
-                            </option>
-                            <option value="6" data-url="{{ url('/province/Manica') }}">
-                                Manica
-                            </option>
-                            <option value="7" data-url="{{ url('/province/Sofala') }}">
-                                Sofala
-                            </option>
-                            <option value="8" data-url="{{ url('/province/Inhambane') }}">
-                                Inhambane
-                            </option>
-                            <option value="9" data-url="{{ url('/province/Gaza') }}">
-                                Gaza
-                            </option>
-                            <option value="10" data-url="{{ url('/province/Maputo Cidade') }}">
-                                Maputo Cidade
-                            </option>
-                            <option value="11" data-url="{{ url('/province/Maputo Provincia') }}">
-                                Maputo Provincia
-                            </option>
+                            <option value="">{{ trans('global.all_provinces') }}</option>
+                            <option value="Niassa">Niassa</option>
+                            <option value="Tete">Tete</option>
+                            <option value="Nampula">Nampula</option>
+                            <option value="Cabo Delgado">Cabo Delgado</option>
+                            <option value="Zambezia">Zambezia</option>
+                            <option value="Manica">Manica</option>
+                            <option value="Sofala">Sofala</option>
+                            <option value="Inhambane">Inhambane</option>
+                            <option value="Gaza">Gaza</option>
+                            <option value="Maputo Cidade">Maputo Cidade</option>
+                            <option value="Maputo Provincia">Maputo Provincia</option>
                         </select>
+
                     </label>
+
                 </div>
                 {{-- <div class="col-md-3">
                     <label class="custom-select" for="styledSelect3">
@@ -119,61 +97,59 @@
                     </label>
                 </div> --}}
                 <div class="col-md-2">
-                    <input type="submit" value="Search" class="search-btn" onclick="performSearch()">
+                    <input type="submit" value="{{ trans('global.search') }}" class="search-btn"
+                        onclick="performSearch()">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="graphs-row">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="map-holder">
                     <h2>{{ trans('global.mozambique-map') }}</h2>
-                    <div class="box-body">
+                    <div class="box-body mb-2">
                         <div id="map2" style="height: 600px"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
 
-                <div>
-                    <div id="rev-chart1" class="counter"></div>
+            <div class="col-md-4">
+                <div class="map-holder">
+                    <h2>{{ trans('global.population-contribution') }}</h2>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div id="rev-chart1" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="rev-chart2" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="rev-chart3" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="chart_total_marital" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="chart_mens_marital" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="chart_womens_marital" class="counter mb-2"></div>
+                        </div>
+                    </div>
                 </div>
-
-
-                <div>
-                    <div id="rev-chart2" class="counter"></div>
-
-                </div>
-
-
-                <div>
-                    <div id="rev-chart3" class="counter"></div>
-                </div>
-
             </div>
-            <div class="col-md-2">
+            {{-- <div class="col-md-2">
+                <div class="row">
 
-                <div >
-                    <div id="chart_total_marital" class="counter"></div>
                 </div>
-
-
-                <div>
-                    <div id="chart_mens_marital" class="counter"></div>
-                </div>
-
-
-                <div>
-                    <div id="chart_womens_marital" class="counter"></div>
-                </div>
-
-            </div>
+            </div> --}}
         </div>
-
     </div>
-<div id="newmapexample"></div>
+
+
     <!-- START Map -->
     <div class="container mt-10">
         {{-- TABLE --}}
@@ -240,14 +216,6 @@
 
 
     <script>
-        // Set the desired province to show (set to null or an empty string to show all provinces)
-        const desiredProvince =
-            @json($province); // Change this to the desired province or set to null/empty string
-
-        // Filter features based on the "Provincia" property if a specific province is set
-        const filteredFeatures = desiredProvince ?
-            mozambiquefulldistricts.features.filter(feature => feature.properties.Provincia === desiredProvince) :
-            mozambiquefulldistricts.features;
         var translations = {
             marine_sprite: '{{ __('global.marine_sprite') }}',
             striking_calf: '{{ __('global.striking_calf') }}',
@@ -261,12 +229,32 @@
             women_population: '{{ __('global.womens_population') }}',
             name_of_district: '{{ __('global.name_of_district') }}',
 
+            total_marital_ratio: '{{ __('global.total_marital_ratio') }}',
+            mens_marital_ratio: '{{ __('global.mens_marital_ratio') }}',
+            womens_marital_ratio: '{{ __('global.womens_marital_ratio') }}',
+
         };
+        var desiredProvince;
+
+        function performSearch() {
+            // Get selected option for styledSelect2
+            var selectedOption2 = document.getElementById('styledSelect2');
+            var selectedProvince = selectedOption2.options[selectedOption2.selectedIndex].value;
+
+            // Update the desiredProvince variable with the selected province
+             desiredProvince = selectedProvince;
+            console.log("This is desired Province : " + desiredProvince);
+            // Rest of your code...
+
+            // Now you can use the updated desiredProvince variable in your GeoJSON filtering logic
+            const filteredFeatures = desiredProvince ?
+                mozambiquefulldistricts.features.filter(feature => feature.properties.Provincia === desiredProvince) :
+                mozambiquefulldistricts.features;
+            // Update the original GeoJSON data with the filtered features
+            mozambiquefulldistricts.features = filteredFeatures;
+        }
 
 
-
-        // Update the original GeoJSON data with the filtered features
-        mozambiquefulldistricts.features = filteredFeatures;
 
         function getProvinceCoordinates(province) {
             // Replace this with logic to get coordinates based on the selected province
@@ -350,21 +338,22 @@
         var map2;
 
         if (desiredProvince) {
+
             const provinceCoordinates = getProvinceCoordinates(desiredProvince);
             map2 = L.map('map2', {
                 center: provinceCoordinates,
                 zoom: 6.5,
                 minZoom: 4,
-                maxZoom: 8,
+                maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
             });
 
             // Check if the desired province is "Maputo Cidade"
             if (desiredProvince === "Maputo Cidade") {
                 // Adjust zoom levels for Maputo Cidade
-                map2.setMinZoom(8);
-                map2.setMaxZoom(10);
-                map2.setZoom(18);
+                map2.setMinZoom(10);
+                map2.setMaxZoom(12);
+                map2.setZoom(20);
             }
 
         } else {
@@ -372,7 +361,7 @@
                 center: [-19.00, 34.00],
                 zoom: 5,
                 minZoom: 4,
-                maxZoom: 8,
+                maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
             });
         }
@@ -386,10 +375,6 @@
         //     maxZoom: 19,
         //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         // }).addTo(map2);
-
-        L.geoJson(mozambiquefulldistricts, {
-            style: style
-        }).addTo(map2);
 
         // Define global variable to track the highlighted layer
         var highlightedLayer;
@@ -410,9 +395,7 @@
             geojson.resetStyle(e.target);
             map2.closePopup();
         }
-        var geojson;
-        // ... our listeners
-        geojson = L.geoJson(mozambiquefulldistricts);
+
 
         function zoomToFeature(e) {
             // map2.fitBounds(e.target.getBounds());
@@ -508,13 +491,15 @@
                     html: nameOfDistrict,
                 });
 
-                // // Create a marker with the custom icon
-                // const labelMarker = L.marker(layer1.getBounds().getCenter(), {
-                //     icon: customIcon
-                // });
+                // Create a marker with the custom icon
+                const labelMarker = L.marker(layer1.getBounds().getCenter(), {
+                    icon: customIcon
+                });
 
-                // // Add the marker to the map
-                // labelMarker.addTo(map2);
+                // Add the marker to the map only if a specific province is selected
+                if (desiredProvince) {
+                    labelMarker.addTo(map2);
+                }
 
                 // Set up event listeners for the GeoJSON layer1
                 layer1.on({
@@ -531,6 +516,9 @@
 
             }
         }
+
+
+   var geojson;
         geojson = L.geoJson(mozambiquefulldistricts, {
             style: style,
             onEachFeature: onEachFeature
@@ -563,24 +551,7 @@
 
         legend.addTo(map2);
 
-        function performSearch() {
-            // Get selected option for styledSelect1
-            var selectedOption1 = document.getElementById('styledSelect1');
-            var selectedUrl1 = selectedOption1.options[selectedOption1.selectedIndex].getAttribute('data-url');
 
-            // Get selected option for styledSelect2
-            var selectedOption2 = document.getElementById('styledSelect2');
-            var selectedUrl2 = selectedOption2.options[selectedOption2.selectedIndex].getAttribute('data-url');
-
-            // Use selected URL for redirection
-            if (selectedUrl1) {
-                window.location.href = selectedUrl1;
-            } else if (selectedUrl2) {
-                window.location.href = selectedUrl2;
-            } else {
-                alert('Please select an option.');
-            }
-        }
 
         // These are pie charts code
 
@@ -609,109 +580,242 @@
             var total_65 = parseFloat(grupIdad_65_Total);
             var updatedSeriesTotal = [total_014, total_1564, total_65];
 
-            // Update the chart options with the new series data
-            var options = {
+            Highcharts.chart('rev-chart1', {
                 chart: {
-                    width: 240,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
+                    backgroundColor: '#DDDDDD',
+
                 },
-                colors: ['#BD0026', '#FC4E2A', '#FEB24C'],
-                labels: ['0-14 Years', '15-64 Years', '65+ Years'],
-                series: updatedSeriesTotal,
-                legend: {
-                    position: 'bottom',
+                title: {
+                    text: translations.total_population,
+                    align: 'left'
                 },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 90,
-                        },
-                        legend: {
-                            position: 'bottom',
-                        },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+
+                        showInLegend: true
                     },
-                }],
-            };
 
-            // Render the chart with updated options
-            window.chartTotalPopulation = new ApexCharts(
-                document.querySelector("#rev-chart1"),
-                options
-            );
-            window.chartTotalPopulation.render();
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: false,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.8em',
+                                textOutline: 'none'
 
-            // Women population pie charts data
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                colors: [
+                    '#7cb5ec',
+                    '#434348',
+                    '#90ed7d'
+                ],
+                series: [{
+                    name: 'Age Group',
+                    colorByPoint: true,
+                    data: [{
+                        name: '0-14 Years',
+                        y: updatedSeriesTotal[0], // Dynamic value for mulheres_014
+
+                    }, {
+                        name: '15-64 Years',
+                        y: updatedSeriesTotal[1], // Dynamic value for mulheres_1564
+                    }, {
+                        name: '65+ Years',
+                        y: updatedSeriesTotal[2], // Dynamic value for mulheres_65
+                    }]
+                }]
+            });
+
+            // men population pie charts data
             var homens_014 = parseFloat(grupIdad_014_homens);
             var homens_1564 = parseFloat(grupIdad_1564_homens);
             var homens_65 = parseFloat(grupIdad_65_homens);
             var updatedSeriesForMens = [homens_014, homens_1564, homens_65];
 
-            var options = {
+            Highcharts.chart('rev-chart2', {
                 chart: {
-                    width: 240,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
+                    backgroundColor: '#DDDDDD'
                 },
-                colors: ['#BD0026', '#FC4E2A', '#FEB24C'],
-                labels: ['0-14 Years', '15-64 Years', '65+ Years'],
-                series: updatedSeriesForMens,
-                legend: {
-                    position: 'bottom'
+                title: {
+                    text: translations.men_population,
+                    align: 'left'
                 },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 90,
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
                     }
+                },
+                plotOptions: {
+                    pie: {
+
+                        showInLegend: true
+                    },
+
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: false,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.8em',
+                                textOutline: 'none'
+
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                colors: [
+                    '#ff9966',
+                    '#663399',
+                    '#00cc99'
+                ],
+
+                series: [{
+                    name: 'Age Group',
+                    colorByPoint: true,
+                    data: [{
+                        name: '0-14 Years',
+                        y: updatedSeriesForMens[0], // Dynamic value for mulheres_014
+
+                    }, {
+                        name: '15-64 Years',
+                        y: updatedSeriesForMens[1], // Dynamic value for mulheres_1564
+                    }, {
+                        name: '65+ Years',
+                        y: updatedSeriesForMens[2], // Dynamic value for mulheres_65
+                    }]
                 }]
-            };
+            });
 
-            window.chartForMens = new ApexCharts(
-                document.querySelector("#rev-chart2"),
-                options
-            );
-            window.chartForMens.render();
-
-            // Men population pie charts data
+            // Women population pie charts data
             var mulheres_014 = parseFloat(grupIdad_014_mulheres);
             var mulheres_1564 = parseFloat(grupIdad_1564_mulheres);
             var mulheres_65 = parseFloat(grupIdad_65_mulheres);
             var updatedSeriesForWomens = [mulheres_014, mulheres_1564, mulheres_65];
 
-            var options = {
+            Highcharts.chart('rev-chart3', {
                 chart: {
-                    width: 240,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
+                    backgroundColor: '#DDDDDD'
                 },
-                colors: ['#BD0026', '#FC4E2A', '#FEB24C'],
-                labels: ['0-14 Years', '15-64 Years', '65+ Years'],
-                series: updatedSeriesForWomens,
-                legend: {
-                    position: 'bottom'
+                title: {
+                    text: translations.women_population,
+                    align: 'left'
                 },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 90,
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
                     }
-                }]
-            };
+                },
+                plotOptions: {
+                    pie: {
 
-            window.chartForWomens = new ApexCharts(
-                document.querySelector("#rev-chart3"),
-                options
-            );
-            window.chartForWomens.render();
+                        showInLegend: true
+                    },
+
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: false,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.8em',
+                                textOutline: 'none'
+
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                colors: [
+                    '#ffa500',
+                    '#4caf50',
+                    '#9932cc'
+                ],
+
+                series: [{
+                    name: 'Age Group',
+                    colorByPoint: true,
+                    data: [{
+                        name: '0-14 Years',
+                        y: updatedSeriesForWomens[0], // Dynamic value for mulheres_014
+
+                    }, {
+                        name: '15-64 Years',
+                        y: updatedSeriesForWomens[1], // Dynamic value for mulheres_1564
+                    }, {
+                        name: '65+ Years',
+                        y: updatedSeriesForWomens[2], // Dynamic value for mulheres_65
+                    }]
+                }]
+            });
         }
 
         function highlightPieChartMaritalRatio(
@@ -744,39 +848,96 @@
                 divorciado_Separado_total_marital, viuvo_total_marital
             ];
 
-            // Update the chart options with the new series data
-            var options = {
+            Highcharts.chart('chart_total_marital', {
                 chart: {
-                    width: 240,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
+                    backgroundColor: '#DDDDDD',
+
+                    // Set the height of the chart
+
                 },
-                colors: ['#BD0026', 'E31A1C', '#FC4E2A', 'FD8D3C', '#FEB24C'],
-                labels: ['single', 'married', 'unity', 'divorced', 'widower'],
-                series: updatedSeriesTotalMarital,
-                legend: {
-                    position: 'bottom',
+                title: {
+                    text: translations.total_marital_ratio,
+                    align: 'left'
                 },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 90,
-                        },
-                        legend: {
-                            position: 'bottom',
-                        },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+
+                        showInLegend: true
                     },
-                }],
-            };
 
-            // Render the chart with updated options
-            window.chartTotalMarital = new ApexCharts(
-                document.querySelector("#chart_total_marital"),
-                options
-            );
-            window.chartTotalMarital.render();
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: false,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.8em',
+                                textOutline: 'none'
+
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                colors: [
+                    '#e74c3c',
+                    '#3498db',
+                    '#2ecc71',
+                    '#f39c12',
+                    '#9b59b6'
+                ],
 
 
+                series: [{
+                    name: 'Age Group',
+                    colorByPoint: true,
+                    data: [{
+                            name: 'single',
+                            y: updatedSeriesTotalMarital[0], // Dynamic value for mulheres_014
+
+                        }, {
+                            name: 'married',
+                            y: updatedSeriesTotalMarital[1], // Dynamic value for mulheres_1564
+                        }, {
+                            name: 'unity',
+                            y: updatedSeriesTotalMarital[2], // Dynamic value for mulheres_65
+                        },
+                        {
+                            name: 'divorced',
+                            y: updatedSeriesTotalMarital[3], // Dynamic value for mulheres_65
+                        },
+                        {
+                            name: 'widower',
+                            y: updatedSeriesTotalMarital[4], // Dynamic value for mulheres_65
+                        }
+
+                    ]
+                }]
+            });
             // it is mens marital
 
             var solteiro_homens_marital = parseFloat(solteiro_homens);
@@ -790,37 +951,96 @@
                 divorciado_Separado_homens_marital, viuvo_homens_marital
             ];
 
-            // Update the chart options with the new series data
-            var options = {
+            Highcharts.chart('chart_mens_marital', {
                 chart: {
-                    width: 240,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
-                },
-                colors: ['#BD0026', 'E31A1C', '#FC4E2A', 'FD8D3C', '#FEB24C'],
-                labels: ['single', 'married', 'unity', 'divorced', 'widower'],
-                series: updatedSeriesMensMarital,
-                legend: {
-                    position: 'bottom',
-                },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 90,
-                        },
-                        legend: {
-                            position: 'bottom',
-                        },
-                    },
-                }],
-            };
+                    backgroundColor: '#DDDDDD',
 
-            // Render the chart with updated options
-            window.chartMensMarital = new ApexCharts(
-                document.querySelector("#chart_mens_marital"),
-                options
-            );
-            window.chartMensMarital.render();
+                    // Set the height of the chart
+
+                },
+                title: {
+                    text: translations.mens_marital_ratio,
+                    align: 'left'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+
+                        showInLegend: true
+                    },
+
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: false,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.8em',
+                                textOutline: 'none'
+
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                colors: [
+                    '#ff6347',
+                    '#6a5acd',
+                    '#32cd32',
+                    '#ff8c00',
+                    '#8a2be2'
+                ],
+
+
+                series: [{
+                    name: 'Age Group',
+                    colorByPoint: true,
+                    data: [{
+                            name: 'single',
+                            y: updatedSeriesMensMarital[0], // Dynamic value for mulheres_014
+
+                        }, {
+                            name: 'married',
+                            y: updatedSeriesMensMarital[1], // Dynamic value for mulheres_1564
+                        }, {
+                            name: 'unity',
+                            y: updatedSeriesMensMarital[2], // Dynamic value for mulheres_65
+                        },
+                        {
+                            name: 'divorced',
+                            y: updatedSeriesMensMarital[3], // Dynamic value for mulheres_65
+                        },
+                        {
+                            name: 'widower',
+                            y: updatedSeriesMensMarital[4], // Dynamic value for mulheres_65
+                        }
+
+                    ]
+                }]
+            });
 
 
             // it is womens marital
@@ -835,37 +1055,96 @@
                 divorciado_Separado_mulheres_marital, viuvo_mulheres_marital
             ];
 
-            // Update the chart options with the new series data
-            var options = {
+            Highcharts.chart('chart_womens_marital', {
                 chart: {
-                    width: 240,
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
-                },
-                colors: ['#BD0026', 'E31A1C', '#FC4E2A', 'FD8D3C', '#FEB24C'],
-                labels: ['single', 'married', 'unity', 'divorced', 'widower'],
-                series: updatedSeriesWomensMarital,
-                legend: {
-                    position: 'bottom',
-                },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 90,
-                        },
-                        legend: {
-                            position: 'bottom',
-                        },
-                    },
-                }],
-            };
+                    backgroundColor: '#DDDDDD',
 
-            // Render the chart with updated options
-            window.chartWomensMarital = new ApexCharts(
-                document.querySelector("#chart_womens_marital"),
-                options
-            );
-            window.chartWomensMarital.render();
+                    // Set the height of the chart
+
+                },
+                title: {
+                    text: translations.womens_marital_ratio,
+                    align: 'left'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+
+                        showInLegend: true
+                    },
+
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: false,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.8em',
+                                textOutline: 'none'
+
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                colors: [
+                    '#ffcc00',
+                    '#993366',
+                    '#0099cc',
+                    '#ff6666',
+                    '#669933'
+                ],
+
+
+                series: [{
+                    name: 'Age Group',
+                    colorByPoint: true,
+                    data: [{
+                            name: 'single',
+                            y: updatedSeriesWomensMarital[0], // Dynamic value for mulheres_014
+
+                        }, {
+                            name: 'married',
+                            y: updatedSeriesWomensMarital[1], // Dynamic value for mulheres_1564
+                        }, {
+                            name: 'unity',
+                            y: updatedSeriesWomensMarital[2], // Dynamic value for mulheres_65
+                        },
+                        {
+                            name: 'divorced',
+                            y: updatedSeriesWomensMarital[3], // Dynamic value for mulheres_65
+                        },
+                        {
+                            name: 'widower',
+                            y: updatedSeriesWomensMarital[4], // Dynamic value for mulheres_65
+                        }
+
+                    ]
+                }]
+            });
 
         }
 
@@ -877,6 +1156,5 @@
         geojson.on('mouseout', function() {
             map2.scrollWheelZoom.disable();
         });
-
     </script>
 @endsection

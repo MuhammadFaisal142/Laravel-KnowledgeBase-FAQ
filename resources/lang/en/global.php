@@ -279,9 +279,14 @@ return [
     'womens_marital_ratio' => 'Womens Marital Ratio',
     'marital_Ratio' => 'Marital Ratio',
     'growth_rate' => 'Growth Rate',
+    'population_growth' => 'Population Growth',
+    'Sex_Ratio_By_Birth' => 'Sex Ratio By Birth',
     'mozambique-map' => 'Mozambique Map',
     'population-contribution' => 'Population Contribution',
     'overall_conversion_rate' => 'OVERALL CONVERSION RATE BY GENDER AND AGE',
     'name_of_district' => 'Name of District',
+    'all_districts' => 'All Districts',
+    'search' => 'Search',
+    'filter' => 'Filter',
 
 ];

@@ -1,11 +1,4 @@
 @extends('layouts.main')
-<style>
-    .district-label {
-        font-size: 12px;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-</style>
 @section('content')
     <div class="content-holdder">
         <div class="row">
@@ -18,13 +11,13 @@
             <div class="col">
                 <div class="counter-box female-population">
                     <div class="counter">245</div>
-                    <h2>Sex Ratio By Birth</h2>
+                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
                 </div>
             </div>
             <div class="col">
                 <div class="counter-box total-population">
                     <div class="counter">490</div>
-                    <h2>Population Growth</h2>
+                    <h2>{{ trans('global.population_growth') }}</h2>
                 </div>
             </div>
         </div>
@@ -33,7 +26,7 @@
         <div class="filters-header">
             <div class="left">
                 <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
-                <span>Filter</span>
+                <span>{{ trans('global.filter') }}</span>
             </div>
             <div class="plus-icon">+</div>
         </div>
@@ -46,7 +39,7 @@
                                 {{ trans('global.national') }}
                             </option>
                             <option value="1" data-url="{{ route('growthRate') }}">
-                                All Districts
+                                {{ trans('global.all_districts') }}
                             </option>
 
                         </select>
@@ -104,7 +97,7 @@
                 </label>
             </div> --}}
                 <div class="col-md-2">
-                    <input type="submit" value="Search" class="search-btn" onclick="performSearch()">
+                    <input type="submit" value="{{ trans('global.search')}}" class="search-btn" onclick="performSearch()">
                 </div>
             </div>
         </div>
@@ -120,7 +113,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
                 <div class="chart-visual totals">
                     <h2> <span><img src="{{ asset('theme_of_mozambique/img/male.png') }}" alt=""></span>Total
                         Population</h2>
@@ -131,7 +124,7 @@
                                 alt=""></span>Total Population</h2>
                     <div class="chart-holder" id="femaleTotal"></div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
@@ -250,16 +243,16 @@
                 center: provinceCoordinates,
                 zoom: 6.5,
                 minZoom: 4,
-                maxZoom: 8,
+                maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
             });
 
             // Check if the desired province is "Maputo Cidade"
             if (desiredProvince === "Maputo Cidade") {
                 // Adjust zoom levels for Maputo Cidade
-                map2.setMinZoom(8);
-                map2.setMaxZoom(10);
-                map2.setZoom(18);
+                map2.setMinZoom(10);
+                map2.setMaxZoom(12);
+                map2.setZoom(20);
             }
 
         } else {
@@ -267,7 +260,7 @@
                 center: [-19.00, 34.00],
                 zoom: 5,
                 minZoom: 4,
-                maxZoom: 8,
+                maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
             });
         }
@@ -281,6 +274,7 @@
         var highlightedLayer;
 
         function highlightFeature(e) {
+            // console.log(e);
             var layer = e.target;
 
             // Reset the style of all layers to white
@@ -325,6 +319,23 @@
             if (feature.properties && feature.properties.Distrito) {
                 var nameOfDistrict = filteredData[0].District;
                 var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
+
+
+                const customIcon = L.divIcon({
+                    className: 'district-label', // Add a CSS class for styling
+                    html: nameOfDistrict,
+                });
+
+                  // Create a marker with the custom icon
+                  const labelMarker = L.marker(layer1.getBounds().getCenter(), {
+                    icon: customIcon
+                });
+
+                // Add the marker to the map only if a specific province is selected
+                if (desiredProvince) {
+                    labelMarker.addTo(map2);
+                }
+
                 // Set up event listeners for the GeoJSON layer1
                 layer1.on({
                     mouseover: highlightFeature,
