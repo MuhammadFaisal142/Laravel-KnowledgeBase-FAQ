@@ -142,7 +142,7 @@
                 type: 'bar'
             },
             title: {
-                text: 'Population pyramid for Germany, 2018'
+                text: 'Population pyramid for mozambique, 2023'
             },
             subtitle: {
                 text: 'Source: <a href="http://populationpyramid.net/germany/2018/">Population Pyramids of the World from 1950 to 2100</a>'

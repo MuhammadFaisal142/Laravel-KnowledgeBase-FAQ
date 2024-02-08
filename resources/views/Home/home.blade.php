@@ -1,23 +1,79 @@
 @extends('layouts.main')
 
 @section('content')
+    <div class="filters-holder mt-2">
+        <div class="filters-header">
+            <div class="left">
+                <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
+                <span>{{ trans('global.filter') }}</span>
+            </div>
+            <div class="plus-icon">+</div>
+        </div>
+        <div class="form-holder">
+            <div class="row">
+                {{-- <div class="col-md-3">
+                <label class="custom-select" for="styledSelect1">
+                    <select id="styledSelect1" name="options">
+                        <option value="">
+                            {{ trans('global.national') }}
+                        </option>
+                        <option value="">
+                            {{ trans('global.all_districts') }}
+                        </option>
+                    </select>
+                </label>
+            </div> --}}
+                <div class="col-md-3">
+                    <label class="custom-select" for="styledSelect2">
+                        <select id="styledSelect2" name="options">
+                            <option value="">{{ trans('global.all_provinces') }}</option>
+                            <option value="">{{ trans('global.all_districts') }}</option>
+                            <option value="Niassa">Niassa</option>
+                            <option value="Tete">Tete</option>
+                            <option value="Nampula">Nampula</option>
+                            <option value="Cabo Delgado">Cabo Delgado</option>
+                            <option value="Zambezia">Zambezia</option>
+                            <option value="Manica">Manica</option>
+                            <option value="Sofala">Sofala</option>
+                            <option value="Inhambane">Inhambane</option>
+                            <option value="Gaza">Gaza</option>
+                            <option value="Maputo Cidade">Maputo Cidade</option>
+                            <option value="Maputo Provincia">Maputo Provincia</option>
+                        </select>
+                    </label>
+                </div>
+                {{-- <div class="col-md-3">
+                <label class="custom-select" for="styledSelect3">
+                    <select id="styledSelect3" name="options">
+                        <option value="">
+                            Filter Three
+                        </option>
+                    </select>
+                </label>
+            </div> --}}
+                <div class="col-md-2">
+                    <input type="submit" value="{{ trans('global.search') }}" class="search-btn" onclick="performSearch()">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="content-holdder">
         <div class="row">
             <div class="col">
                 <div class="counter-box male-population">
-                    <div class="counter">290</div>
+                    <div class="counter" id="total_population">2.7 M</div>
                     <h2>{{ trans('global.total_population') }}</h2>
                 </div>
             </div>
             <div class="col">
                 <div class="counter-box female-population">
-                    <div class="counter">245</div>
+                    <div class="counter" id="sex_ratio_by_birth">0.0</div>
                     <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
                 </div>
             </div>
             <div class="col">
                 <div class="counter-box total-population">
-                    <div class="counter">490</div>
+                    <div class="counter" id="population_growth_rate">105</div>
                     <h2>{{ trans('global.population_growth') }}</h2>
                 </div>
             </div>
@@ -27,7 +83,58 @@
 
     <div class="graphs-row">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="map-holder">
+                    <h2>{{ trans('global.mozambique-map') }}</h2>
+                    <div class="box-body mb-2">
+                        <div id="map2" style="height: 600px"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            {{-- <div class="col-md-2">
+                <div class="row">
+
+                </div>
+            </div> --}}
+        </div>
+    </div>
+    <div class="graphs-row">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="map-holder">
+                    <h2>{{ trans('global.population-contribution') }}</h2>
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-6">
+                            <div id="rev-chart1" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div id="rev-chart2" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div id="rev-chart3" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div id="chart_total_marital" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div id="chart_mens_marital" class="counter mb-2"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div id="chart_womens_marital" class="counter mb-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="graphs-row">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="chart-visual">
                     <h2> <span><img src="{{ asset('theme_of_mozambique/img/male.png') }}"
                                 alt=""></span>{{ trans('global.mens_population') }}</h2>
@@ -44,110 +151,6 @@
         </div>
     </div>
 
-    <div class="filters-holder">
-        <div class="filters-header">
-            <div class="left">
-                <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
-                <span>{{ trans('global.filter') }}</span>
-            </div>
-            <div class="plus-icon">+</div>
-        </div>
-        <div class="form-holder">
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="custom-select" for="styledSelect1">
-                        <select id="styledSelect1" name="options">
-                            <option value="">
-                                {{ trans('global.national') }}
-                            </option>
-                            <option value="1" data-url="{{ route('home') }}">
-                                {{ trans('global.all_districts') }}
-                            </option>
-
-                        </select>
-                    </label>
-                </div>
-                <div class="col-md-3">
-                    <label class="custom-select" for="styledSelect2">
-                        <select id="styledSelect2" name="options">
-                            <option value="">{{ trans('global.all_provinces') }}</option>
-                            <option value="Niassa">Niassa</option>
-                            <option value="Tete">Tete</option>
-                            <option value="Nampula">Nampula</option>
-                            <option value="Cabo Delgado">Cabo Delgado</option>
-                            <option value="Zambezia">Zambezia</option>
-                            <option value="Manica">Manica</option>
-                            <option value="Sofala">Sofala</option>
-                            <option value="Inhambane">Inhambane</option>
-                            <option value="Gaza">Gaza</option>
-                            <option value="Maputo Cidade">Maputo Cidade</option>
-                            <option value="Maputo Provincia">Maputo Provincia</option>
-                        </select>
-
-                    </label>
-
-                </div>
-                {{-- <div class="col-md-3">
-                    <label class="custom-select" for="styledSelect3">
-                        <select id="styledSelect3" name="options">
-                            <option value="">
-                                Filter Three
-                            </option>
-                        </select>
-                    </label>
-                </div> --}}
-                <div class="col-md-2">
-                    <input type="submit" value="{{ trans('global.search') }}" class="search-btn"
-                        onclick="performSearch()">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="map-holder">
-                    <h2>{{ trans('global.mozambique-map') }}</h2>
-                    <div class="box-body mb-2">
-                        <div id="map2" style="height: 600px"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="map-holder">
-                    <h2>{{ trans('global.population-contribution') }}</h2>
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <div id="rev-chart1" class="counter mb-2"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="rev-chart2" class="counter mb-2"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="rev-chart3" class="counter mb-2"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="chart_total_marital" class="counter mb-2"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="chart_mens_marital" class="counter mb-2"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="chart_womens_marital" class="counter mb-2"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- <div class="col-md-2">
-                <div class="row">
-
-                </div>
-            </div> --}}
-        </div>
-    </div>
 
 
     <!-- START Map -->
@@ -235,26 +238,6 @@
 
         };
         var desiredProvince;
-
-        function performSearch() {
-            // Get selected option for styledSelect2
-            var selectedOption2 = document.getElementById('styledSelect2');
-            var selectedProvince = selectedOption2.options[selectedOption2.selectedIndex].value;
-
-            // Update the desiredProvince variable with the selected province
-             desiredProvince = selectedProvince;
-            console.log("This is desired Province : " + desiredProvince);
-            // Rest of your code...
-
-            // Now you can use the updated desiredProvince variable in your GeoJSON filtering logic
-            const filteredFeatures = desiredProvince ?
-                mozambiquefulldistricts.features.filter(feature => feature.properties.Provincia === desiredProvince) :
-                mozambiquefulldistricts.features;
-            // Update the original GeoJSON data with the filtered features
-            mozambiquefulldistricts.features = filteredFeatures;
-        }
-
-
 
         function getProvinceCoordinates(province) {
             // Replace this with logic to get coordinates based on the selected province
@@ -359,17 +342,12 @@
         } else {
             map2 = L.map('map2', {
                 center: [-19.00, 34.00],
-                zoom: 5,
-                minZoom: 4,
+                zoom: 5.1,
+                minZoom: 5.4,
                 maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
             });
         }
-
-
-
-
-
 
         // var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         //     maxZoom: 19,
@@ -419,6 +397,14 @@
                 dashArray: '',
                 fillOpacity: 0.8
             });
+
+            // Three box Total Population
+            var popTotalValue = filteredData[0].Pop_Total;
+            // Three box Growth Rate Population
+            var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
+            // Three box Growth Rate Population
+            var popSexRatioBybirth = parseFloat(0.0);
+            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate);
             // Pie charts total population
             var grupIdad_014_Total = filteredData[0].GrupIdad_014_Total;
             var grupIdad_1564_Total = filteredData[0].GrupIdad_1564_Total;
@@ -466,6 +452,8 @@
                 grupIdad_014_homens,
                 grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
                 grupIdad_65_mulheres);
+
+
         }
 
         function onEachFeature(feature, layer) {
@@ -517,14 +505,21 @@
             }
         }
 
-
-   var geojson;
+        var geojson;
         geojson = L.geoJson(mozambiquefulldistricts, {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map2);
 
+        // Add event listeners after creating the geojson layer
+        geojson.on('mouseover', function() {
+            map2.scrollWheelZoom.enable();
+        });
 
+        geojson.on('mouseout', function() {
+            map2.scrollWheelZoom.disable();
+        });
+        // print legends on the mozambique map
         var legend = L.control({
             position: 'bottomright'
         });
@@ -550,6 +545,93 @@
         };
 
         legend.addTo(map2);
+
+        function performSearch() {
+            // Get selected option for styledSelect2
+            var selectedOption2 = document.getElementById('styledSelect2');
+            var selectedProvince = selectedOption2.options[selectedOption2.selectedIndex].value;
+
+            // Update the desiredProvince variable with the selected province
+            desiredProvince = selectedProvince;
+            // console.log("This is desired Province : " + desiredProvince);
+
+            // Update the map based on the selected province
+            updateMap();
+            legend.addTo(map2);
+        }
+
+        function updateMap() {
+            // Clear existing GeoJSON layer
+            if (map2) {
+                map2.remove(); // Remove the existing map instance
+            }
+            map2.removeLayer(geojson);
+
+            // Get coordinates for the selected province
+            const provinceCoordinates = getProvinceCoordinates(desiredProvince);
+
+            // Create or update the map
+            if (desiredProvince) {
+                map2 = L.map('map2', {
+                    center: provinceCoordinates,
+                    zoom: 7,
+                    minZoom: 4,
+                    maxZoom: 9,
+                    scrollWheelZoom: true
+                });
+
+                // Check if the desired province is "Maputo Cidade"
+                if (desiredProvince === "Maputo Cidade") {
+                    // Adjust zoom levels for Maputo Cidade
+                    map2.setMinZoom(10);
+                    map2.setMaxZoom(12);
+                    map2.setZoom(20);
+                }
+            } else {
+                map2 = L.map('map2', {
+                    center: [-19.00, 34.00],
+                    zoom: 5.1,
+                    minZoom: 5.4,
+                    maxZoom: 9,
+                    scrollWheelZoom: true
+                });
+
+                // If desiredProvince is empty, add the GeoJSON layer with all features
+                geojson = L.geoJson(mozambiquefulldistricts, {
+                    style: style,
+                    onEachFeature: onEachFeature
+                }).addTo(map2);
+                geojson.on('mouseover', function() {
+                    map2.scrollWheelZoom.enable();
+                });
+
+                geojson.on('mouseout', function() {
+                    map2.scrollWheelZoom.disable();
+                });
+                return; // Exit the function as we don't need to filter features further
+            }
+
+            // Filter the features based on the selected province
+            const filteredFeatures = desiredProvince ?
+                mozambiquefulldistricts.features.filter(feature => feature.properties.Provincia === desiredProvince) :
+                mozambiquefulldistricts.features;
+
+            // Add the new GeoJSON layer with filtered features to the map
+            geojson = L.geoJson(filteredFeatures, {
+                style: style,
+                onEachFeature: onEachFeature
+            }).addTo(map2);
+
+            geojson.on('mouseover', function() {
+                map2.scrollWheelZoom.enable();
+            });
+
+            geojson.on('mouseout', function() {
+                map2.scrollWheelZoom.disable();
+            });
+            legend.addTo(map2);
+
+        }
 
 
 
@@ -1148,13 +1230,11 @@
 
         }
 
-
-        geojson.on('mouseover', function() {
-            map2.scrollWheelZoom.enable();
-        });
-
-        geojson.on('mouseout', function() {
-            map2.scrollWheelZoom.disable();
-        });
+        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate) {
+            // Update the innerHTML of the counter elements with the provided values
+            document.getElementById('total_population').innerHTML = popTotalValue;
+            document.getElementById('sex_ratio_by_birth').innerHTML = popSexRatioBybirth;
+            document.getElementById('population_growth_rate').innerHTML = popGrowthRate;
+        }
     </script>
 @endsection

@@ -1,28 +1,6 @@
 @extends('layouts.main')
 @section('content')
-    <div class="content-holdder">
-        <div class="row">
-            <div class="col">
-                <div class="counter-box male-population">
-                    <div class="counter">290</div>
-                    <h2>{{ trans('global.total_population') }}</h2>
-                </div>
-            </div>
-            <div class="col">
-                <div class="counter-box female-population">
-                    <div class="counter">245</div>
-                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
-                </div>
-            </div>
-            <div class="col">
-                <div class="counter-box total-population">
-                    <div class="counter">490</div>
-                    <h2>{{ trans('global.population_growth') }}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="filters-holder">
+    <div class="filters-holder mt-2">
         <div class="filters-header">
             <div class="left">
                 <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
@@ -32,58 +10,34 @@
         </div>
         <div class="form-holder">
             <div class="row">
-                <div class="col-md-3">
-                    <label class="custom-select" for="styledSelect1">
-                        <select id="styledSelect1" name="options">
-                            <option value="">
-                                {{ trans('global.national') }}
-                            </option>
-                            <option value="1" data-url="{{ route('growthRate') }}">
-                                {{ trans('global.all_districts') }}
-                            </option>
-
-                        </select>
-                    </label>
-                </div>
+                {{-- <div class="col-md-3">
+                <label class="custom-select" for="styledSelect1">
+                    <select id="styledSelect1" name="options">
+                        <option value="">
+                            {{ trans('global.national') }}
+                        </option>
+                        <option value="">
+                            {{ trans('global.all_districts') }}
+                        </option>
+                    </select>
+                </label>
+            </div> --}}
                 <div class="col-md-3">
                     <label class="custom-select" for="styledSelect2">
                         <select id="styledSelect2" name="options">
-                            <option value="">
-                                {{ trans('global.all_provinces') }}
-                            </option>
-                            <option value="1" data-url="{{ url('/provinceGrowthRate/Niassa') }}">
-                                Niassa
-                            </option>
-                            <option value="2" data-url="{{ url('/provinceGrowthRate/Tete') }}">
-                                Tete
-                            </option>
-                            <option value="3" data-url="{{ url('/provinceGrowthRate/Nampula') }}">
-                                Nampula
-                            </option>
-                            <option value="4" data-url="{{ url('/provinceGrowthRate/Cabo Delgado') }}">
-                                Cabo Delgado
-                            </option>
-                            <option value="5" data-url="{{ url('/provinceGrowthRate/Zambezia') }}">
-                                Zambezia
-                            </option>
-                            <option value="6" data-url="{{ url('/provinceGrowthRate/Manica') }}">
-                                Manica
-                            </option>
-                            <option value="7" data-url="{{ url('/provinceGrowthRate/Sofala') }}">
-                                Sofala
-                            </option>
-                            <option value="8" data-url="{{ url('/provinceGrowthRate/Inhambane') }}">
-                                Inhambane
-                            </option>
-                            <option value="9" data-url="{{ url('/provinceGrowthRate/Gaza') }}">
-                                Gaza
-                            </option>
-                            <option value="10" data-url="{{ url('/provinceGrowthRate/Maputo Cidade') }}">
-                                Maputo Cidade
-                            </option>
-                            <option value="11" data-url="{{ url('/provinceGrowthRate/Maputo Provincia') }}">
-                                Maputo Provincia
-                            </option>
+                            <option value="">{{ trans('global.all_provinces') }}</option>
+                            <option value="">{{ trans('global.all_districts') }}</option>
+                            <option value="Niassa">Niassa</option>
+                            <option value="Tete">Tete</option>
+                            <option value="Nampula">Nampula</option>
+                            <option value="Cabo Delgado">Cabo Delgado</option>
+                            <option value="Zambezia">Zambezia</option>
+                            <option value="Manica">Manica</option>
+                            <option value="Sofala">Sofala</option>
+                            <option value="Inhambane">Inhambane</option>
+                            <option value="Gaza">Gaza</option>
+                            <option value="Maputo Cidade">Maputo Cidade</option>
+                            <option value="Maputo Provincia">Maputo Provincia</option>
                         </select>
                     </label>
                 </div>
@@ -97,15 +51,38 @@
                 </label>
             </div> --}}
                 <div class="col-md-2">
-                    <input type="submit" value="{{ trans('global.search')}}" class="search-btn" onclick="performSearch()">
+                    <input type="submit" value="{{ trans('global.search') }}" class="search-btn" onclick="performSearch()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-holdder">
+        <div class="row">
+            <div class="col">
+                <div class="counter-box male-population">
+                    <div class="counter" id="total_population">2.7 M</div>
+                    <h2>{{ trans('global.total_population') }}</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="counter-box female-population">
+                    <div class="counter" id="sex_ratio_by_birth">0.0</div>
+                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
+                </div>
+            </div>
+            <div class="col">
+                <div class="counter-box total-population">
+                    <div class="counter" id="population_growth_rate">105</div>
+                    <h2>{{ trans('global.population_growth') }}</h2>
                 </div>
             </div>
         </div>
     </div>
 
+
     <div class="graphs-row">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="map-holder">
                     <h2>{{ trans('global.mozambique-map') }}</h2>
                     <div class="box-body">
@@ -130,18 +107,6 @@
 
 
     <script>
-        // Set the desired province to show (set to null or an empty string to show all provinces)
-        const desiredProvince =
-            @json($province); // Change this to the desired province or set to null/empty string
-
-        // Filter features based on the "Provincia" property if a specific province is set
-        const filteredFeatures = desiredProvince ?
-            mozambiquefulldistricts.features.filter(feature => feature.properties.Provincia === desiredProvince) :
-            mozambiquefulldistricts.features;
-
-        // Update the original GeoJSON data with the filtered features
-        mozambiquefulldistricts.features = filteredFeatures;
-
         var translations = {
             total_population: '{{ __('global.total_population') }}',
             men_population: '{{ __('global.mens_population') }}',
@@ -149,9 +114,7 @@
             Growth_Rate: '{{ __('global.growth_rate') }}',
 
         };
-
-
-
+        var desiredProvince;
 
         function getProvinceCoordinates(province) {
             // Replace this with logic to get coordinates based on the selected province
@@ -241,7 +204,7 @@
             const provinceCoordinates = getProvinceCoordinates(desiredProvince);
             map2 = L.map('map2', {
                 center: provinceCoordinates,
-                zoom: 6.5,
+                zoom: 5,
                 minZoom: 4,
                 maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
@@ -258,17 +221,13 @@
         } else {
             map2 = L.map('map2', {
                 center: [-19.00, 34.00],
-                zoom: 5,
-                minZoom: 4,
+                zoom: 5.1,
+                minZoom: 5.4,
                 maxZoom: 9,
                 scrollWheelZoom: true // Disable global scroll wheel zoom initially
             });
+
         }
-
-
-        L.geoJson(mozambiquefulldistricts, {
-            style: style
-        }).addTo(map2);
 
         // Define global variable to track the highlighted layer
         var highlightedLayer;
@@ -297,12 +256,30 @@
             // info.update();
             map2.closePopup();
         }
-        var geojson;
-        // ... our listeners
-        geojson = L.geoJson(mozambiquefulldistricts);
 
         function zoomToFeature(e) {
-            map2.fitBounds(e.target.getBounds());
+            // map2.fitBounds(e.target.getBounds());
+            const layer = e.target;
+            const id_of_districts = layer.feature.properties.id;
+
+            const dataFromServer = @json($population_data);
+
+            // Filter data to include only records where id is equal to id_of_districts
+            const filteredData = dataFromServer.filter(function(record) {
+                return record.id === id_of_districts;
+            });
+
+            const popID = filteredData[0].id;
+
+            // Three box Total Population
+            var popTotalValue = filteredData[0].Pop_Total;
+            // Three box Growth Rate Population
+            var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
+            // Three box Growth Rate Population
+            var popSexRatioBybirth = 0.0;
+            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate);
+
+
         }
 
         function onEachFeature(feature, layer) {
@@ -326,8 +303,8 @@
                     html: nameOfDistrict,
                 });
 
-                  // Create a marker with the custom icon
-                  const labelMarker = L.marker(layer1.getBounds().getCenter(), {
+                // Create a marker with the custom icon
+                const labelMarker = L.marker(layer1.getBounds().getCenter(), {
                     icon: customIcon
                 });
 
@@ -351,12 +328,22 @@
             }
         }
 
-
+        var geojson;
         geojson = L.geoJson(mozambiquefulldistricts, {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map2);
 
+
+
+        // Add event listeners after creating the geojson layer
+        geojson.on('mouseover', function() {
+            map2.scrollWheelZoom.enable();
+        });
+
+        geojson.on('mouseout', function() {
+            map2.scrollWheelZoom.disable();
+        });
         var info = L.control();
 
         info.onAdd = function(map2) {
@@ -391,31 +378,99 @@
         };
 
         legend.addTo(map2);
-        geojson.on('mouseover', function() {
-            map2.scrollWheelZoom.enable();
-        });
-
-        geojson.on('mouseout', function() {
-            map2.scrollWheelZoom.disable();
-        });
 
         function performSearch() {
-            // Get selected option for styledSelect1
-            var selectedOption1 = document.getElementById('styledSelect1');
-            var selectedUrl1 = selectedOption1.options[selectedOption1.selectedIndex].getAttribute('data-url');
-
             // Get selected option for styledSelect2
             var selectedOption2 = document.getElementById('styledSelect2');
-            var selectedUrl2 = selectedOption2.options[selectedOption2.selectedIndex].getAttribute('data-url');
+            var selectedProvince = selectedOption2.options[selectedOption2.selectedIndex].value;
 
-            // Use selected URL for redirection
-            if (selectedUrl1) {
-                window.location.href = selectedUrl1;
-            } else if (selectedUrl2) {
-                window.location.href = selectedUrl2;
-            } else {
-                alert('Please select an option.');
+            // Update the desiredProvince variable with the selected province
+            desiredProvince = selectedProvince;
+            console.log("This is desired Province : " + desiredProvince);
+
+            // Update the map based on the selected province
+            updateMap();
+            legend.addTo(map2);
+        }
+
+        function updateMap() {
+            // Clear existing GeoJSON layer
+            if (map2) {
+                map2.remove(); // Remove the existing map instance
             }
+            map2.removeLayer(geojson);
+
+            // Get coordinates for the selected province
+            const provinceCoordinates = getProvinceCoordinates(desiredProvince);
+
+            // Create or update the map
+            if (desiredProvince) {
+                map2 = L.map('map2', {
+                    center: provinceCoordinates,
+                    zoom: 6.5,
+                    minZoom: 4,
+                    maxZoom: 9,
+                    scrollWheelZoom: true
+                });
+
+                // Check if the desired province is "Maputo Cidade"
+                if (desiredProvince === "Maputo Cidade") {
+                    // Adjust zoom levels for Maputo Cidade
+                    map2.setMinZoom(10);
+                    map2.setMaxZoom(12);
+                    map2.setZoom(20);
+                }
+            } else {
+                map2 = L.map('map2', {
+                    center: [-19.00, 34.00],
+                    zoom: 5.1,
+                    minZoom: 5.4,
+                    maxZoom: 9,
+                    scrollWheelZoom: true
+                });
+
+                // If desiredProvince is empty, add the GeoJSON layer with all features
+                geojson = L.geoJson(mozambiquefulldistricts, {
+                    style: style,
+                    onEachFeature: onEachFeature
+                }).addTo(map2);
+                geojson.on('mouseover', function() {
+                    map2.scrollWheelZoom.enable();
+                });
+
+                geojson.on('mouseout', function() {
+                    map2.scrollWheelZoom.disable();
+                });
+                return; // Exit the function as we don't need to filter features further
+            }
+
+            // Filter the features based on the selected province
+            const filteredFeatures = desiredProvince ?
+                mozambiquefulldistricts.features.filter(feature => feature.properties.Provincia === desiredProvince) :
+                mozambiquefulldistricts.features;
+
+            // Add the new GeoJSON layer with filtered features to the map
+            geojson = L.geoJson(filteredFeatures, {
+                style: style,
+                onEachFeature: onEachFeature
+            }).addTo(map2);
+
+            geojson.on('mouseover', function() {
+                map2.scrollWheelZoom.enable();
+            });
+
+            geojson.on('mouseout', function() {
+                map2.scrollWheelZoom.disable();
+            });
+            legend.addTo(map2);
+
+        }
+
+        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate) {
+            // Update the innerHTML of the counter elements with the provided values
+            document.getElementById('total_population').innerHTML = popTotalValue;
+            document.getElementById('sex_ratio_by_birth').innerHTML = popSexRatioBybirth;
+            document.getElementById('population_growth_rate').innerHTML = popGrowthRate;
         }
     </script>
 @endsection
