@@ -12,8 +12,8 @@
     {{-- leaflet css --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css">
     {{-- end leaflet  css --}}
-
-
+    {{-- this is for icon loader --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google Font: Source Sans Pro -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

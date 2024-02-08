@@ -52,8 +52,12 @@
                 </label>
             </div> --}}
                 <div class="col-md-2">
-                    <input type="submit" value="{{ trans('global.search') }}" class="search-btn" onclick="performSearch()">
+                    <button class="search-btn" onclick="performSearch()">
+                        {{ trans('global.search') }}
+                        <i id="loader" class="fa fa-spinner fa-spin" style="display: none;"></i>
+                    </button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -61,19 +65,19 @@
         <div class="row">
             <div class="col">
                 <div class="counter-box male-population">
-                    <div class="counter" id="total_population">2.7 M</div>
+                    <div class="counter" id="total_population">27.86 M</div>
                     <h2>{{ trans('global.total_population') }}</h2>
                 </div>
             </div>
             <div class="col">
                 <div class="counter-box female-population">
-                    <div class="counter" id="sex_ratio_by_birth">0.0</div>
+                    <div class="counter" id="sex_ratio_by_birth">105</div>
                     <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
                 </div>
             </div>
             <div class="col">
                 <div class="counter-box total-population">
-                    <div class="counter" id="population_growth_rate">105</div>
+                    <div class="counter" id="population_growth_rate">2.6</div>
                     <h2>{{ trans('global.population_growth') }}</h2>
                 </div>
             </div>
@@ -553,12 +557,22 @@
 
             // Update the desiredProvince variable with the selected province
             desiredProvince = selectedProvince;
-            // console.log("This is desired Province : " + desiredProvince);
 
-            // Update the map based on the selected province
-            updateMap();
-            legend.addTo(map2);
+            // Show the loader and hide the button text
+            document.getElementById('loader').style.display = 'inline-block';
+            // Hide the loader after 2 seconds
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+            }, 2000);
+            // Delay the updateMap function by 2 seconds
+            setTimeout(function() {
+                // Update the map based on the selected province
+                updateMap();
+            }, 2000);
         }
+
+
+
 
         function updateMap() {
             // Clear existing GeoJSON layer
