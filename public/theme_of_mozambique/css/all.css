@@ -245,6 +245,7 @@ ul.navigation li.active a {
     align-items: center;
     justify-content: space-between;
     padding: 7px 20px;
+    display: none;
 }
 .filters-header span {
     color: #fff;
@@ -263,7 +264,7 @@ ul.navigation li.active a {
     position: relative;
     display: block;
     width: 100%;
-    margin: 0 auto 15px;
+    margin: 0 auto 10px;
     border: 1px solid #e6e6e6;
     background-color: #fff;
     z-index: 10;

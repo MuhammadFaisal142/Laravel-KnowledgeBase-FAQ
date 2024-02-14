@@ -61,52 +61,52 @@
             </div>
         </div>
     </div>
-    <div class="content-holdder">
-        <div class="row">
-            <div class="col">
-                <div class="counter-box male-population">
-                    <div class="counter" id="total_population">27.86 M</div>
-                    <h2>{{ trans('global.total_population') }}</h2>
-                </div>
-            </div>
-            <div class="col">
-                <div class="counter-box female-population">
-                    <div class="counter" id="sex_ratio_by_birth">105</div>
-                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
-                </div>
-            </div>
-            <div class="col">
-                <div class="counter-box total-population">
-                    <div class="counter" id="population_growth_rate">2.6</div>
-                    <h2>{{ trans('global.population_growth') }}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <div class="graphs-row">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="content-holdder">
+                    <div class="row">
+                        <div class="col">
+                            <div class="counter-box male-population">
+                                <div class="counter" id="total_population">27.864 M</div>
+                                <h2>{{ trans('global.total_population') }}</h2>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="counter-box female-population">
+                                <div class="counter" id="sex_ratio_by_birth">105</div>
+                                <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="counter-box total-population">
+                                <div class="counter" id="population_growth_rate">2.6</div>
+                                <h2>{{ trans('global.population_growth') }}</h2>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="counter-box total-population">
+                                <div class="counter" id="population_density">40.3</div>
+                                <h2>{{ trans('global.population_density') }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-6 mb-2">
+                            <div class="counter" id="totalDependencyRatioRate"></div>
+                        </div>
+                        <div class="col-md-12 col-sm-6 mb-2" >
+                            <div class="counter" id="totalIlliteracyRate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
                 <div class="map-holder">
                     <h2>{{ trans('global.mozambique-map') }}</h2>
                     <div class="box-body mb-2">
                         <div id="map2" style="height: 600px"></div>
                     </div>
                 </div>
-            </div>
-
-
-            {{-- <div class="col-md-2">
-                <div class="row">
-
-                </div>
-            </div> --}}
-        </div>
-    </div>
-    <div class="graphs-row">
-        <div class="row">
-            <div class="col-md-12">
                 <div class="map-holder">
                     <h2>{{ trans('global.population-contribution') }}</h2>
                     <div class="row">
@@ -134,16 +134,23 @@
             </div>
         </div>
     </div>
+    {{-- <div class="graphs-row">
+        <div class="row">
+
+        </div>
+    </div> --}}
 
 
     <div class="graphs-row">
         <div class="row">
             <div class="col-md-12">
+                <h2><span><img src="{{ asset('theme_of_mozambique/img/male.png') }}"
+                            alt=""></span>{{ trans('global.mens_population') }}</h2>
                 <div class="chart-visual">
-                    <h2> <span><img src="{{ asset('theme_of_mozambique/img/male.png') }}"
-                                alt=""></span>{{ trans('global.mens_population') }}</h2>
+
                     <div class="chart-holder" id="malePopulation"></div>
                 </div>
+
             </div>
             {{-- <div class="col-md-6">
                 <div class="chart-visual">
@@ -407,8 +414,27 @@
             // Three box Growth Rate Population
             var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
             // Three box Growth Rate Population
-            var popSexRatioBybirth = parseFloat(0.0);
-            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate);
+            var popSexRatioBybirth = 105;
+            // Three box  Population Density
+            var populationDensity = filteredData[0].Densidade;
+
+            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate, populationDensity);
+
+            // bar charts of the dependency ratio of 0-14 65+ all
+            var totalDependencyRatio = filteredData[0].TaxaDep_01465_total;
+            var youthDependencyRatioZeroToFourteen = filteredData[0].TaxaDep_014_total;
+            var elderlyDependencyRatioSixtyFiveAbove = filteredData[0].TaxaDep_65_total;
+            updatedPopulationDependencyRatio(totalDependencyRatio, youthDependencyRatioZeroToFourteen,
+                elderlyDependencyRatioSixtyFiveAbove);
+
+
+            // Illiteracy Rate by Sex,District
+            var TotalIlliteracyRate = filteredData[0].Taxa_Analf_Tot;
+            var MenIlliteracyRate = filteredData[0].Taxa_Analf_Hom;
+            var woMenIlliteracyRate = filteredData[0].Taxa_Analf_Mulh;
+            updatedPopulation_total_Illiteracy_Rate(TotalIlliteracyRate, MenIlliteracyRate,
+                woMenIlliteracyRate);
+
             // Pie charts total population
             var grupIdad_014_Total = filteredData[0].GrupIdad_014_Total;
             var grupIdad_1564_Total = filteredData[0].GrupIdad_1564_Total;
@@ -1244,11 +1270,101 @@
 
         }
 
-        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate) {
+        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate, populationDensity) {
             // Update the innerHTML of the counter elements with the provided values
             document.getElementById('total_population').innerHTML = popTotalValue;
             document.getElementById('sex_ratio_by_birth').innerHTML = popSexRatioBybirth;
             document.getElementById('population_growth_rate').innerHTML = popGrowthRate;
+            document.getElementById('population_density').innerHTML = populationDensity;
+        }
+
+        function updatedPopulationDependencyRatio(totalDependencyRatio, youthDependencyRatioZeroToFourteen,
+            elderlyDependencyRatioSixtyFiveAbove) {
+            // Convert strings to numbers
+            totalDependencyRatio = parseFloat(totalDependencyRatio);
+            youthDependencyRatioZeroToFourteen = parseFloat(youthDependencyRatioZeroToFourteen);
+            elderlyDependencyRatioSixtyFiveAbove = parseFloat(elderlyDependencyRatioSixtyFiveAbove);
+            // total Dependency Ratio Rate Bar charts of the Total population
+            Highcharts.chart('totalDependencyRatioRate', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#DDDDDD'
+                },
+                title: {
+                    text: 'Total Dependency rate by sex and age groups by district',
+                    align: 'left'
+                },
+                tooltip: {
+                    valueSuffix: ' (1000 MT)'
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                series: [{
+                        name: 'Total Ratio ',
+                        data: [totalDependencyRatio]
+                    },
+                    {
+                        name: 'Youth Ratio (0-14)',
+                        data: [youthDependencyRatioZeroToFourteen]
+                    },
+                    {
+                        name: 'Elderly Ratio (65+)',
+                        data: [elderlyDependencyRatioSixtyFiveAbove]
+                    }
+                ]
+            });
+        }
+
+        // total Illiteracy Rate bar charts
+
+        function updatedPopulation_total_Illiteracy_Rate(TotalIlliteracyRate, MenIlliteracyRate, woMenIlliteracyRate) {
+            // Convert strings to numbers
+            TotalIlliteracyRate = parseFloat(TotalIlliteracyRate);
+            MenIlliteracyRate = parseFloat(MenIlliteracyRate);
+            woMenIlliteracyRate = parseFloat(woMenIlliteracyRate);
+            // total Dependency Ratio Rate Bar charts of the Total population
+            Highcharts.chart('totalIlliteracyRate', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#DDDDDD'
+                },
+                title: {
+                    text: 'Illiteracy Rate by Sex,District',
+                    align: 'left'
+                },
+                tooltip: {
+                    valueSuffix: ' (1000 MT)'
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                series: [{
+                        name: 'Total Illiteracy Rate',
+                        data: [TotalIlliteracyRate]
+                    },
+                    {
+                        name: 'Men Illiteracy Rate',
+                        data: [MenIlliteracyRate]
+                    },
+                    {
+                        name: 'Women Illiteracy Rate',
+                        data: [woMenIlliteracyRate]
+                    }
+                ]
+            });
         }
     </script>
 @endsection

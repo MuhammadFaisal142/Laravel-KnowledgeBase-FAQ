@@ -288,4 +288,6 @@ return [
     'filter' => 'Filtro',
     'search' => 'Procurar',
     'all_districts' => 'Todos os distritos',
+    'population_density' => 'Densidade populacional',
+    'education' => 'Educação',
 ];

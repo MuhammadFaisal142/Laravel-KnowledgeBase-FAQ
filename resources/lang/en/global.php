@@ -288,5 +288,7 @@ return [
     'all_districts' => 'All Districts',
     'search' => 'Search',
     'filter' => 'Filter',
+    'population_density' => 'Population density',
+    'education' => 'Education',
 
 ];

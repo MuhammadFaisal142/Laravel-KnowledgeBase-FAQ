@@ -15,10 +15,9 @@ Auth::routes(['register' => false]);
 
 // Route::get('/', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@home')->name('home');
-Route::get('/province/{province?}', 'HomeController@province')->name('province');
-Route::get('/provinceGrowthRate/{province?}', 'HomeController@provinceGrowthRate')->name('provinceGrowthRate');
-// Route::get('/housing', 'HomeController@housing')->name('housing');
+
 Route::get('/growthRate', 'HomeController@growthrate')->name('growthRate');
+Route::get('/education', 'HomeController@education')->name('education');
 // Route::get('/testpic', 'HomeController@testpic')->name('testpic');
 
 Route::get('categories/check_slug', 'CategoryController@check_slug')->name('categories.check_slug');

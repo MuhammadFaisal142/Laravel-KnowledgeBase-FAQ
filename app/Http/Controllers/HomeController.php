@@ -16,27 +16,22 @@ class HomeController extends Controller
 
         return view('index', compact('categories'));
     }
-    public function home($province = null){
+    public function home(){
         $population_data = DB::table('districts_all_data_list')->get();
         // $population_Districts = DB::table('population_district')->get();
-        return view('Home.home', compact('population_data', 'province'));
+        return view('Home.home', compact('population_data'));
     }
-    public function growthrate($province = null){
+    public function growthrate(){
         $population_data = DB::table('districts_all_data_list')->get();
         // $population_Districts = DB::table('population_district')->get();
-        return view('Home.growth_rate', compact('population_data', 'province'));
+        return view('Home.growth_rate', compact('population_data'));
+    }
+    public function education(){
+        $population_data = DB::table('districts_all_data_list')->get();
+        // $population_Districts = DB::table('population_district')->get();
+        return view('Home.education', compact('population_data'));
     }
 
-    public function provinceGrowthRate($province){
-        $population_data = DB::table('districts_all_data_list')->get();
-        // $population_Districts = DB::table('population_district')->get();
-        return view('Home.growth_rate', compact('population_data', 'province'));
-    }
-    public function province($province){
-        $population_data = DB::table('districts_all_data_list')->get();
-        // $population_Districts = DB::table('population_district')->get();
-        return view('Home.home', compact('population_data', 'province'));
-    }
 
     public function housing(){
         return view('Home.threeChart');

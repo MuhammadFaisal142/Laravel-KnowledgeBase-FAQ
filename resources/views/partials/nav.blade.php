@@ -15,8 +15,9 @@
     </div>
     <div class="navigation-holder">
         <ul class="navigation">
-            <li class="active"><a href="{{ route('home') }}">{{ trans('global.home') }}</a></li>
+            <li><a href="{{ route('home') }}">{{ trans('global.home') }}</a></li>
             <li><a href="{{ route('growthRate') }}">{{ trans('global.growth_rate') }}</a></li>
+            <li><a href="{{ route('education') }}">{{ trans('global.education') }}</a></li>
         </ul>
         <div class="mobiles">
             <ul class="countries">
