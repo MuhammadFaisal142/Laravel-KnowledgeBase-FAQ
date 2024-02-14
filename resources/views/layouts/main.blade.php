@@ -35,63 +35,10 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     {{-- leaflet js end --}}
 
+
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.2.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/ol@v8.2.0/dist/ol.js"></script> --}}
-    <style>
-        /* #map2 {
-            height: 400px;
-        } */
 
-        .info {
-            padding: 6px 8px;
-            font: 14px/16px Arial, Helvetica, sans-serif;
-            background: white;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        .info h4 {
-            margin: 0 0 5px;
-            color: #777;
-        }
-
-        .leaflet-control-attribution {
-            display: none;
-        }
-
-        .legend {
-            line-height: 18px;
-            color: #555;
-        }
-
-        .legend i {
-            width: 18px;
-            height: 18px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.7;
-        }
-
-        .table td {
-            text-align: center;
-            color: white;
-        }
-
-        .td-align-center {
-            text-align: center;
-            color: white;
-        }
-
-        /* .table1 tbody th,
-        .table1 tbody td {
-            color: white;
-        } */
-
-        .table tbody td {
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
@@ -125,7 +72,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     {{-- <script src="{{ asset('theme_of_mozambique/js/linecharts.js') }}"></script> --}}
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
     <script>
@@ -143,6 +91,171 @@
             },
             title: {
                 text: 'Population pyramid for mozambique, 2023'
+            },
+            credits: {
+                enabled: false // Hide the credits
+            },
+            subtitle: {
+                text: 'Source: <a href="http://populationpyramid.net/germany/2018/">Population Pyramids of the World from 1950 to 2100</a>'
+            },
+            xAxis: [{
+                categories: categories,
+                reversed: false,
+                labels: {
+                    step: 1
+                }
+            }, { // mirror axis on right side
+                opposite: true,
+                reversed: false,
+                categories: categories,
+                linkedTo: 0,
+                labels: {
+                    step: 1
+                }
+            }],
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function() {
+                        return Math.abs(this.value) + '%';
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            tooltip: {
+                formatter: function() {
+                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 2);
+                }
+            },
+
+            series: [{
+                name: 'Male',
+                data: [
+                    -2.2, -2.1, -2.2, -2.4,
+                    -2.7, -3.0, -3.3, -3.2,
+                    -2.9, -3.5, -4.4, -4.1,
+                    -13.4, -2.7, -2.3, -2.2,
+                    -1.6, -0.6, -0.3, -0.0,
+                    -0.0
+                ]
+            }, {
+                name: 'Female',
+                data: [
+                    2.1, 2.0, 2.1, 2.3, 2.6,
+                    2.9, 3.2, 3.1, 2.9, 3.4,
+                    14.3, 4.0, 3.5, 2.9, 2.5,
+                    2.7, 2.2, 1.1, 0.6, 0.2,
+                    0.0
+                ]
+            }]
+        });
+        var categories = [
+            '0-4', '5-9', '10-14', '15-19',
+            '20-24', '25-29', '30-34', '35-39', '40-44',
+            '45-49', '50-54', '55-59', '60-64', '65-69',
+            '70-74', '75-79', '80-84', '85-89', '90-94',
+            '95-99', '100 + '
+        ];
+
+        Highcharts.chart('dependency1', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Population pyramid for mozambique, 2023'
+            },
+            credits: {
+                enabled: false // Hide the credits
+            },
+            subtitle: {
+                text: 'Source: <a href="http://populationpyramid.net/germany/2018/">Population Pyramids of the World from 1950 to 2100</a>'
+            },
+            xAxis: [{
+                categories: categories,
+                reversed: false,
+                labels: {
+                    step: 1
+                }
+            }, { // mirror axis on right side
+                opposite: true,
+                reversed: false,
+                categories: categories,
+                linkedTo: 0,
+                labels: {
+                    step: 1
+                }
+            }],
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function() {
+                        return Math.abs(this.value) + '%';
+                    }
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+
+            tooltip: {
+                formatter: function() {
+                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 2);
+                }
+            },
+
+            series: [{
+                name: 'Male',
+                data: [
+                    -2.2, -2.1, -2.2, -2.4,
+                    -2.7, -3.0, -3.3, -3.2,
+                    -2.9, -3.5, -4.4, -4.1,
+                    -13.4, -2.7, -2.3, -2.2,
+                    -1.6, -0.6, -0.3, -0.0,
+                    -0.0
+                ]
+            }, {
+                name: 'Female',
+                data: [
+                    2.1, 2.0, 2.1, 2.3, 2.6,
+                    2.9, 3.2, 3.1, 2.9, 3.4,
+                    14.3, 4.0, 3.5, 2.9, 2.5,
+                    2.7, 2.2, 1.1, 0.6, 0.2,
+                    0.0
+                ]
+            }]
+        });
+        var categories = [
+            '0-4', '5-9', '10-14', '15-19',
+            '20-24', '25-29', '30-34', '35-39', '40-44',
+            '45-49', '50-54', '55-59', '60-64', '65-69',
+            '70-74', '75-79', '80-84', '85-89', '90-94',
+            '95-99', '100 + '
+        ];
+
+        Highcharts.chart('dependency2', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Population pyramid for mozambique, 2023'
+            },
+            credits: {
+                enabled: false // Hide the credits
             },
             subtitle: {
                 text: 'Source: <a href="http://populationpyramid.net/germany/2018/">Population Pyramids of the World from 1950 to 2100</a>'

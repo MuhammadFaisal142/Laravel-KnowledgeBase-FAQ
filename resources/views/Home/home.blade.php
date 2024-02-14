@@ -65,11 +65,11 @@
     <div class="graphs-row">
         <div class="row">
             <div class="col-md-4">
-                <div class="content-holdder">
+                <div class="content-holdder content-holdder-box">
                     <div class="row">
                         <div class="col">
                             <div class="counter-box male-population">
-                                <div class="counter" id="total_population">27.864 M</div>
+                                <div class="counter" id="total_population">27.864</div>
                                 <h2>{{ trans('global.total_population') }}</h2>
                             </div>
                         </div>
@@ -92,11 +92,12 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-6 mb-2">
-                            <div class="counter" id="totalDependencyRatioRate"></div>
+                            <div class="counter" id="dependency1"></div>
                         </div>
                         <div class="col-md-12 col-sm-6 mb-2" >
-                            <div class="counter" id="totalIlliteracyRate"></div>
+                            <div class="counter" id="dependency2"></div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -107,39 +108,97 @@
                         <div id="map2" style="height: 600px"></div>
                     </div>
                 </div>
-                <div class="map-holder">
-                    <h2>{{ trans('global.population-contribution') }}</h2>
-                    <div class="row">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab"
+                            href="#population">{{ trans('global.population') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#marital_ratio">{{ trans('global.marital_Ratio') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab"
+                            href="#illiteracyRate">{{ trans('global.illiteracyRate') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#dependency">{{ trans('global.dependency') }}</a>
+                    </li>
+                </ul>
 
-                        <div class="col-md-4 col-sm-6">
-                            <div id="rev-chart1" class="counter mb-2"></div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+
+                    <div id="population" class="tab-pane active"><br>
+                        <h2>{{ trans('global.population-contribution') }}</h2>
+                        <div id="selectDistrictMessage" class="col-md-12">
+                            <p>Please select any district for population contribution.</p>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div id="rev-chart2" class="counter mb-2"></div>
+                        <div class="map-holder">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div id="rev-chart1" class="counter mb-2"></div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div id="rev-chart2" class="counter mb-2"></div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div id="rev-chart3" class="counter mb-2"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div id="rev-chart3" class="counter mb-2"></div>
+                    </div>
+                    <div id="marital_ratio" class="tab-pane fade"><br>
+                        <h2>{{ trans('global.marital_Ratio') }}</h2>
+                        <div id="selectMaritalMessage" class="col-md-12">
+                            <p>Please select any district for Marital Ratio.</p>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div id="chart_total_marital" class="counter mb-2"></div>
+                        <div class="map-holder">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div id="chart_total_marital" class="counter mb-2"></div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div id="chart_mens_marital" class="counter mb-2"></div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div id="chart_womens_marital" class="counter mb-2"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div id="chart_mens_marital" class="counter mb-2"></div>
+
+                    </div>
+                    <div id="illiteracyRate" class="tab-pane fade"><br>
+                        <h2>{{ trans('global.illiteracyRate') }}</h2>
+                        <div id="selectIlliteracyMessage" class="col-md-12">
+                            <p>Please select any district for Illiteracy Rate.</p>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div id="chart_womens_marital" class="counter mb-2"></div>
+                        <div class="map-holder">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="totalIlliteracyRate" class="counter mb-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dependency" class="tab-pane fade"><br>
+                        <h2>{{ trans('global.dependency') }}</h2>
+                        <div id="selectDependencyMessage" class="col-md-12">
+                            <p>Please select any district for Dependency.</p>
+                        </div>
+                        <div class="map-holder">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="totalDependencyRatioRate" class="counter mb-2"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
-    {{-- <div class="graphs-row">
-        <div class="row">
-
-        </div>
-    </div> --}}
-
 
     <div class="graphs-row">
         <div class="row">
@@ -164,64 +223,15 @@
 
 
 
-    <!-- START Map -->
-    <div class="container mt-10">
-        {{-- TABLE --}}
-        <div class="row">
-            {{-- <div class="col-12 ">
-                <div class="box">
-                    <div class="box-header with-border td-align-center  box-primary">
-                        <h4 class="box-title text-center text-white ">{{ trans('global.overall_conversion_rate') }}</h4>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-dark mb-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="td-align-center" class="text-white">
-                                            {{ trans('global.gender') }}</th>
-                                        <th scope="col" class="td-align-center">18-24</th>
-                                        <th scope="col" class="td-align-center">25-34</th>
-                                        <th scope="col" class="td-align-center">35-44</th>
-                                        <th scope="col" class="td-align-center">45-54</th>
-                                        <th scope="col" class="td-align-center">55-64</th>
-                                        <th scope="col" class="td-align-center">65+</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="td-align-center">{{ trans('global.female') }}</th>
-                                        <td style="background-color: #FED976; color: white;">14.3%</td>
-                                        <td style="background-color: #FD8D3C; color: white;">16.5%</td>
-                                        <td style="background-color: #FC4E2A; color: white;">18.6%</td>
-                                        <td style="background-color: #FEB24C; color: white;">18.7%</td>
-                                        <td style="background-color: #E31A1C; color: white;">15.9%</td>
-                                        <td style="background-color: #BD0026; color: white;">12.2%</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="td-align-center">{{ trans('global.male') }}</th>
-                                        <td style="background-color: #FEB24C; color: white;">16.3%</td>
-                                        <td style="background-color: #FD8D3C; color: white;">16.8%</td>
-                                        <td style="background-color: #FC4E2A; color: white;">16.0%</td>
-                                        <td style="background-color: #FEB24C; color: white;">16.6%</td>
-                                        <td style="background-color: #BD0026; color: white;">11.0%</td>
-                                        <td style="background-color: #BD0026; color: white;">8.6%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-                <!-- /.box -->
-            </div> --}}
+    <div class="container">
 
 
-            <!-- /.col-md-4 -->
-        </div>
-        <!-- /.row -->
+
     </div>
+
+
+    <!-- /.row -->
+
     <!-- /.container -->
 
 
@@ -682,6 +692,7 @@
             grupIdad_014_homens,
             grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres, grupIdad_65_mulheres) {
 
+            document.getElementById('selectDistrictMessage').style.display = 'none';
             // Check if the charts exist and destroy them
             if (window.chartTotalPopulation) {
                 window.chartTotalPopulation.destroy();
@@ -946,6 +957,7 @@
             solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres, viuvo_mulheres
         ) {
 
+            document.getElementById('selectMaritalMessage').style.display = 'none';
 
             // Check if the charts exist and destroy them
             if (window.chartTotalMarital) {
@@ -1280,6 +1292,7 @@
 
         function updatedPopulationDependencyRatio(totalDependencyRatio, youthDependencyRatioZeroToFourteen,
             elderlyDependencyRatioSixtyFiveAbove) {
+            document.getElementById('selectDependencyMessage').style.display = 'none';
             // Convert strings to numbers
             totalDependencyRatio = parseFloat(totalDependencyRatio);
             youthDependencyRatioZeroToFourteen = parseFloat(youthDependencyRatioZeroToFourteen);
@@ -1291,11 +1304,15 @@
                     backgroundColor: '#DDDDDD'
                 },
                 title: {
-                    text: 'Total Dependency rate by sex and age groups by district',
+                    text: 'Total Dependency rate by sex and age groups by District',
                     align: 'left'
                 },
-                tooltip: {
-                    valueSuffix: ' (1000 MT)'
+                xAxis: {
+                    categories: ['Dependency', 'Men', 'Women'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Districts'
+                    }
                 },
                 plotOptions: {
                     column: {
@@ -1325,6 +1342,8 @@
         // total Illiteracy Rate bar charts
 
         function updatedPopulation_total_Illiteracy_Rate(TotalIlliteracyRate, MenIlliteracyRate, woMenIlliteracyRate) {
+
+            document.getElementById('selectIlliteracyMessage').style.display = 'none';
             // Convert strings to numbers
             TotalIlliteracyRate = parseFloat(TotalIlliteracyRate);
             MenIlliteracyRate = parseFloat(MenIlliteracyRate);
@@ -1336,11 +1355,15 @@
                     backgroundColor: '#DDDDDD'
                 },
                 title: {
-                    text: 'Illiteracy Rate by Sex,District',
+                    text: 'Illiteracy Rate by Sex and age groups by District',
                     align: 'left'
                 },
-                tooltip: {
-                    valueSuffix: ' (1000 MT)'
+                xAxis: {
+                    categories: ['Illiteracy', 'Men', 'Women'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Districts'
+                    }
                 },
                 plotOptions: {
                     column: {

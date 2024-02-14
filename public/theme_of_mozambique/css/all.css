@@ -172,26 +172,29 @@ ul.navigation li.active a {
     padding: 0 3px;
 }
 .content-holdder {
-    padding: 30px 30px 0;
+    padding: 30px 0;
+}
+.content-holdder-box .col{
+    padding: 3px;
 }
 
 .counter-box {
     border: 1px solid #d0d9e3;
     border-radius: 15px;
     margin-bottom: 30px;
-    padding: 30px 20px;
+    padding: 15px 10px;
     text-align: center;
     background-size: cover;
 }
 .counter-box .counter {
-    font-size: 30px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 800;
     color: #fff;
     text-align: center;
 }
 .counter-box h2 {
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 13px;
+    /* font-weight: 40; */
     color: #fff;
     text-align: center;
 
@@ -204,9 +207,9 @@ ul.navigation li.active a {
     border-radius: 50px;
     border-bottom-left-radius: 0;
     border: 1px dashed #fff;
-    padding: 5px 40px;
+    padding: 1px 8px;
     display: inline-block;
-    margin: 0 auto 10px;
+    margin: 0 auto 5px;
 }
 .male-population {
     background:  url('../img/box-bg.png') 0px 0px no-repeat #04a8fa;
@@ -438,3 +441,67 @@ ul.navigation li.active a {
 
 
 
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.leaflet-control-attribution {
+    display: none;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.table td {
+    text-align: center;
+    color: white;
+}
+
+.td-align-center {
+    text-align: center;
+    color: white;
+}
+
+/* .table1 tbody th,
+.table1 tbody td {
+    color: white;
+} */
+
+.table tbody td {
+    font-weight: bold;
+}
+
+/* Add this CSS to your stylesheet or in a style tag within your HTML */
+
+/* Add border to the sides and bottom of the active tab content */
+.tab-content .tab-pane.active {
+    border-left: 1px solid #ccc;
+    /* Adjust the color and size of the left border */
+    border-right: 1px solid #ccc;
+    /* Adjust the color and size of the right border */
+    border-bottom: 1px solid #ccc;
+    /* Adjust the color and size of the bottom border */
+    padding: 10px;
+    /* Add padding for better visual appearance */
+}

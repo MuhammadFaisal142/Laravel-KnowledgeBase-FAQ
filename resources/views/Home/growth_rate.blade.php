@@ -62,11 +62,11 @@
     <div class="graphs-row">
         <div class="row">
             <div class="col-md-4">
-                <div class="content-holdder">
+                <div class="content-holdder content-holdder-box">
                     <div class="row">
                         <div class="col">
                             <div class="counter-box male-population">
-                                <div class="counter" id="total_population">27.864 M</div>
+                                <div class="counter" id="total_population">27.864</div>
                                 <h2>{{ trans('global.total_population') }}</h2>
                             </div>
                         </div>
