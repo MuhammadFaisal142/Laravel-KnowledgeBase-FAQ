@@ -114,18 +114,27 @@
                         <div class="col-md-4">
                             <div class="chart-visual totals">
                                 {{-- chart total population --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div class="chart-holder" id="rev-chart1"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="chart-visual totals">
                                 {{-- chart  mens population --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div class="chart-holder" id="rev-chart2"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="chart-visual totals">
                                 {{-- chart womens population --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div class="chart-holder" id="rev-chart3"></div>
                             </div>
                         </div>
@@ -133,21 +142,31 @@
                 </div>
                 <div id="marital_ratio" class="tab-pane fade">
                     <div class="row">
+
                         <div class="col-md-4">
                             <div class="chart-visual totals">
                                 {{-- chart marital ratio Total  --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div id="chart_total_marital"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="chart-visual totals">
                                 {{-- chart marital ratio men --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div id="chart_mens_marital"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="chart-visual totals">
                                 {{-- chart  marital ratio Women --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div id="chart_womens_marital"></div>
                             </div>
                         </div>
@@ -158,6 +177,9 @@
                         <div class="col-md-6">
                             <div class="chart-visual totals">
                                 {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div id="totalIlliteracyRate"></div>
                             </div>
                         </div>
@@ -173,6 +195,9 @@
                         <div class="col-md-6">
                             <div class="chart-visual totals">
                                 {{-- dependency rate of   --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
                                 <div id="totalDependencyRatioRate"></div>
                             </div>
                         </div>
@@ -903,7 +928,7 @@
             solteiro_homens, casado_homens, uniao_Marital_homens, divorciado_Separado_homens, viuvo_homens,
             solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres, viuvo_mulheres
         ) {
-
+            removeEmptyMessage();
             // Check if the charts exist and destroy them
             if (window.chartTotalMarital) {
                 window.chartTotalMarital.destroy();
@@ -1332,5 +1357,14 @@
                 ]
             });
         }
+
+        function removeEmptyMessage() {
+            // Get all elements with class 'emptyMessage' and set their display property to 'none'
+            var emptyMessages = document.getElementsByClassName('emptyMessage');
+            for (var i = 0; i < emptyMessages.length; i++) {
+                emptyMessages[i].style.display = 'none';
+            }
+        }
+
     </script>
 @endsection

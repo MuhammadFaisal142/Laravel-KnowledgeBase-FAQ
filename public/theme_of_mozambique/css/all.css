@@ -343,6 +343,9 @@ ul.navigation li.active a {
     border-radius: 15px;
     overflow: hidden;
 }
+.emptyMessage{
+    text-align: center;
+}
 .chart-visual h2 span {
     padding-right: 7px;
 }
