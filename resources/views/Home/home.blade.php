@@ -1,29 +1,42 @@
 @extends('layouts.main')
-
 @section('content')
-    <div class="filters-holder mt-2">
-        <div class="filters-header">
-            <div class="left">
-                <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
-                <span>{{ trans('global.filter') }}</span>
+    <div class="content-holdder">
+        <div class="row">
+            <div class="col-12 col-sm">
+                <div class="counter-box male-population">
+                    <div class="counter" id="total_population">27.864</div>
+                    <h2>{{ trans('global.total_population') }}</h2>
+                </div>
             </div>
-            <div class="plus-icon">+</div>
+            <div class="col-12 col-sm">
+                <div class="counter-box female-population">
+                    <div class="counter" id="sex_ratio_by_birth">105</div>
+                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
+                </div>
+            </div>
+            <div class="col-12 col-sm">
+                <div class="counter-box total-population">
+                    <div class="counter" id="population_growth_rate">2.6</div>
+                    <h2>{{ trans('global.population_growth') }}</h2>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm">
+                <div class="counter-box population_density">
+                    <div class="counter" id="population_density">40.3</div>
+                    <h2>{{ trans('global.population_density') }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filters-holder">
+        <div class="filters-header">
+
         </div>
         <div class="form-holder">
             <div class="row">
-                {{-- <div class="col-md-3">
-                <label class="custom-select" for="styledSelect1">
-                    <select id="styledSelect1" name="options">
-                        <option value="">
-                            {{ trans('global.national') }}
-                        </option>
-                        <option value="">
-                            {{ trans('global.all_districts') }}
-                        </option>
-                    </select>
-                </label>
-            </div> --}}
-                <div class="col-md-3">
+                <div class="col-md-10">
                     <label class="custom-select" for="styledSelect2">
                         <select id="styledSelect2" name="options">
                             <option value="">{{ trans('global.all_provinces') }}</option>
@@ -39,79 +52,48 @@
                             <option value="Gaza">Gaza</option>
                             <option value="Maputo Cidade">Maputo Cidade</option>
                             <option value="Maputo Provincia">Maputo Provincia</option>
-                        </select>
-                    </label>
+                        </select></label>
                 </div>
-                {{-- <div class="col-md-3">
-                <label class="custom-select" for="styledSelect3">
-                    <select id="styledSelect3" name="options">
-                        <option value="">
-                            Filter Three
-                        </option>
-                    </select>
-                </label>
-            </div> --}}
                 <div class="col-md-2">
                     <button class="search-btn" onclick="performSearch()">
                         {{ trans('global.search') }}
                         <i id="loader" class="fa fa-spinner fa-spin" style="display: none;"></i>
                     </button>
                 </div>
-
             </div>
         </div>
     </div>
 
+
     <div class="graphs-row">
         <div class="row">
-            <div class="col-md-4">
-                <div class="content-holdder content-holdder-box">
-                    <div class="row">
-                        <div class="col">
-                            <div class="counter-box male-population">
-                                <div class="counter" id="total_population">27.864</div>
-                                <h2>{{ trans('global.total_population') }}</h2>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="counter-box female-population">
-                                <div class="counter" id="sex_ratio_by_birth">105</div>
-                                <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="counter-box total-population">
-                                <div class="counter" id="population_growth_rate">2.6</div>
-                                <h2>{{ trans('global.population_growth') }}</h2>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="counter-box total-population">
-                                <div class="counter" id="population_density">40.3</div>
-                                <h2>{{ trans('global.population_density') }}</h2>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-6 mb-2">
-                            <div class="counter" id="dependency1"></div>
-                        </div>
-                        <div class="col-md-12 col-sm-6 mb-2" >
-                            <div class="counter" id="dependency2"></div>
-                        </div>
-
+            <div class="col-md-8">
+                <div class="map-holder">
+                    <!--    <h2>Mozanbique Map</h2> -->
+                    <div class="box-body mb-2">
+                        <div id="map2" style="height: 741px"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="map-holder">
-                    <h2>{{ trans('global.mozambique-map') }}</h2>
-                    <div class="box-body mb-2">
-                        <div id="map2" style="height: 600px"></div>
-                    </div>
+            <div class="col-md-4">
+                <div class="chart-visual totals">
+                    <div class="chart-holder" id="dependency1"></div>
                 </div>
-                <ul class="nav nav-tabs" role="tablist">
+                <div class="chart-visual totals">
+
+                    <div class="chart-holder" id="dependency2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- this is tabs option  section --}}
+    <section class="section_tabs">
+        <div class="content-holdder">
+
+            <div class="pills_wrap">
+                <ul class="nav nav-pills" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab"
-                            href="#population">{{ trans('global.population') }}</a>
+                        <a class="nav-link active" data-toggle="tab" href="#population">{{ trans('global.population') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#marital_ratio">{{ trans('global.marital_Ratio') }}</a>
@@ -124,120 +106,86 @@
                         <a class="nav-link" data-toggle="tab" href="#dependency">{{ trans('global.dependency') }}</a>
                     </li>
                 </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content">
-
-                    <div id="population" class="tab-pane active"><br>
-                        <h2>{{ trans('global.population-contribution') }}</h2>
-                        <div id="selectDistrictMessage" class="col-md-12">
-                            <p>Please select any district for population contribution.</p>
-                        </div>
-                        <div class="map-holder">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-6">
-                                    <div id="rev-chart1" class="counter mb-2"></div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div id="rev-chart2" class="counter mb-2"></div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div id="rev-chart3" class="counter mb-2"></div>
-                                </div>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div id="population" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart total population --}}
+                                <div class="chart-holder" id="rev-chart1"></div>
                             </div>
                         </div>
-                    </div>
-                    <div id="marital_ratio" class="tab-pane fade"><br>
-                        <h2>{{ trans('global.marital_Ratio') }}</h2>
-                        <div id="selectMaritalMessage" class="col-md-12">
-                            <p>Please select any district for Marital Ratio.</p>
-                        </div>
-                        <div class="map-holder">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-6">
-                                    <div id="chart_total_marital" class="counter mb-2"></div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div id="chart_mens_marital" class="counter mb-2"></div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div id="chart_womens_marital" class="counter mb-2"></div>
-                                </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart  mens population --}}
+                                <div class="chart-holder" id="rev-chart2"></div>
                             </div>
                         </div>
-
-                    </div>
-                    <div id="illiteracyRate" class="tab-pane fade"><br>
-                        <h2>{{ trans('global.illiteracyRate') }}</h2>
-                        <div id="selectIlliteracyMessage" class="col-md-12">
-                            <p>Please select any district for Illiteracy Rate.</p>
-                        </div>
-                        <div class="map-holder">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="totalIlliteracyRate" class="counter mb-2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="dependency" class="tab-pane fade"><br>
-                        <h2>{{ trans('global.dependency') }}</h2>
-                        <div id="selectDependencyMessage" class="col-md-12">
-                            <p>Please select any district for Dependency.</p>
-                        </div>
-                        <div class="map-holder">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="totalDependencyRatioRate" class="counter mb-2"></div>
-                                </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart womens population --}}
+                                <div class="chart-holder" id="rev-chart3"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="marital_ratio" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart marital ratio Total  --}}
+                                <div id="chart_total_marital"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart marital ratio men --}}
+                                <div id="chart_mens_marital"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart  marital ratio Women --}}
+                                <div id="chart_womens_marital"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="illiteracyRate" class="tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div id="totalIlliteracyRate"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            {{-- <div class="chart-visual totals">
 
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+                <div id="dependency" class="tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- dependency rate of   --}}
+                                <div id="totalDependencyRatioRate"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            {{-- <div class="chart-visual totals">
 
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="graphs-row">
-        <div class="row">
-            <div class="col-md-12">
-                <h2><span><img src="{{ asset('theme_of_mozambique/img/male.png') }}"
-                            alt=""></span>{{ trans('global.mens_population') }}</h2>
-                <div class="chart-visual">
-
-                    <div class="chart-holder" id="malePopulation"></div>
-                </div>
-
-            </div>
-            {{-- <div class="col-md-6">
-                <div class="chart-visual">
-                    <h2> <span><img src="{{ asset('theme_of_mozambique/img/female.png')}}" alt=""></span>Male Population</h2>
-                    <div class="chart-holder" id="femalePopulation"></div>
-                </div>
-
-            </div> --}}
-        </div>
-    </div>
-
-
-
-    <div class="container">
-
-
-
-    </div>
-
-
-    <!-- /.row -->
-
-    <!-- /.container -->
-
-
-
-
-
+    </section>
 
     <script>
         var translations = {
@@ -692,7 +640,6 @@
             grupIdad_014_homens,
             grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres, grupIdad_65_mulheres) {
 
-            document.getElementById('selectDistrictMessage').style.display = 'none';
             // Check if the charts exist and destroy them
             if (window.chartTotalPopulation) {
                 window.chartTotalPopulation.destroy();
@@ -719,7 +666,7 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    backgroundColor: '#DDDDDD',
+
 
                 },
                 title: {
@@ -800,7 +747,7 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    backgroundColor: '#DDDDDD'
+
                 },
                 title: {
                     text: translations.men_population,
@@ -881,7 +828,7 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    backgroundColor: '#DDDDDD'
+
                 },
                 title: {
                     text: translations.women_population,
@@ -957,8 +904,6 @@
             solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres, viuvo_mulheres
         ) {
 
-            document.getElementById('selectMaritalMessage').style.display = 'none';
-
             // Check if the charts exist and destroy them
             if (window.chartTotalMarital) {
                 window.chartTotalMarital.destroy();
@@ -988,7 +933,7 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    backgroundColor: '#DDDDDD',
+
 
                     // Set the height of the chart
 
@@ -1091,7 +1036,7 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    backgroundColor: '#DDDDDD',
+
 
                     // Set the height of the chart
 
@@ -1195,7 +1140,7 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    backgroundColor: '#DDDDDD',
+
 
                     // Set the height of the chart
 
@@ -1292,7 +1237,6 @@
 
         function updatedPopulationDependencyRatio(totalDependencyRatio, youthDependencyRatioZeroToFourteen,
             elderlyDependencyRatioSixtyFiveAbove) {
-            document.getElementById('selectDependencyMessage').style.display = 'none';
             // Convert strings to numbers
             totalDependencyRatio = parseFloat(totalDependencyRatio);
             youthDependencyRatioZeroToFourteen = parseFloat(youthDependencyRatioZeroToFourteen);
@@ -1301,7 +1245,7 @@
             Highcharts.chart('totalDependencyRatioRate', {
                 chart: {
                     type: 'column',
-                    backgroundColor: '#DDDDDD'
+
                 },
                 title: {
                     text: 'Total Dependency rate by sex and age groups by District',
@@ -1343,7 +1287,6 @@
 
         function updatedPopulation_total_Illiteracy_Rate(TotalIlliteracyRate, MenIlliteracyRate, woMenIlliteracyRate) {
 
-            document.getElementById('selectIlliteracyMessage').style.display = 'none';
             // Convert strings to numbers
             TotalIlliteracyRate = parseFloat(TotalIlliteracyRate);
             MenIlliteracyRate = parseFloat(MenIlliteracyRate);
@@ -1352,7 +1295,7 @@
             Highcharts.chart('totalIlliteracyRate', {
                 chart: {
                     type: 'column',
-                    backgroundColor: '#DDDDDD'
+
                 },
                 title: {
                     text: 'Illiteracy Rate by Sex and age groups by District',
