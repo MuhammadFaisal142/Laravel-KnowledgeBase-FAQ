@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+    {{-- dd(@json($population_data)); --}}
     <div class="content-holdder">
         <div class="row">
             <div class="col-12 col-sm">
@@ -77,6 +78,9 @@
             </div>
             <div class="col-md-4">
                 <div class="chart-visual totals">
+                    <div class="emptyMessage">
+                        {{ trans('global.select_any_districts') }}
+                    </div>
                     <div class="chart-holder" id="dependency1"></div>
                 </div>
                 <div class="chart-visual totals">
@@ -397,7 +401,7 @@
             // Three box Growth Rate Population
             var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
             // Three box Growth Rate Population
-            var popSexRatioBybirth = 105;
+            var popSexRatioBybirth = filteredData[0].sex_ratio_birth;
             // Three box  Population Density
             var populationDensity = filteredData[0].Densidade;
 
@@ -466,6 +470,81 @@
                 grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
                 grupIdad_65_mulheres);
 
+            // Percent distribution of the household population First paramyid Graph show on the right on the page
+            var {
+                M_01_04: male_01_04,
+                F_01_04: female_01_04,
+                T_01_04: total_01_04,
+                M_05_09: male_05_09,
+                F_05_09: female_05_09,
+                T_05_09: total_05_09,
+                M_10_14: male_10_14,
+                F_10_14: female_10_14,
+                T_10_14: total_10_14,
+                M_15_19: male_15_19,
+                F_15_19: female_15_19,
+                T_15_19: total_15_19,
+                M_20_24: male_20_24,
+                F_20_24: female_20_24,
+                T_20_24: total_20_24,
+                M_25_29: male_25_29,
+                F_25_29: female_25_29,
+                T_25_29: total_25_29,
+                M_30_34: male_30_34,
+                F_30_34: female_30_34,
+                T_30_34: total_30_34,
+                M_35_39: male_35_39,
+                F_35_39: female_35_39,
+                T_35_39: total_35_39,
+                M_40_44: male_40_44,
+                F_40_44: female_40_44,
+                T_40_44: total_40_44,
+                M_45_49: male_45_49,
+                F_45_49: female_45_49,
+                T_45_49: total_45_49,
+                M_50_54: male_50_54,
+                F_50_54: female_50_54,
+                T_50_54: total_50_54,
+                M_55_59: male_55_59,
+                F_55_59: female_55_59,
+                T_55_59: total_55_59,
+                M_60_64: male_60_64,
+                F_60_64: female_60_64,
+                T_60_64: total_60_64,
+                M_65_69: male_65_69,
+                F_65_69: female_65_69,
+                T_65_69: total_65_69,
+                M_70_74: male_70_74,
+                F_70_74: female_70_74,
+                T_70_74: total_70_74,
+                M_75_79: male_75_79,
+                F_75_79: female_75_79,
+                T_75_79: total_75_79,
+                M_80plus: male_80plus,
+                F_80plus: female_80plus,
+                T_80plus: total_80plus
+            } = filteredData[0];
+
+            // Call the function and pass the variables
+            percent_distribution(
+                male_01_04, female_01_04, total_01_04,
+                male_05_09, female_05_09, total_05_09,
+                male_10_14, female_10_14, total_10_14,
+                male_15_19, female_15_19, total_15_19,
+                male_20_24, female_20_24, total_20_24,
+                male_25_29, female_25_29, total_25_29,
+                male_30_34, female_30_34, total_30_34,
+                male_35_39, female_35_39, total_35_39,
+                male_40_44, female_40_44, total_40_44,
+                male_45_49, female_45_49, total_45_49,
+                male_50_54, female_50_54, total_50_54,
+                male_55_59, female_55_59, total_55_59,
+                male_60_64, female_60_64, total_60_64,
+                male_65_69, female_65_69, total_65_69,
+                male_70_74, female_70_74, total_70_74,
+                male_75_79, female_75_79, total_75_79,
+                male_80plus, female_80plus, total_80plus
+            );
 
         }
 
@@ -480,9 +559,10 @@
                 return record.id === id_of_districts;
             });
 
-            if (feature.properties && feature.properties.Distrito) {
+            // Check if filteredData is not empty
+            if (filteredData.length > 0) {
+                var id = filteredData[0].id;
                 var nameOfDistrict = filteredData[0].District;
-
                 var popTotalValue = filteredData[0].Pop_Total;
                 var popWomenName = filteredData[0].Pop_mulheres;
                 var popMenName = filteredData[0].Pop_homens;
@@ -514,9 +594,12 @@
                     '<b>' + translations.total_population + ": " + '</b>' + popTotalValue, {
                         sticky: true
                     }).openTooltip();
-
+            } else {
+                // Handle the case where no matching data is found
+                console.error('No data found for id:', id_of_districts);
             }
         }
+
 
         var geojson;
         geojson = L.geoJson(mozambiquefulldistricts, {
@@ -1366,5 +1449,106 @@
             }
         }
 
+
+
+        function percent_distribution(
+            male_01_04, female_01_04, total_01_04,
+            male_05_09, female_05_09, total_05_09,
+            male_10_14, female_10_14, total_10_14,
+            male_15_19, female_15_19, total_15_19,
+            male_20_24, female_20_24, total_20_24,
+            male_25_29, female_25_29, total_25_29,
+            male_30_34, female_30_34, total_30_34,
+            male_35_39, female_35_39, total_35_39,
+            male_40_44, female_40_44, total_40_44,
+            male_45_49, female_45_49, total_45_49,
+            male_50_54, female_50_54, total_50_54,
+            male_55_59, female_55_59, total_55_59,
+            male_60_64, female_60_64, total_60_64,
+            male_65_69, female_65_69, total_65_69,
+            male_70_74, female_70_74, total_70_74,
+            male_75_79, female_75_79, total_75_79,
+            male_80plus, female_80plus, total_80plus
+        ) {
+            var categories = [
+                '1-4', '5-9', '10-14', '15-19',
+                '20-24', '25-29', '30-34', '35-39', '40-44',
+                '45-49', '50-54', '55-59', '60-64', '65-69',
+                '70-74', '75-79', '80 +'
+            ];
+
+            Highcharts.chart('dependency1', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Figure 2.4  Population pyramid'
+                },
+                subtitle: {
+                    text: 'Percent distribution of the household population'
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: [{
+                    categories: categories,
+                    reversed: false,
+                    labels: {
+                        step: 1
+                    }
+                }, {
+                    opposite: true,
+                    reversed: false,
+                    categories: categories,
+                    linkedTo: 0,
+                    labels: {
+                        step: 1
+                    }
+                }],
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        formatter: function() {
+                            return Math.abs(this.value) + '%';
+                        }
+                    }
+                },
+
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+
+                tooltip: {
+                    formatter: function() {
+                        return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                            'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 2);
+                    }
+                },
+
+                series: [{
+                    name: 'Male',
+                    data: [
+                        male_01_04, male_05_09, male_10_14, male_15_19,
+                        male_20_24, male_25_29, male_30_34, male_35_39, male_40_44,
+                        male_45_49, male_50_54, male_55_59, male_60_64, male_65_69,
+                        male_70_74, male_75_79, male_80plus
+                    ].map(function(value) {
+                        return -Math.abs(value);
+                    })
+                }, {
+                    name: 'Female',
+                    data: [
+                        female_01_04, female_05_09, female_10_14, female_15_19,
+                        female_20_24, female_25_29, female_30_34, female_35_39, female_40_44,
+                        female_45_49, female_50_54, female_55_59, female_60_64, female_65_69,
+                        female_70_74, female_75_79, female_80plus
+                    ].map(Math.abs)
+                }]
+            });
+        }
     </script>
 @endsection

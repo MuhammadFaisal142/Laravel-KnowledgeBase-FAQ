@@ -289,7 +289,7 @@
             // Three box Growth Rate Population
             var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
             // Three box Growth Rate Population
-            var popSexRatioBybirth = 105;
+            var popSexRatioBybirth = filteredData[0].sex_ratio_birth;
             // Three box  Population Density
             var populationDensity = filteredData[0].Densidade;
 
@@ -342,7 +342,7 @@
                 return record.id === id_of_districts;
             });
 
-            if (feature.properties && feature.properties.Distrito) {
+            if (filteredData.length > 0) {
                 var nameOfDistrict = filteredData[0].District;
                 var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
 

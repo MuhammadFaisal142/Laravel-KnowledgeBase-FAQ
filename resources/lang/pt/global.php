@@ -293,5 +293,5 @@ return [
     'all_districts' => 'Todos os distritos',
     'population_density' => 'Densidade populacional',
     'education' => 'Educação',
-    'select_any_districts' => 'Selecione qualquer distrito no mapa acima.',
+    'select_any_districts' => 'Selecione qualquer distrito no mapa.',
 ];

@@ -293,6 +293,6 @@ return [
     'filter' => 'Filter',
     'population_density' => 'Population density',
     'education' => 'Education',
-    'select_any_districts' => 'Please select any district from the above map.',
+    'select_any_districts' => 'Please select any district from the map.',
 
 ];
