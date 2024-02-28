@@ -1,95 +1,89 @@
 @extends('layouts.main')
 @section('content')
     {{-- dd(@json($population_data)); --}}
-    <div class="content-holdder">
+
+    <div class="graphs-row mt-4 mb-4">
         <div class="row">
-            <div class="col-12 col-sm">
-                <div class="counter-box male-population">
-                    <div class="counter" id="total_population">27.864</div>
-                    <h2>{{ trans('global.total_population') }}</h2>
-                </div>
-            </div>
-            <div class="col-12 col-sm">
-                <div class="counter-box female-population">
-                    <div class="counter" id="sex_ratio_by_birth">105</div>
-                    <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
-                </div>
-            </div>
-            <div class="col-12 col-sm">
-                <div class="counter-box total-population">
-                    <div class="counter" id="population_growth_rate">2.6</div>
-                    <h2>{{ trans('global.population_growth') }}</h2>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm">
-                <div class="counter-box population_density">
-                    <div class="counter" id="population_density">40.3</div>
-                    <h2>{{ trans('global.population_density') }}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="filters-holder">
-        <div class="filters-header">
-
-        </div>
-        <div class="form-holder">
-            <div class="row">
-                <div class="col-md-10">
-                    <label class="custom-select" for="styledSelect2">
-                        <select id="styledSelect2" name="options">
-                            <option value="">{{ trans('global.all_provinces') }}</option>
-                            <option value="">{{ trans('global.all_districts') }}</option>
-                            <option value="Niassa">Niassa</option>
-                            <option value="Tete">Tete</option>
-                            <option value="Nampula">Nampula</option>
-                            <option value="Cabo Delgado">Cabo Delgado</option>
-                            <option value="Zambezia">Zambezia</option>
-                            <option value="Manica">Manica</option>
-                            <option value="Sofala">Sofala</option>
-                            <option value="Inhambane">Inhambane</option>
-                            <option value="Gaza">Gaza</option>
-                            <option value="Maputo Cidade">Maputo Cidade</option>
-                            <option value="Maputo Provincia">Maputo Provincia</option>
-                        </select></label>
-                </div>
-                <div class="col-md-2">
-                    <button class="search-btn" onclick="performSearch()">
-                        {{ trans('global.search') }}
-                        <i id="loader" class="fa fa-spinner fa-spin" style="display: none;"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="graphs-row">
-        <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 ">
                 <div class="map-holder">
                     <!--    <h2>Mozanbique Map</h2> -->
-                    <div class="box-body mb-2">
-                        <div id="map2" style="height: 741px"></div>
+                    <div class="box-body">
+                        <div id="map2" style="height: 701px"></div>
+                    </div>
+                </div>
+                <div class="box-holdder">
+                    <div class="row">
+                        <div class="col-12 col-sm">
+                            <div class="counter-box female-population">
+                                <div class="counter" id="sex_ratio_by_birth">105</div>
+                                <h2>{{ trans('global.Sex_Ratio_By_Birth') }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm">
+                            <div class="counter-box total-population">
+                                <div class="counter" id="population_growth_rate">2.6</div>
+                                <h2>{{ trans('global.population_growth') }}</h2>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm">
+                            <div class="counter-box population_density">
+                                <div class="counter" id="population_density">40.3</div>
+                                <h2>{{ trans('global.population_density') }}</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="filters-holder">
+                    <div class="form-holder">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label class="custom-select" for="styledSelect2">
+                                    <select id="styledSelect2" name="options">
+                                        <option value="">{{ trans('global.all_provinces') }}</option>
+                                        <option value="">{{ trans('global.all_districts') }}</option>
+                                        <option value="Niassa">Niassa</option>
+                                        <option value="Tete">Tete</option>
+                                        <option value="Nampula">Nampula</option>
+                                        <option value="Cabo Delgado">Cabo Delgado</option>
+                                        <option value="Zambezia">Zambezia</option>
+                                        <option value="Manica">Manica</option>
+                                        <option value="Sofala">Sofala</option>
+                                        <option value="Inhambane">Inhambane</option>
+                                        <option value="Gaza">Gaza</option>
+                                        <option value="Maputo Cidade">Maputo Cidade</option>
+                                        <option value="Maputo Provincia">Maputo Provincia</option>
+                                    </select></label>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="search-btn" onclick="performSearch()">
+                                    {{ trans('global.search') }}
+                                    <i id="loader" class="fa fa-spinner fa-spin" style="display: none;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="chart-visual totals">
-                    <div class="emptyMessage">
+                    <div class="emptyMessage" style="position: absolute; margin-left:12%">
                         {{ trans('global.select_any_districts') }}
                     </div>
                     <div class="chart-holder" id="dependency1"></div>
                 </div>
                 <div class="chart-visual totals">
-
+                    <div class="emptyMessage" style="position: absolute; margin-left:12%">
+                        {{ trans('global.select_any_districts') }}
+                    </div>
                     <div class="chart-holder" id="dependency2"></div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     {{-- this is tabs option  section --}}
     <section class="section_tabs">
         <div class="content-holdder">
@@ -142,6 +136,7 @@
                                 <div class="chart-holder" id="rev-chart3"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div id="marital_ratio" class="tab-pane fade">
@@ -396,8 +391,7 @@
                 fillOpacity: 0.8
             });
 
-            // Three box Total Population
-            var popTotalValue = filteredData[0].Pop_Total;
+
             // Three box Growth Rate Population
             var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
             // Three box Growth Rate Population
@@ -405,7 +399,7 @@
             // Three box  Population Density
             var populationDensity = filteredData[0].Densidade;
 
-            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate, populationDensity);
+            updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity);
 
             // bar charts of the dependency ratio of 0-14 65+ all
             var totalDependencyRatio = filteredData[0].TaxaDep_01465_total;
@@ -472,78 +466,155 @@
 
             // Percent distribution of the household population First paramyid Graph show on the right on the page
             var {
-                M_01_04: male_01_04,
-                F_01_04: female_01_04,
-                T_01_04: total_01_04,
-                M_05_09: male_05_09,
-                F_05_09: female_05_09,
-                T_05_09: total_05_09,
-                M_10_14: male_10_14,
-                F_10_14: female_10_14,
-                T_10_14: total_10_14,
-                M_15_19: male_15_19,
-                F_15_19: female_15_19,
-                T_15_19: total_15_19,
-                M_20_24: male_20_24,
-                F_20_24: female_20_24,
-                T_20_24: total_20_24,
-                M_25_29: male_25_29,
-                F_25_29: female_25_29,
-                T_25_29: total_25_29,
-                M_30_34: male_30_34,
-                F_30_34: female_30_34,
-                T_30_34: total_30_34,
-                M_35_39: male_35_39,
-                F_35_39: female_35_39,
-                T_35_39: total_35_39,
-                M_40_44: male_40_44,
-                F_40_44: female_40_44,
-                T_40_44: total_40_44,
-                M_45_49: male_45_49,
-                F_45_49: female_45_49,
-                T_45_49: total_45_49,
-                M_50_54: male_50_54,
-                F_50_54: female_50_54,
-                T_50_54: total_50_54,
-                M_55_59: male_55_59,
-                F_55_59: female_55_59,
-                T_55_59: total_55_59,
-                M_60_64: male_60_64,
-                F_60_64: female_60_64,
-                T_60_64: total_60_64,
-                M_65_69: male_65_69,
-                F_65_69: female_65_69,
-                T_65_69: total_65_69,
-                M_70_74: male_70_74,
-                F_70_74: female_70_74,
-                T_70_74: total_70_74,
-                M_75_79: male_75_79,
-                F_75_79: female_75_79,
-                T_75_79: total_75_79,
-                M_80plus: male_80plus,
-                F_80plus: female_80plus,
-                T_80plus: total_80plus
+                District,
+                Pop_Total,
+                M_00_00_p,
+                F_00_00_p,
+                T_00_00_p,
+                M_01_04_p,
+                F_01_04_p,
+                T_01_04_p,
+                M_05_09_p,
+                F_05_09_p,
+                T_05_09_p,
+                M_10_14_p,
+                F_10_14_p,
+                T_10_14_p,
+                M_15_19_p,
+                F_15_19_p,
+                T_15_19_p,
+                M_20_24_p,
+                F_20_24_p,
+                T_20_24_p,
+                M_25_29_p,
+                F_25_29_p,
+                T_25_29_p,
+                M_30_34_p,
+                F_30_34_p,
+                T_30_34_p,
+                M_35_39_p,
+                F_35_39_p,
+                T_35_39_p,
+                M_40_44_p,
+                F_40_44_p,
+                T_40_44_p,
+                M_45_49_p,
+                F_45_49_p,
+                T_45_49_p,
+                M_50_54_p,
+                F_50_54_p,
+                T_50_54_p,
+                M_55_59_p,
+                F_55_59_p,
+                T_55_59_p,
+                M_60_64_p,
+                F_60_64_p,
+                T_60_64_p,
+                M_65_69_p,
+                F_65_69_p,
+                T_65_69_p,
+                M_70_74_p,
+                F_70_74_p,
+                T_70_74_p,
+                M_75_79_p,
+                F_75_79_p,
+                T_75_79_p,
+                M_80plus_p,
+                F_80plus_p,
+                T_80plus_p
             } = filteredData[0];
+
+            // this 2007 data districts
+            var {
+                District,
+                M_00_00_p_2007,
+                F_00_00_p_2007,
+                T_00_00_p_2007,
+                M_01_04_p_2007,
+                F_01_04_p_2007,
+                T_01_04_p_2007,
+                M_05_09_p_2007,
+                F_05_09_p_2007,
+                T_05_09_p_2007,
+                M_10_14_p_2007,
+                F_10_14_p_2007,
+                T_10_14_p_2007,
+                M_15_19_p_2007,
+                F_15_19_p_2007,
+                T_15_19_p_2007,
+                M_20_24_p_2007,
+                F_20_24_p_2007,
+                T_20_24_p_2007,
+                M_25_29_p_2007,
+                F_25_29_p_2007,
+                T_25_29_p_2007,
+                M_30_34_p_2007,
+                F_30_34_p_2007,
+                T_30_34_p_2007,
+                M_35_39_p_2007,
+                F_35_39_p_2007,
+                T_35_39_p_2007,
+                M_40_44_p_2007,
+                F_40_44_p_2007,
+                T_40_44_p_2007,
+                M_45_49_p_2007,
+                F_45_49_p_2007,
+                T_45_49_p_2007,
+                M_50_54_p_2007,
+                F_50_54_p_2007,
+                T_50_54_p_2007,
+                M_55_59_p_2007,
+                F_55_59_p_2007,
+                T_55_59_p_2007,
+                M_60_64_p_2007,
+                F_60_64_p_2007,
+                T_60_64_p_2007,
+                M_65_69_p_2007,
+                F_65_69_p_2007,
+                T_65_69_p_2007,
+                M_70_74_p_2007,
+                F_70_74_p_2007,
+                T_70_74_p_2007,
+                M_75_79_p_2007,
+                F_75_79_p_2007,
+                T_75_79_p_2007,
+                M_80plus_p_2007,
+                F_80plus_p_2007,
+                T_80plus_p_2007
+            } = filteredData[0];
+
+            percent_distribution_2007(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+                F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
+                F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
+                F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
+                F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
+                F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
+                F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
+                F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
+                F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
+                F_80plus_p_2007, T_80plus_p_2007);
 
             // Call the function and pass the variables
             percent_distribution(
-                male_01_04, female_01_04, total_01_04,
-                male_05_09, female_05_09, total_05_09,
-                male_10_14, female_10_14, total_10_14,
-                male_15_19, female_15_19, total_15_19,
-                male_20_24, female_20_24, total_20_24,
-                male_25_29, female_25_29, total_25_29,
-                male_30_34, female_30_34, total_30_34,
-                male_35_39, female_35_39, total_35_39,
-                male_40_44, female_40_44, total_40_44,
-                male_45_49, female_45_49, total_45_49,
-                male_50_54, female_50_54, total_50_54,
-                male_55_59, female_55_59, total_55_59,
-                male_60_64, female_60_64, total_60_64,
-                male_65_69, female_65_69, total_65_69,
-                male_70_74, female_70_74, total_70_74,
-                male_75_79, female_75_79, total_75_79,
-                male_80plus, female_80plus, total_80plus
+                District, Pop_Total,
+                M_00_00_p, F_00_00_p, T_00_00_p,
+                M_01_04_p, F_01_04_p, T_01_04_p,
+                M_05_09_p, F_05_09_p, T_05_09_p,
+                M_10_14_p, F_10_14_p, T_10_14_p,
+                M_15_19_p, F_15_19_p, T_15_19_p,
+                M_20_24_p, F_20_24_p, T_20_24_p,
+                M_25_29_p, F_25_29_p, T_25_29_p,
+                M_30_34_p, F_30_34_p, T_30_34_p,
+                M_35_39_p, F_35_39_p, T_35_39_p,
+                M_40_44_p, F_40_44_p, T_40_44_p,
+                M_45_49_p, F_45_49_p, T_45_49_p,
+                M_50_54_p, F_50_54_p, T_50_54_p,
+                M_55_59_p, F_55_59_p, T_55_59_p,
+                M_60_64_p, F_60_64_p, T_60_64_p,
+                M_65_69_p, F_65_69_p, T_65_69_p,
+                M_70_74_p, F_70_74_p, T_70_74_p,
+                M_75_79_p, F_75_79_p, T_75_79_p,
+                M_80plus_p, F_80plus_p, T_80plus_p
             );
 
         }
@@ -624,12 +695,17 @@
             var div = L.DomUtil.create('div', 'info legend');
             var grades = [0, 50000, 70000, 100000, 200000, 350000, 400000, 600000];
 
+            // Divide all grades by 1000
+            grades = grades.map(function(grade) {
+                return grade / 1000;
+            });
+
             for (var i = 0; i < grades.length; i++) {
                 var from = grades[i];
                 var to = grades[i + 1];
                 var label = from + (to ? '&ndash;' + to : '+');
 
-                var color = getColor(from + 1);
+                var color = getColor(from * 1000 + 1); // Adjust the color scale accordingly
 
                 // Add label inside the button without removing <br>
                 div.innerHTML +=
@@ -639,6 +715,7 @@
 
             return div;
         };
+
 
         legend.addTo(map2);
 
@@ -774,8 +851,6 @@
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-
-
                 },
                 title: {
                     text: translations.total_population,
@@ -791,10 +866,8 @@
                 },
                 plotOptions: {
                     pie: {
-
                         showInLegend: true
                     },
-
                     series: {
                         allowPointSelect: true,
                         cursor: 'pointer',
@@ -808,7 +881,6 @@
                             style: {
                                 fontSize: '0.8em',
                                 textOutline: 'none'
-
                             },
                             filter: {
                                 operator: '>',
@@ -816,10 +888,20 @@
                                 value: 10
                             }
                         }]
-                    }
+                    },
                 },
                 credits: {
                     enabled: false // Hide the credits
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
                 },
                 colors: [
                     '#7cb5ec',
@@ -832,7 +914,6 @@
                     data: [{
                         name: '0-14 Years',
                         y: updatedSeriesTotal[0], // Dynamic value for mulheres_014
-
                     }, {
                         name: '15-64 Years',
                         y: updatedSeriesTotal[1], // Dynamic value for mulheres_1564
@@ -842,6 +923,7 @@
                     }]
                 }]
             });
+
 
             // men population pie charts data
             var homens_014 = parseFloat(grupIdad_014_homens);
@@ -900,6 +982,16 @@
                 },
                 credits: {
                     enabled: false // Hide the credits
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
                 },
                 colors: [
                     '#ff9966',
@@ -982,6 +1074,11 @@
                 credits: {
                     enabled: false // Hide the credits
                 },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
+                },
                 colors: [
                     '#ffa500',
                     '#4caf50',
@@ -1004,6 +1101,7 @@
                     }]
                 }]
             });
+
         }
 
         function highlightPieChartMaritalRatio(
@@ -1089,6 +1187,11 @@
                 },
                 credits: {
                     enabled: false // Hide the credits
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
                 },
                 colors: [
                     '#e74c3c',
@@ -1192,6 +1295,11 @@
                 },
                 credits: {
                     enabled: false // Hide the credits
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
                 },
                 colors: [
                     '#ff6347',
@@ -1297,6 +1405,11 @@
                 credits: {
                     enabled: false // Hide the credits
                 },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
+                },
                 colors: [
                     '#ffcc00',
                     '#993366',
@@ -1335,9 +1448,9 @@
 
         }
 
-        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate, populationDensity) {
+        function updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity) {
             // Update the innerHTML of the counter elements with the provided values
-            document.getElementById('total_population').innerHTML = popTotalValue;
+            // document.getElementById('total_population').innerHTML = popTotalValue;
             document.getElementById('sex_ratio_by_birth').innerHTML = popSexRatioBybirth;
             document.getElementById('population_growth_rate').innerHTML = popGrowthRate;
             document.getElementById('population_density').innerHTML = populationDensity;
@@ -1374,6 +1487,11 @@
                 },
                 credits: {
                     enabled: false // Hide the credits
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
                 },
                 series: [{
                         name: 'Total Ratio ',
@@ -1425,6 +1543,11 @@
                 credits: {
                     enabled: false // Hide the credits
                 },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px' // Adjust the font size as needed
+                    }
+                },
                 series: [{
                         name: 'Total Illiteracy Rate',
                         data: [TotalIlliteracyRate]
@@ -1451,27 +1574,28 @@
 
 
 
-        function percent_distribution(
-            male_01_04, female_01_04, total_01_04,
-            male_05_09, female_05_09, total_05_09,
-            male_10_14, female_10_14, total_10_14,
-            male_15_19, female_15_19, total_15_19,
-            male_20_24, female_20_24, total_20_24,
-            male_25_29, female_25_29, total_25_29,
-            male_30_34, female_30_34, total_30_34,
-            male_35_39, female_35_39, total_35_39,
-            male_40_44, female_40_44, total_40_44,
-            male_45_49, female_45_49, total_45_49,
-            male_50_54, female_50_54, total_50_54,
-            male_55_59, female_55_59, total_55_59,
-            male_60_64, female_60_64, total_60_64,
-            male_65_69, female_65_69, total_65_69,
-            male_70_74, female_70_74, total_70_74,
-            male_75_79, female_75_79, total_75_79,
-            male_80plus, female_80plus, total_80plus
+        function percent_distribution(District, Pop_Total,
+            M_00_00_p, F_00_00_p, T_00_00_p,
+            M_01_04_p, F_01_04_p, T_01_04_p,
+            M_05_09_p, F_05_09_p, T_05_09_p,
+            M_10_14_p, F_10_14_p, T_10_14_p,
+            M_15_19_p, F_15_19_p, T_15_19_p,
+            M_20_24_p, F_20_24_p, T_20_24_p,
+            M_25_29_p, F_25_29_p, T_25_29_p,
+            M_30_34_p, F_30_34_p, T_30_34_p,
+            M_35_39_p, F_35_39_p, T_35_39_p,
+            M_40_44_p, F_40_44_p, T_40_44_p,
+            M_45_49_p, F_45_49_p, T_45_49_p,
+            M_50_54_p, F_50_54_p, T_50_54_p,
+            M_55_59_p, F_55_59_p, T_55_59_p,
+            M_60_64_p, F_60_64_p, T_60_64_p,
+            M_65_69_p, F_65_69_p, T_65_69_p,
+            M_70_74_p, F_70_74_p, T_70_74_p,
+            M_75_79_p, F_75_79_p, T_75_79_p,
+            M_80plus_p, F_80plus_p, T_80plus_p
         ) {
             var categories = [
-                '1-4', '5-9', '10-14', '15-19',
+                '0-0', '1-4', '5-9', '10-14', '15-19',
                 '20-24', '25-29', '30-34', '35-39', '40-44',
                 '45-49', '50-54', '55-59', '60-64', '65-69',
                 '70-74', '75-79', '80 +'
@@ -1482,10 +1606,13 @@
                     type: 'bar'
                 },
                 title: {
-                    text: 'Figure 2.4  Population pyramid'
+                    text: '<span style="margin-right: 5px;">' + Pop_Total + '</span>' +
+                        'Population Pyramid of ' + District,
+                    useHTML: true,
                 },
+
                 subtitle: {
-                    text: 'Percent distribution of the household population'
+                    text: 'Population of 2017'
                 },
                 credits: {
                     enabled: false
@@ -1532,20 +1659,112 @@
                 series: [{
                     name: 'Male',
                     data: [
-                        male_01_04, male_05_09, male_10_14, male_15_19,
-                        male_20_24, male_25_29, male_30_34, male_35_39, male_40_44,
-                        male_45_49, male_50_54, male_55_59, male_60_64, male_65_69,
-                        male_70_74, male_75_79, male_80plus
+                        M_00_00_p, M_01_04_p, M_05_09_p, M_10_14_p, M_15_19_p,
+                        M_20_24_p, M_25_29_p, M_30_34_p, M_35_39_p, M_40_44_p,
+                        M_45_49_p, M_50_54_p, M_55_59_p, M_60_64_p, M_65_69_p,
+                        M_70_74_p, M_75_79_p, M_80plus_p
                     ].map(function(value) {
                         return -Math.abs(value);
                     })
                 }, {
                     name: 'Female',
                     data: [
-                        female_01_04, female_05_09, female_10_14, female_15_19,
-                        female_20_24, female_25_29, female_30_34, female_35_39, female_40_44,
-                        female_45_49, female_50_54, female_55_59, female_60_64, female_65_69,
-                        female_70_74, female_75_79, female_80plus
+                        F_00_00_p, F_01_04_p, F_05_09_p, F_10_14_p, F_15_19_p,
+                        F_20_24_p, F_25_29_p, F_30_34_p, F_35_39_p, F_40_44_p,
+                        F_45_49_p, F_50_54_p, F_55_59_p, F_60_64_p, F_65_69_p,
+                        F_70_74_p, F_75_79_p, F_80plus_p
+                    ].map(Math.abs)
+                }]
+            });
+        }
+
+        function percent_distribution_2007(District,M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+            M_01_04_p_2007,
+            F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
+            F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
+            F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
+            F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
+            F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
+            F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
+            F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
+            F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
+            F_80plus_p_2007, T_80plus_p_2007) {
+            var categories = [
+                '0-0', '1-4', '5-9', '10-14', '15-19',
+                '20-24', '25-29', '30-34', '35-39', '40-44',
+                '45-49', '50-54', '55-59', '60-64', '65-69',
+                '70-74', '75-79', '80 +'
+            ];
+
+            Highcharts.chart('dependency2', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Population Pyramid of ' + District
+                },
+                subtitle: {
+                    text: 'Population of 2007'
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: [{
+                    categories: categories,
+                    reversed: false,
+                    labels: {
+                        step: 1
+                    }
+                }, {
+                    opposite: true,
+                    reversed: false,
+                    categories: categories,
+                    linkedTo: 0,
+                    labels: {
+                        step: 1
+                    }
+                }],
+                yAxis: {
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        formatter: function() {
+                            return Math.abs(this.value) + '%';
+                        }
+                    }
+                },
+
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+
+                tooltip: {
+                    formatter: function() {
+                        return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                            'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 2);
+                    }
+                },
+
+                series: [{
+                    name: 'Male',
+                    data: [
+                        M_00_00_p_2007, M_01_04_p_2007, M_05_09_p_2007, M_10_14_p_2007, M_15_19_p_2007,
+                        M_20_24_p_2007, M_25_29_p_2007, M_30_34_p_2007, M_35_39_p_2007, M_40_44_p_2007,
+                        M_45_49_p_2007, M_50_54_p_2007, M_55_59_p_2007, M_60_64_p_2007, M_65_69_p_2007,
+                        M_70_74_p_2007, M_75_79_p_2007, M_80plus_p_2007
+                    ].map(function(value) {
+                        return -Math.abs(value);
+                    })
+                }, {
+                    name: 'Female',
+                    data: [
+                        F_00_00_p_2007, F_01_04_p_2007, F_05_09_p_2007, F_10_14_p_2007, F_15_19_p_2007,
+                        F_20_24_p_2007, F_25_29_p_2007, F_30_34_p_2007, F_35_39_p_2007, F_40_44_p_2007,
+                        F_45_49_p_2007, F_50_54_p_2007, F_55_59_p_2007, F_60_64_p_2007, F_65_69_p_2007,
+                        F_70_74_p_2007, F_75_79_p_2007, F_80plus_p_2007
                     ].map(Math.abs)
                 }]
             });

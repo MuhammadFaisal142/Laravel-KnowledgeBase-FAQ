@@ -16,8 +16,8 @@ Auth::routes(['register' => false]);
 // Route::get('/', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@home')->name('home');
 
-Route::get('/growthRate', 'HomeController@growthrate')->name('growthRate');
-Route::get('/education', 'HomeController@education')->name('education');
+Route::get('/pyramid', 'HomeController@pyramid')->name('pyramid');
+Route::get('/tables', 'HomeController@tables')->name('tables');
 // Route::get('/testpic', 'HomeController@testpic')->name('testpic');
 
 Route::get('categories/check_slug', 'CategoryController@check_slug')->name('categories.check_slug');

@@ -2,11 +2,7 @@
 @section('content')
     <div class="filters-holder mt-2">
         <div class="filters-header">
-            <div class="left">
-                <img src="{{ asset('theme_of_mozambique/img/filters.png') }}" alt="">
-                <span>{{ trans('global.filter') }}</span>
-            </div>
-            <div class="plus-icon">+</div>
+
         </div>
         <div class="form-holder">
             <div class="row">
@@ -96,6 +92,22 @@
                     <h2>{{ trans('global.mozambique-map') }}</h2>
                     <div class="box-body mb-2">
                         <div id="map2" style="height: 600px"></div>
+                    </div>
+                </div>
+                <h3>Net Enrolment Rate by Educational Level and Sex, by District</h3>
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        <div id="firstGradePrimaryEducationChart" class="counter mb-2"></div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div id="secondGradePrimaryEducationChart" class="counter mb-2"></div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div id="firstGradeSecondaryEducationChart" class="counter mb-2"></div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div id="secondGradeSecondaryEducationChart" class="counter mb-2"></div>
                     </div>
                 </div>
             </div>
@@ -277,7 +289,42 @@
             // Three box  Population Density
             var populationDensity = filteredData[0].Densidade;
 
-            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate,populationDensity);
+            updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate, populationDensity);
+
+
+
+
+
+            // Net Enrolment Rate by Educational Level and Sex, by District
+            var totalFirstGradePrimaryEducation = filteredData[0].TLEnsPrim_1Grau_Tot;
+            var menFirstGradePrimaryEducation = filteredData[0].TLEnsPrim_1Grau_Hom;
+            var womenFirstGradePrimaryEducation = filteredData[0].TLEnsPrim_1Grau_Mulh;
+            updatedFirstGradePrimaryEducation(totalFirstGradePrimaryEducation, menFirstGradePrimaryEducation,
+                womenFirstGradePrimaryEducation);
+
+
+            //Net Enrolment Rate by Educational Level and Sex, by District
+            var totalsecondGradePrimaryEducation = filteredData[0].TLEnsPrim_2Grau_Tot;
+            var menSecondGradePrimaryEducation = filteredData[0].TLEnsPrim_2Grau_Hom;
+            var womenSecondGradePrimaryEducation = filteredData[0].TLEnsPrim_2Grau_Mulh;
+            updatedSecondGradePrimaryEducation(totalsecondGradePrimaryEducation, menSecondGradePrimaryEducation,
+                womenSecondGradePrimaryEducation);
+
+            // Net Enrolment Rate by Educational Level and Sex, by District
+            var totalFirstGradeSecondaryEducation = filteredData[0].TLEnsiSec_1Ciclo_Tot;
+            var menFirstGradeSecondaryEducation = filteredData[0].TLEnsiSec_1Ciclo_Hom;
+            var womenFirstGradeSecondaryEducation = filteredData[0].TLEnsiSec_1Ciclo_Mulh;
+            updatedFirstGradeSecondaryEducation(totalFirstGradeSecondaryEducation, menFirstGradeSecondaryEducation,
+                womenFirstGradeSecondaryEducation);
+
+
+            //Net Enrolment Rate by Educational Level and Sex, by District
+            var totalsecondGradeSecondaryEducation = filteredData[0].TLEnsiSec_2Ciclo_Tot;
+            var menSecondGradeSecondaryEducation = filteredData[0].TLEnsiSec_2Ciclo_Hom;
+            var womenSecondGradeSecondaryEducation = filteredData[0].TLEnsiSec_2Ciclo_Mulh;
+            updatedsecondGradeSecondaryEducation(totalsecondGradeSecondaryEducation, menSecondGradeSecondaryEducation,
+                womenSecondGradeSecondaryEducation);
+
         }
 
         function onEachFeature(feature, layer) {
@@ -471,12 +518,220 @@
 
         }
 
-        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate,populationDensity) {
+        function updatePopulationCounters(popTotalValue, popSexRatioBybirth, popGrowthRate, populationDensity) {
             // Update the innerHTML of the counter elements with the provided values
             document.getElementById('total_population').innerHTML = popTotalValue;
             document.getElementById('sex_ratio_by_birth').innerHTML = popSexRatioBybirth;
             document.getElementById('population_growth_rate').innerHTML = popGrowthRate;
             document.getElementById('population_density').innerHTML = populationDensity;
+        }
+
+        function updatedFirstGradePrimaryEducation(totalFirstGradePrimaryEducation, menFirstGradePrimaryEducation,
+            womenFirstGradePrimaryEducation) {
+            // Convert strings to numbers
+            totalFirstGradePrimaryEducation = parseFloat(totalFirstGradePrimaryEducation);
+            menFirstGradePrimaryEducation = parseFloat(menFirstGradePrimaryEducation);
+            womenFirstGradePrimaryEducation = parseFloat(womenFirstGradePrimaryEducation);
+
+            // Print the values of each variable in the console
+            // console.log('Total First Grade Primary Education:', totalFirstGradePrimaryEducation);
+            // console.log('Men First Grade Primary Education:', menFirstGradePrimaryEducation);
+            // console.log('Women First Grade Primary Education:', womenFirstGradePrimaryEducation);
+
+            // total Dependency Ratio Rate Bar charts of the Total population
+            Highcharts.chart('firstGradePrimaryEducationChart', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#DDDDDD'
+                },
+                title: {
+                    text: 'First Grade Primary Education by Gender and District',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Total', 'Men', 'Women'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Districts'
+                    }
+                },
+
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                        name: 'Total 1st Grade',
+                        data: [totalFirstGradePrimaryEducation]
+                    },
+                    {
+                        name: 'Men 1st Grade',
+                        data: [menFirstGradePrimaryEducation]
+                    },
+                    {
+                        name: 'Women 1st Grade',
+                        data: [womenFirstGradePrimaryEducation]
+                    }
+                ]
+            });
+        }
+
+        function updatedSecondGradePrimaryEducation(totalsecondGradePrimaryEducation, menSecondGradePrimaryEducation,
+            womenSecondGradePrimaryEducation) {
+            // Convert strings to numbers
+            totalsecondGradePrimaryEducation = parseFloat(totalsecondGradePrimaryEducation);
+            menSecondGradePrimaryEducation = parseFloat(menSecondGradePrimaryEducation);
+            womenSecondGradePrimaryEducation = parseFloat(womenSecondGradePrimaryEducation);
+
+            // Print the values of each variable in the console
+            // console.log('Total Second Grade Primary Education:', totalsecondGradePrimaryEducation);
+            // console.log('Men Second Grade Primary Education:', menSecondGradePrimaryEducation);
+            // console.log('Women Second Grade Primary Education:', womenSecondGradePrimaryEducation);
+
+            // Create the Highcharts chart
+            Highcharts.chart('secondGradePrimaryEducationChart', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#DDDDDD'
+                },
+                title: {
+                    text: 'Second Grade Primary Education by Gender and District',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Total', 'Men', 'Women'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Districts'
+                    }
+                },
+
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                        name: 'Total 2nd Grade',
+                        data: [totalsecondGradePrimaryEducation]
+                    },
+                    {
+                        name: 'Men 2nd Grade ',
+                        data: [menSecondGradePrimaryEducation]
+                    },
+                    {
+                        name: 'Women 2nd Grade ',
+                        data: [womenSecondGradePrimaryEducation]
+                    }
+                ]
+            });
+        }
+
+        function updatedFirstGradeSecondaryEducation(totalFirstGradeSecondaryEducation, menFirstGradeSecondaryEducation,
+            womenFirstGradeSecondaryEducation) {
+            // Convert strings to numbers
+            totalFirstGradeSecondaryEducation = parseFloat(totalFirstGradeSecondaryEducation);
+            menFirstGradeSecondaryEducation = parseFloat(menFirstGradeSecondaryEducation);
+            womenFirstGradeSecondaryEducation = parseFloat(womenFirstGradeSecondaryEducation);
+
+            // Print the values of each variable in the console
+            // console.log('Total First Grade Secondary Education:', totalFirstGradeSecondaryEducation);
+            // console.log('Men First Grade Secondary Education:', menFirstGradeSecondaryEducation);
+            // console.log('Women First Grade Secondary Education:', womenFirstGradeSecondaryEducation);
+
+            // Create the Highcharts chart
+            Highcharts.chart('firstGradeSecondaryEducationChart', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#DDDDDD'
+                },
+                title: {
+                    text: 'First Grade Secondary Education by Gender and District',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Total', 'Men', 'Women'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Districts'
+                    }
+                },
+
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                        name: 'Total 1st Grade',
+                        data: [totalFirstGradeSecondaryEducation]
+                    },
+                    {
+                        name: 'Men 1st Grade',
+                        data: [menFirstGradeSecondaryEducation]
+                    },
+                    {
+                        name: 'Women 1st Grade',
+                        data: [womenFirstGradeSecondaryEducation]
+                    }
+                ]
+            });
+        }
+
+        function updatedsecondGradeSecondaryEducation(totalsecondGradeSecondaryEducation,
+            menSecondGradeSecondaryEducation, womenSecondGradeSecondaryEducation) {
+            // Convert strings to numbers
+            totalsecondGradeSecondaryEducation = parseFloat(totalsecondGradeSecondaryEducation);
+            menSecondGradeSecondaryEducation = parseFloat(menSecondGradeSecondaryEducation);
+            womenSecondGradeSecondaryEducation = parseFloat(womenSecondGradeSecondaryEducation);
+
+            // Print the values of each variable in the console
+            // console.log('Total Second Grade Secondary Education:', totalsecondGradeSecondaryEducation);
+            // console.log('Men Second Grade Secondary Education:', menSecondGradeSecondaryEducation);
+            // console.log('Women Second Grade Secondary Education:', womenSecondGradeSecondaryEducation);
+
+            // Create the Highcharts chart
+            Highcharts.chart('secondGradeSecondaryEducationChart', {
+                chart: {
+                    type: 'column',
+                    backgroundColor: '#DDDDDD'
+                },
+                title: {
+                    text: 'Second Grade Secondary Education by Gender and District',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Total', 'Men', 'Women'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Districts'
+                    }
+                },
+
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                        name: 'Total 2nd Grade',
+                        data: [totalsecondGradeSecondaryEducation]
+                    },
+                    {
+                        name: 'Men 2nd Grade',
+                        data: [menSecondGradeSecondaryEducation]
+                    },
+                    {
+                        name: 'Women 2nd Grade',
+                        data: [womenSecondGradeSecondaryEducation]
+                    }
+                ]
+            });
         }
     </script>
 @endsection

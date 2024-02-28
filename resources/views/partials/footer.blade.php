@@ -3,6 +3,8 @@
     <div class="footer-links">
         <a href="{{ route('home') }}">{{ trans('global.home') }}</a>
         <span>|</span>
-        <a href="{{ route('growthRate') }}">{{ trans('global.growth_rate') }}</a>
+        <a href="{{ route('pyramid') }}">{{ trans('global.pyramid') }}</a>
+        <span>|</span>
+        <a href="{{ route('tables') }}">{{ trans('global.tables') }}</a>
     </div>
 </div>

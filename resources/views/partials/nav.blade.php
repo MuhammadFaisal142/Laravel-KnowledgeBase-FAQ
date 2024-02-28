@@ -27,8 +27,8 @@
     <div class="navigation-holder">
         <ul class="navigation">
             <li><a href="{{ route('home') }}">{{ trans('global.home') }}</a></li>
-            <li><a href="{{ route('growthRate') }}">{{ trans('global.growth_rate') }}</a></li>
-            <li><a href="{{ route('education') }}">{{ trans('global.education') }}</a></li>
+            <li><a href="{{ route('pyramid') }}">{{ trans('global.pyramid') }}</a></li>
+            <li><a href="{{ route('tables') }}">{{ trans('global.tables') }}</a></li>
         </ul>
         <div class="client_logos_wrapper d-md-none">
             <img src="{{ asset('theme_of_mozambique/img/client_logo_1.jpg') }}" alt="">

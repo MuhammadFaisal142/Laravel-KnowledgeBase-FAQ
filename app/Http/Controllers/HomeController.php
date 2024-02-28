@@ -21,15 +21,15 @@ class HomeController extends Controller
         // $population_Districts = DB::table('population_district')->get();
         return view('Home.home', compact('population_data'));
     }
-    public function growthrate(){
+    public function pyramid(){
         $population_data = DB::table('districts_all_data_list')->get();
         // $population_Districts = DB::table('population_district')->get();
-        return view('Home.growth_rate', compact('population_data'));
+        return view('Home.pyramid', compact('population_data'));
     }
-    public function education(){
+    public function tables(){
         $population_data = DB::table('districts_all_data_list')->get();
         // $population_Districts = DB::table('population_district')->get();
-        return view('Home.education', compact('population_data'));
+        return view('Home.tables', compact('population_data'));
     }
 
 

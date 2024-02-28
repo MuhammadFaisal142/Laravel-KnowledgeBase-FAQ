@@ -291,7 +291,10 @@ return [
     'filter' => 'Filtro',
     'search' => 'Procurar',
     'all_districts' => 'Todos os distritos',
+    'districts' => 'distritos',
     'population_density' => 'Densidade populacional',
     'education' => 'Educação',
+    'pyramid' => 'Pirâmide',
+    'tables' => 'Tabelas',
     'select_any_districts' => 'Selecione qualquer distrito no mapa.',
 ];

@@ -289,10 +289,13 @@ return [
     'overall_conversion_rate' => 'OVERALL CONVERSION RATE BY GENDER AND AGE',
     'name_of_district' => 'Name of District',
     'all_districts' => 'All Districts',
+    'districts' => 'Districts',
     'search' => 'Search',
     'filter' => 'Filter',
     'population_density' => 'Population density',
     'education' => 'Education',
+    'pyramid' => 'Pyramid',
+    'tables' => 'Tables',
     'select_any_districts' => 'Please select any district from the map.',
 
 ];
