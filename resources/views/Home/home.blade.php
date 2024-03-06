@@ -4,7 +4,7 @@
 
     <div class="graphs-row mt-4 mb-4">
         <div class="row">
-            <div class="col-md-8 ">
+            <div class="col-md-8">
                 <div class="map-holder">
                     <!--    <h2>Mozanbique Map</h2> -->
                     <div class="box-body">
@@ -94,15 +94,17 @@
                         <a class="nav-link active" data-toggle="tab" href="#population">{{ trans('global.population') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#marital_ratio">{{ trans('global.marital_Ratio') }}</a>
+                        <a class="nav-link" data-toggle="tab"
+                            href="#marital_ratio">{{ trans('global.characteristics') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab"
                             href="#illiteracyRate">{{ trans('global.illiteracyRate') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#dependency">{{ trans('global.dependency') }}</a>
+                        <a class="nav-link" data-toggle="tab" href="#education">{{ trans('global.education') }}</a>
                     </li>
+
                 </ul>
             </div>
             <!-- Tab panes -->
@@ -115,7 +117,7 @@
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div class="chart-holder" id="rev-chart1"></div>
+                                <div class="chart-holder" id="stackedBarChartByAgeGroup"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -124,7 +126,7 @@
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div class="chart-holder" id="rev-chart2"></div>
+                                <div class="chart-holder" id="foreign_population_by_gender"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -133,7 +135,7 @@
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div class="chart-holder" id="rev-chart3"></div>
+                                <div class="chart-holder" id="demographic_dependency_rate_by_sex"></div>
                             </div>
                         </div>
 
@@ -148,25 +150,57 @@
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div id="chart_total_marital"></div>
+                                <div id="chart_marital_ratio_characteristics"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="chart-visual totals">
-                                {{-- chart marital ratio men --}}
+                                {{-- chart marital ratio Total  --}}
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div id="chart_mens_marital"></div>
+                                <div id="Population_aged_5_and_over"></div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="chart-visual totals">
-                                {{-- chart  marital ratio Women --}}
+                                {{-- chart marital ratio Total  --}}
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div id="chart_womens_marital"></div>
+                                <div id="population_by_Religion_Professed"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart marital ratio Total  --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="Population_from_0_to_17_years"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart marital ratio Total  --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="population_with_Disabilities"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- chart marital ratio Total  --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="orphanage_by_sex"></div>
                             </div>
                         </div>
                     </div>
@@ -189,24 +223,20 @@
                         </div>
                     </div>
                 </div>
-                <div id="dependency" class="tab-pane fade"><br>
+                <div id="education" class="tab-pane fade"><br>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="chart-visual totals">
-                                {{-- dependency rate of   --}}
+                                {{-- ILLITRACY RATE     --}}
                                 <div class="emptyMessage">
                                     {{ trans('global.select_any_districts') }}
                                 </div>
-                                <div id="totalDependencyRatioRate"></div>
+                                <div id="illiteracy_Rate_by_Sex"></div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            {{-- <div class="chart-visual totals">
-
-                            </div> --}}
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -401,12 +431,16 @@
 
             updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity);
 
-            // bar charts of the dependency ratio of 0-14 65+ all
-            var totalDependencyRatio = filteredData[0].TaxaDep_01465_total;
-            var youthDependencyRatioZeroToFourteen = filteredData[0].TaxaDep_014_total;
-            var elderlyDependencyRatioSixtyFiveAbove = filteredData[0].TaxaDep_65_total;
-            updatedPopulationDependencyRatio(totalDependencyRatio, youthDependencyRatioZeroToFourteen,
-                elderlyDependencyRatioSixtyFiveAbove);
+            // Stacked column bar charts dependency ratio and Elderly Dependency Ratio
+            var rateDep_014_total = filteredData[0].TaxaDep_014_total;
+            var rateDep_014_men = filteredData[0].TaxaDep_014_homens;
+            var rateDep_014_women = filteredData[0].TaxaDep_014_mulheres;
+            var rateDep_65_total = filteredData[0].TaxaDep_65_total;
+            var rateDep_65_men = filteredData[0].TaxaDep_65_homens;
+            var rateDep_65_women = filteredData[0].TaxaDep_65_mulheres;
+
+            demographicDependencyRateBySex(rateDep_014_total, rateDep_014_men,
+                rateDep_014_women, rateDep_65_total, rateDep_65_men, rateDep_65_women);
 
 
             // Illiteracy Rate by Sex,District
@@ -429,17 +463,18 @@
             var grupIdad_1564_mulheres = filteredData[0].GrupIdad_1564_mulheres;
             var grupIdad_65_mulheres = filteredData[0].GrupIdad_65_mulheres;
 
-            // Pie charts total marital ratio
-            var solteiro_total = filteredData[0].Solteiro_total;
-            var casado_total = filteredData[0].Casado_total;
-            var uniao_Marital_total = filteredData[0].União_Marital_total;
-            var divorciado_Separado_total = filteredData[0].Divorciado_Separado_total;
-            var viuvo_total = filteredData[0].Viúvo_total;
+
+            // PieChartsPopulation();
+            stackedBarChartByAgeGroup(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
+                grupIdad_014_homens,
+                grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
+                grupIdad_65_mulheres);
+
 
             // Pie charts mens marital ratio
             var solteiro_homens = filteredData[0].Solteiro_homens;
             var casado_homens = filteredData[0].Casado_homens;
-            var uniao_Marital_homens = filteredData[0].União_Marital_homens;
+            var uniao_Marital_homens = filteredData[0].Uniao_Marital_homens;
             var divorciado_Separado_homens = filteredData[0].Divorciado_Separado_homens;
             var viuvo_homens = filteredData[0].Viúvo_homens;
 
@@ -451,18 +486,91 @@
             var viuvo_mulheres = filteredData[0].Viúvo_mulheres;
 
             highlightPieChartMaritalRatio(
-                solteiro_total, casado_total, uniao_Marital_total, divorciado_Separado_total, viuvo_total,
                 solteiro_homens, casado_homens, uniao_Marital_homens, divorciado_Separado_homens, viuvo_homens,
                 solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres, viuvo_mulheres
             );
+            var Emakhuwa = filteredData[0].Emakhuwa_duplication;
+            var Ciyao = filteredData[0].Ciyao_duplication;
+            var Cinyanja = filteredData[0].Cinyanja_duplication;
+            var Portugues = filteredData[0].Português_duplication;
+            var Elomwue = filteredData[0].Elomwue_duplication;
+            var Outras_linguas_mocambicanas = filteredData[0].Outras_linguas_moçambicanas_duplication;
+            var Outras_linguas_estrangeiras = filteredData[0].Outras_linguas_estrangeirasç_duplication;
+            var Xichangana = filteredData[0].Xichangana_duplication;
+            var Mudo = filteredData[0].Mudo_duplication;
+            var Desconhecida = filteredData[0].Desconhecida_duplication_one;
+            Population_aged_5_and_over(Emakhuwa, Ciyao, Cinyanja, Portugues, Elomwue, Outras_linguas_mocambicanas,
+                Outras_linguas_estrangeiras, Xichangana, Mudo, Desconhecida);
 
 
 
-            // PieChartsPopulation();
-            highlightPieChartPopulation(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
-                grupIdad_014_homens,
-                grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
-                grupIdad_65_mulheres);
+            var islamica = filteredData[0].Islâmica;
+            var catolica = filteredData[0].Católica;
+            var anglicana = filteredData[0].Anglicana;
+            var evangelica_Pentecostal = filteredData[0].Evangélica_Pentecostal;
+            var zione_Siao = filteredData[0].Zione_Sião;
+            var Sem_religiao_animista = filteredData[0].Sem_religiao_animista;
+            var outra = filteredData[0].Outra;
+            var desconhecida = filteredData[0].Desconhecida_duplication_two;
+
+            population_by_religion_professed(islamica, catolica, anglicana, evangelica_Pentecostal, zione_Siao,
+                Sem_religiao_animista, outra, desconhecida)
+
+
+
+            // Basir Bar chart for foreign population
+
+            var pop_Estr_total = filteredData[0].Pop_Estr_total;
+            var pop_Estr_homens = filteredData[0].Pop_Estr_homens;
+            var pop_Estr_mulheres = filteredData[0].Pop_Estr_mulheres;
+
+
+            basicBarChartForiegnPopulation(pop_Estr_total, pop_Estr_homens, pop_Estr_mulheres);
+
+
+
+            // POPULATION FROM 0 TO 17 YEARS OLD
+            var Registered_Total = filteredData[0].Registada_Tot;
+            var Registered_Male = filteredData[0].Registada_Hom;
+            var Registered_Female = filteredData[0].Registada_Mulh;
+            var Unregistered_Total = filteredData[0].NaoRegist_Tot;
+            var Unregistered_Male = filteredData[0].NaoRegist_Hom;
+            var Unregistered_Female = filteredData[0].NaoRegist_Mulh;
+
+            Population_from_0_to_17_years(Registered_Total, Registered_Male, Registered_Female, Unregistered_Total,
+                Unregistered_Male, Unregistered_Female);
+
+            // Population with Disabilities
+
+            var Deficiency_Total = filteredData[0].Defic_Tot;
+            var Deficiency_Male = filteredData[0].Defic_Hom;
+            var Deficiency_Female = filteredData[0].Defic_Mulh;
+            population_with_Disabilities(Deficiency_Total, Deficiency_Male, Deficiency_Female);
+
+            // ORPHANAGE BY SEX
+
+
+            var Orphanage_Both_Genders_Percentage_Total = filteredData[0].Orf_Ambos_Perc_Tot;
+            var Orphanage_Both_Genders_Percentage_Male = filteredData[0].Orf_Ambos_Perc_Hom;
+            var Orphanage_Both_Genders_Percentage_Female = filteredData[0].Orf_Ambos_Perc_Mulh;
+
+            orphanage_by_sex(Orphanage_Both_Genders_Percentage_Total, Orphanage_Both_Genders_Percentage_Male,
+                Orphanage_Both_Genders_Percentage_Female);
+
+
+            // illiteracy Rate by Sex
+            var Illiteracy_Rate_Total = filteredData[0].Taxa_Analf_Tot;
+            var Illiteracy_Rate_Male = filteredData[0].Taxa_Analf_Hom;
+            var Illiteracy_Rate_Female = filteredData[0].Taxa_Analf_Mulh;
+
+            illiteracy_Rate_by_Sex(Illiteracy_Rate_Total, Illiteracy_Rate_Male, Illiteracy_Rate_Female);
+
+            var {
+                TBEnsPrim_1Grau_Tot,TBEnsPrim_1Grau_Hom,TBEnsPrim_1Grau_Mulh,TBEnsPrim_2Grau_Tot,TBEnsPrim_2Grau_Hom,TBEnsPrim_2Grau_Mulh,TBEnsiSec_1Ciclo_Tot,TBEnsiSec_1Ciclo_Hom,TBEnsiSec_1Ciclo_Mulh,TBEnsiSec_2Ciclo_Tot,TBEnsiSec_2Ciclo_Hom,TBEnsiSec_2Ciclo_Mulh,TLEnsPrim_1Grau_Tot,TLEnsPrim_1Grau_Hom,TLEnsPrim_1Grau_Mulh,TLEnsPrim_2Grau_Tot,TLEnsPrim_2Grau_Hom,TLEnsPrim_2Grau_Mulh,TLEnsiSec_1Ciclo_Tot,TLEnsiSec_1Ciclo_Hom,TLEnsiSec_1Ciclo_Mulh,TLEnsiSec_2Ciclo_Tot,TLEnsiSec_2Ciclo_Hom,TLEnsiSec_2Ciclo_Mulh
+            } = filteredData[0];
+
+            comparison_of_gross_and_net_enrolment_rate(TBEnsPrim_1Grau_Tot,TBEnsPrim_1Grau_Hom,TBEnsPrim_1Grau_Mulh,TBEnsPrim_2Grau_Tot,TBEnsPrim_2Grau_Hom,TBEnsPrim_2Grau_Mulh,TBEnsiSec_1Ciclo_Tot,TBEnsiSec_1Ciclo_Hom,TBEnsiSec_1Ciclo_Mulh,TBEnsiSec_2Ciclo_Tot,TBEnsiSec_2Ciclo_Hom,TBEnsiSec_2Ciclo_Mulh,TLEnsPrim_1Grau_Tot,TLEnsPrim_1Grau_Hom,TLEnsPrim_1Grau_Mulh,TLEnsPrim_2Grau_Tot,TLEnsPrim_2Grau_Hom,TLEnsPrim_2Grau_Mulh,TLEnsiSec_1Ciclo_Tot,TLEnsiSec_1Ciclo_Hom,TLEnsiSec_1Ciclo_Mulh,TLEnsiSec_2Ciclo_Tot,TLEnsiSec_2Ciclo_Hom,TLEnsiSec_2Ciclo_Mulh);
+            // continues from here 
 
             // Percent distribution of the household population First paramyid Graph show on the right on the page
             var {
@@ -821,9 +929,11 @@
         // These are pie charts code
 
 
-        function highlightPieChartPopulation(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
-            grupIdad_014_homens,
-            grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres, grupIdad_65_mulheres) {
+
+        function stackedBarChartByAgeGroup(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
+            grupIdad_014_homens, grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
+            grupIdad_65_mulheres) {
+
 
             // Check if the charts exist and destroy them
             if (window.chartTotalPopulation) {
@@ -837,184 +947,17 @@
             if (window.chartForWomens) {
                 window.chartForWomens.destroy();
             }
-
             // Total population pie charts data
-            var id = parseFloat(popID);
             var total_014 = parseFloat(grupIdad_014_Total);
             var total_1564 = parseFloat(grupIdad_1564_Total);
             var total_65 = parseFloat(grupIdad_65_Total);
             var updatedSeriesTotal = [total_014, total_1564, total_65];
 
-            Highcharts.chart('rev-chart1', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-                },
-                title: {
-                    text: translations.total_population,
-                    align: 'left'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        showInLegend: true
-                    },
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: false,
-                            distance: 20
-                        }, {
-                            enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
-                            style: {
-                                fontSize: '0.8em',
-                                textOutline: 'none'
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
-                            }
-                        }]
-                    },
-                },
-                credits: {
-                    enabled: false // Hide the credits
-                },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                colors: [
-                    '#7cb5ec',
-                    '#434348',
-                    '#90ed7d'
-                ],
-                series: [{
-                    name: 'Age Group',
-                    colorByPoint: true,
-                    data: [{
-                        name: '0-14 Years',
-                        y: updatedSeriesTotal[0], // Dynamic value for mulheres_014
-                    }, {
-                        name: '15-64 Years',
-                        y: updatedSeriesTotal[1], // Dynamic value for mulheres_1564
-                    }, {
-                        name: '65+ Years',
-                        y: updatedSeriesTotal[2], // Dynamic value for mulheres_65
-                    }]
-                }]
-            });
-
-
-            // men population pie charts data
+            // Men population pie charts data
             var homens_014 = parseFloat(grupIdad_014_homens);
             var homens_1564 = parseFloat(grupIdad_1564_homens);
             var homens_65 = parseFloat(grupIdad_65_homens);
             var updatedSeriesForMens = [homens_014, homens_1564, homens_65];
-
-            Highcharts.chart('rev-chart2', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-
-                },
-                title: {
-                    text: translations.men_population,
-                    align: 'left'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-
-                        showInLegend: true
-                    },
-
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: false,
-                            distance: 20
-                        }, {
-                            enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
-                            style: {
-                                fontSize: '0.8em',
-                                textOutline: 'none'
-
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
-                            }
-                        }]
-                    }
-                },
-                credits: {
-                    enabled: false // Hide the credits
-                },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                colors: [
-                    '#ff9966',
-                    '#663399',
-                    '#00cc99'
-                ],
-
-                series: [{
-                    name: 'Age Group',
-                    colorByPoint: true,
-                    data: [{
-                        name: '0-14 Years',
-                        y: updatedSeriesForMens[0], // Dynamic value for mulheres_014
-
-                    }, {
-                        name: '15-64 Years',
-                        y: updatedSeriesForMens[1], // Dynamic value for mulheres_1564
-                    }, {
-                        name: '65+ Years',
-                        y: updatedSeriesForMens[2], // Dynamic value for mulheres_65
-                    }]
-                }]
-            });
 
             // Women population pie charts data
             var mulheres_014 = parseFloat(grupIdad_014_mulheres);
@@ -1022,90 +965,441 @@
             var mulheres_65 = parseFloat(grupIdad_65_mulheres);
             var updatedSeriesForWomens = [mulheres_014, mulheres_1564, mulheres_65];
 
-            Highcharts.chart('rev-chart3', {
+            Highcharts.chart('stackedBarChartByAgeGroup', {
                 chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-
+                    type: 'column'
                 },
                 title: {
-                    text: translations.women_population,
+                    text: 'Population by Major Age Groups',
                     align: 'left'
                 },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                subtitle: {
+                    text: 'Percentage Distribution',
+                    align: 'left'
                 },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
+                xAxis: {
+                    categories: ['0-14', '15-64', '65+']
                 },
-                plotOptions: {
-                    pie: {
-
-                        showInLegend: true
-                    },
-
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: false,
-                            distance: 20
-                        }, {
-                            enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
-                            style: {
-                                fontSize: '0.8em',
-                                textOutline: 'none'
-
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
-                            }
-                        }]
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Percent'
                     }
                 },
                 credits: {
                     enabled: false // Hide the credits
                 },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+                    shared: true
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true
+                        }
                     }
                 },
-                colors: [
-                    '#ffa500',
-                    '#4caf50',
-                    '#9932cc'
-                ],
-
                 series: [{
-                    name: 'Age Group',
+                    name: 'Total',
+                    data: updatedSeriesTotal
+                }, {
+                    name: 'Men',
+                    data: updatedSeriesForMens
+                }, {
+                    name: 'Women',
+                    data: updatedSeriesForWomens
+                }]
+            });
+        }
+
+        function basicBarChartForiegnPopulation(pop_Estr_total, pop_Estr_homens, pop_Estr_mulheres) {
+            var totalPopulation = parseFloat(pop_Estr_total);
+            var menPopulation = parseFloat(pop_Estr_homens);
+            var womenPopulation = parseFloat(pop_Estr_mulheres);
+
+            Highcharts.chart('foreign_population_by_gender', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'FOREIGN POPULATION BY SEX',
+                    align: 'left'
+                },
+                xAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Foreign Population'
+                    }
+                },
+
+                tooltip: {
+                    valueSuffix: ' percent'
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: '50%',
+                        dataLabels: {
+                            enabled: true
+                        },
+                        groupPadding: 0.2
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '13px' // Adjust the font size as needed
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total',
+                    data: [totalPopulation]
+                }, {
+                    name: 'Men',
+                    data: [menPopulation]
+                }, {
+                    name: 'Women',
+                    data: [womenPopulation]
+                }]
+            });
+        }
+
+
+        function Population_from_0_to_17_years(Registered_Total, Registered_Male, Registered_Female, Unregistered_Total,
+            Unregistered_Male, Unregistered_Female) {
+            // Population_from_0_to_17_years
+            // Convert input variables to float
+            var registered_total = parseFloat(Registered_Total);
+            var registered_male = parseFloat(Registered_Male);
+            var registered_female = parseFloat(Registered_Female);
+            var unregistered_total = parseFloat(Unregistered_Total);
+            var unregistered_male = parseFloat(Unregistered_Male);
+            var unregistered_female = parseFloat(Unregistered_Female);
+
+            // Log the converted variables
+            // console.log("Registered Total: ", registered_total);
+            // console.log("Registered Male: ", registered_male);
+            // console.log("Registered Female: ", registered_female);
+            // console.log("Unregistered Total: ", unregistered_total);
+            // console.log("Unregistered Male: ", unregistered_male);
+            // console.log("Unregistered Female: ", unregistered_female);
+
+
+
+            Highcharts.chart('Population_from_0_to_17_years', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'CIVIL REGISTRY by Sex',
+                    align: 'left'
+                },
+                subtitle: {
+                    text: 'POPULATION FROM 0 TO 17 YEARS OLD',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Registered', 'Unregistered'],
+                    title: {
+                        text: null
+                    },
+                    gridLineWidth: 1,
+                    lineWidth: 0
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    },
+                    gridLineWidth: 0
+                },
+                tooltip: {
+                    valueSuffix: ' millions'
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: '50%',
+                        dataLabels: {
+                            enabled: true
+                        },
+                        groupPadding: 0.1
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '13px' // Adjust the font size as needed
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Male',
+                    data: [registered_male, unregistered_male]
+                }, {
+                    name: 'Female',
+                    data: [registered_female, unregistered_female]
+                }, {
+                    name: 'Total',
+                    data: [registered_total, unregistered_total]
+                }]
+            });
+
+
+        }
+
+        function population_with_Disabilities(Deficiency_Total, Deficiency_Male, Deficiency_Female) {
+            // Convert input variables to float
+            var totalDeficiency = parseFloat(Deficiency_Total);
+            var maleDeficiency = parseFloat(Deficiency_Male);
+            var femaleDeficiency = parseFloat(Deficiency_Female);
+
+            // Log the converted variables
+            // console.log("Deficiency Total: ", totalDeficiency);
+            // console.log("Deficiency Male: ", maleDeficiency);
+            // console.log("Deficiency Female: ", femaleDeficiency);
+
+            // Create the chart with dynamic data
+            Highcharts.chart('population_with_Disabilities', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    align: 'left',
+                    text: 'Population with Disabilities'
+                },
+                subtitle: {
+                    align: 'left',
+                    text: 'Percentage of Population with Disabilities by District'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Population with Disabilities'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.2f}%'
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Deficiency',
                     colorByPoint: true,
                     data: [{
-                        name: '0-14 Years',
-                        y: updatedSeriesForWomens[0], // Dynamic value for mulheres_014
+                            name: 'Male',
+                            y: maleDeficiency
+                        },
+                        {
+                            name: 'Female',
+                            y: femaleDeficiency
+                        },
+                        {
+                            name: 'Total',
+                            y: totalDeficiency
+                        }
+                    ]
+                }]
+            });
+        }
 
-                    }, {
-                        name: '15-64 Years',
-                        y: updatedSeriesForWomens[1], // Dynamic value for mulheres_1564
-                    }, {
-                        name: '65+ Years',
-                        y: updatedSeriesForWomens[2], // Dynamic value for mulheres_65
-                    }]
+
+        function orphanage_by_sex(Orphanage_Both_Genders_Percentage_Total, Orphanage_Both_Genders_Percentage_Male,
+            Orphanage_Both_Genders_Percentage_Female) {
+
+            var Orphanage_Both_Genders_Percentage_Total = parseFloat(Orphanage_Both_Genders_Percentage_Total);
+            var Orphanage_Both_Genders_Percentage_Male = parseFloat(Orphanage_Both_Genders_Percentage_Male);
+            var Orphanage_Both_Genders_Percentage_Female = parseFloat(Orphanage_Both_Genders_Percentage_Female);
+
+            // console.log("Orphanage Both Genders Percentage Total: ", Orphanage_Both_Genders_Percentage_Total);
+            // console.log("Orphanage Both Genders Percentage Male: ", Orphanage_Both_Genders_Percentage_Male);
+            // console.log("Orphanage Both Genders Percentage Female: ", Orphanage_Both_Genders_Percentage_Female);
+
+            Highcharts.chart('orphanage_by_sex', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    align: 'left',
+                    text: 'ORPHANAGE BY SEX'
+                },
+                subtitle: {
+                    align: 'left',
+                    text: 'POPULATION FROM 0 TO 17 YEARS OLD'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'POPULATION FROM 0 TO 17 YEARS OLD'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.2f}%'
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Deficiency',
+                    colorByPoint: true,
+                    data: [{
+                            name: 'Male',
+                            y: Orphanage_Both_Genders_Percentage_Male
+                        },
+                        {
+                            name: 'Female',
+                            y: Orphanage_Both_Genders_Percentage_Female
+                        },
+                        {
+                            name: 'Total',
+                            y: Orphanage_Both_Genders_Percentage_Total
+                        }
+                    ]
                 }]
             });
 
         }
 
+        function illiteracy_Rate_by_Sex(Illiteracy_Rate_Total, Illiteracy_Rate_Male, Illiteracy_Rate_Female) {
+
+
+            // Convert input variables to float
+            var Illiteracy_Rate_Total = parseFloat(Illiteracy_Rate_Total);
+            var Illiteracy_Rate_Male = parseFloat(Illiteracy_Rate_Male);
+            var Illiteracy_Rate_Female = parseFloat(Illiteracy_Rate_Female);
+
+            // Log the converted variables
+            // console.log("Illiteracy Rate Total: ", Illiteracy_Rate_Total);
+            // console.log("Illiteracy Rate Male: ", Illiteracy_Rate_Male);
+            // console.log("Illiteracy Rate Female: ", Illiteracy_Rate_Female);
+
+            // Create categories dynamically based on provided data
+            var categories = [
+                'Male',
+                'Female',
+                'Total'
+            ];
+
+
+            // Highcharts chart creation
+            Highcharts.chart('illiteracy_Rate_by_Sex', {
+                colors: ['#FFD700', '#C0C0C0', '#CD7F32'],
+                chart: {
+                    type: 'column',
+                    inverted: true,
+                    polar: true
+                },
+                title: {
+                    text: 'Illiteracy Rate by Sex',
+                    align: 'left'
+                },
+                tooltip: {
+                    outside: true
+                },
+                pane: {
+                    size: '85%',
+                    innerSize: '20%',
+                    endAngle: 270
+                },
+                xAxis: {
+                    tickInterval: 1,
+                    labels: {
+                        align: 'right',
+                        useHTML: true,
+                        allowOverlap: true,
+                        step: 1,
+                        y: 3,
+                        style: {
+                            fontSize: '13px'
+                        }
+                    },
+                    lineWidth: 0,
+                    gridLineWidth: 0,
+                    categories: categories
+                },
+                yAxis: {
+                    lineWidth: 0,
+                    tickInterval: 25,
+                    reversedStacks: false,
+                    endOnTick: true,
+                    showLastLabel: true,
+                    gridLineWidth: 0
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointPadding: 0,
+                        groupPadding: 0.35,
+                        borderRadius: '50%'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Male Population',
+                    data: [Illiteracy_Rate_Male]
+                }, {
+                    name: 'Female Population',
+                    data: [Illiteracy_Rate_Female]
+                }, {
+                    name: 'Total Population',
+                    data: [Illiteracy_Rate_Total]
+                }]
+            });
+        }
+
+        // chart marital ratio characteristics
         function highlightPieChartMaritalRatio(
-            solteiro_total, casado_total, uniao_Marital_total, divorciado_Separado_total, viuvo_total,
             solteiro_homens, casado_homens, uniao_Marital_homens, divorciado_Separado_homens, viuvo_homens,
             solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres, viuvo_mulheres
         ) {
@@ -1121,223 +1415,19 @@
                 window.chartWomensMarital.destroy();
             }
 
-
-            // Convert string values to float
-            var solteiro_total_marital = parseFloat(solteiro_total);
-            var casado_total_marital = parseFloat(casado_total);
-            var uniao_Marital_total_marital = parseFloat(uniao_Marital_total);
-            var divorciado_Separado_total_marital = parseFloat(divorciado_Separado_total);
-            var viuvo_total_marital = parseFloat(viuvo_total);
-
-            var updatedSeriesTotalMarital = [solteiro_total_marital, casado_total_marital, uniao_Marital_total_marital,
-                divorciado_Separado_total_marital, viuvo_total_marital
-            ];
-
-            Highcharts.chart('chart_total_marital', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-
-
-                    // Set the height of the chart
-
-                },
-                title: {
-                    text: translations.total_marital_ratio,
-                    align: 'left'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-
-                        showInLegend: true
-                    },
-
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: false,
-                            distance: 20
-                        }, {
-                            enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
-                            style: {
-                                fontSize: '0.8em',
-                                textOutline: 'none'
-
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
-                            }
-                        }]
-                    }
-                },
-                credits: {
-                    enabled: false // Hide the credits
-                },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                colors: [
-                    '#e74c3c',
-                    '#3498db',
-                    '#2ecc71',
-                    '#f39c12',
-                    '#9b59b6'
-                ],
-
-
-                series: [{
-                    name: 'Age Group',
-                    colorByPoint: true,
-                    data: [{
-                            name: 'single',
-                            y: updatedSeriesTotalMarital[0], // Dynamic value for mulheres_014
-
-                        }, {
-                            name: 'married',
-                            y: updatedSeriesTotalMarital[1], // Dynamic value for mulheres_1564
-                        }, {
-                            name: 'unity',
-                            y: updatedSeriesTotalMarital[2], // Dynamic value for mulheres_65
-                        },
-                        {
-                            name: 'divorced',
-                            y: updatedSeriesTotalMarital[3], // Dynamic value for mulheres_65
-                        },
-                        {
-                            name: 'widower',
-                            y: updatedSeriesTotalMarital[4], // Dynamic value for mulheres_65
-                        }
-
-                    ]
-                }]
-            });
-            // it is mens marital
-
             var solteiro_homens_marital = parseFloat(solteiro_homens);
             var casado_homens_marital = parseFloat(casado_homens);
             var uniao_Marital_homens_marital = parseFloat(uniao_Marital_homens);
             var divorciado_Separado_homens_marital = parseFloat(divorciado_Separado_homens);
             var viuvo_homens_marital = parseFloat(viuvo_homens);
 
-
-            var updatedSeriesMensMarital = [solteiro_homens_marital, casado_homens_marital, uniao_Marital_homens_marital,
+            var updatedSeriesMensMarital = [solteiro_homens_marital, casado_homens_marital,
+                uniao_Marital_homens_marital,
                 divorciado_Separado_homens_marital, viuvo_homens_marital
             ];
 
-            Highcharts.chart('chart_mens_marital', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
 
-
-                    // Set the height of the chart
-
-                },
-                title: {
-                    text: translations.mens_marital_ratio,
-                    align: 'left'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-
-                        showInLegend: true
-                    },
-
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: false,
-                            distance: 20
-                        }, {
-                            enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
-                            style: {
-                                fontSize: '0.8em',
-                                textOutline: 'none'
-
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
-                            }
-                        }]
-                    }
-                },
-                credits: {
-                    enabled: false // Hide the credits
-                },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                colors: [
-                    '#ff6347',
-                    '#6a5acd',
-                    '#32cd32',
-                    '#ff8c00',
-                    '#8a2be2'
-                ],
-
-
-                series: [{
-                    name: 'Age Group',
-                    colorByPoint: true,
-                    data: [{
-                            name: 'single',
-                            y: updatedSeriesMensMarital[0], // Dynamic value for mulheres_014
-
-                        }, {
-                            name: 'married',
-                            y: updatedSeriesMensMarital[1], // Dynamic value for mulheres_1564
-                        }, {
-                            name: 'unity',
-                            y: updatedSeriesMensMarital[2], // Dynamic value for mulheres_65
-                        },
-                        {
-                            name: 'divorced',
-                            y: updatedSeriesMensMarital[3], // Dynamic value for mulheres_65
-                        },
-                        {
-                            name: 'widower',
-                            y: updatedSeriesMensMarital[4], // Dynamic value for mulheres_65
-                        }
-
-                    ]
-                }]
-            });
-
-
+            // console.log("updatedSeriesMensMarital" + updatedSeriesMensMarital )
             // it is womens marital
             var solteiro_mulheres_marital = parseFloat(solteiro_mulheres);
             var casado_mulheres_marital = parseFloat(casado_mulheres);
@@ -1350,20 +1440,208 @@
                 divorciado_Separado_mulheres_marital, viuvo_mulheres_marital
             ];
 
-            Highcharts.chart('chart_womens_marital', {
+            // console.log("updatedSeriesWomensMarital" + updatedSeriesWomensMarital )
+
+            // Create categories dynamically based on provided data
+            var categories = [
+                'Single',
+                'Married',
+                'Marital Union',
+                'Divorced/Separated',
+                'Widowed'
+            ];
+
+
+            // Highcharts chart creation
+            Highcharts.chart('chart_marital_ratio_characteristics', {
+                colors: ['#FFD700', '#C0C0C0', '#CD7F32'],
                 chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-
-
-                    // Set the height of the chart
-
+                    type: 'column',
+                    inverted: true,
+                    polar: true
                 },
                 title: {
-                    text: translations.womens_marital_ratio,
+                    text: 'MARITAL STATUS BY SEX',
                     align: 'left'
+                },
+                subtitle: {
+                    text: '12 YEARS OF AGE AND OVER',
+                    align: 'left'
+                },
+                tooltip: {
+                    outside: true
+                },
+                pane: {
+                    size: '85%',
+                    innerSize: '20%',
+                    endAngle: 270
+                },
+                xAxis: {
+                    tickInterval: 1,
+                    labels: {
+                        align: 'right',
+                        useHTML: true,
+                        allowOverlap: true,
+                        step: 1,
+                        y: 3,
+                        style: {
+                            fontSize: '13px'
+                        }
+                    },
+                    lineWidth: 0,
+                    gridLineWidth: 0,
+                    categories: categories
+                },
+                yAxis: {
+                    lineWidth: 0,
+                    tickInterval: 25,
+                    reversedStacks: false,
+                    endOnTick: true,
+                    showLastLabel: true,
+                    gridLineWidth: 0
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointPadding: 0,
+                        groupPadding: 0.15,
+                        borderRadius: '50%'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Male Population',
+                    data: updatedSeriesMensMarital
+                }, {
+                    name: 'Female Population',
+                    data: updatedSeriesWomensMarital
+                }]
+            });
+        }
+
+        function Population_aged_5_and_over(Emakhuwa, Ciyao, Cinyanja, Portugues, Elomwue, Outras_linguas_mocambicanas,
+            Outras_linguas_estrangeiras, Xichangana, Mudo, Desconhecida) {
+
+            // Convert string values to float
+            var emakhuwa = parseFloat(Emakhuwa);
+            var ciyao = parseFloat(Ciyao);
+            var cinyanja = parseFloat(Cinyanja);
+            var portuguese = parseFloat(Portugues);
+            var elomwue = parseFloat(Elomwue);
+            var outras_linguas_mocambicanas = parseFloat(Outras_linguas_mocambicanas);
+            var outras_linguas_estrangeiras = parseFloat(Outras_linguas_estrangeiras);
+            var xichangana = parseFloat(Xichangana);
+            var mudo = parseFloat(Mudo);
+            var desconhecida = parseFloat(Desconhecida);
+            // Print variables to the console
+            // console.log('Emakhuwa:', emakhuwa);
+            // console.log('Ciyao:', ciyao);
+            // console.log('Cinyanja:', cinyanja);
+            // console.log('Portuguese:', portuguese);
+            // console.log('Elomwue:', elomwue);
+            // console.log('Outras línguas moçambicanas:', outras_linguas_mocambicanas);
+            // console.log('Outras línguas estrangeiras:', outras_linguas_estrangeiras);
+            // console.log('Xichangana:', xichangana);
+            // console.log('Mudo:', mudo);
+            // console.log('Desconhecida:', desconhecida);
+            // Set dynamic data for the pie chart
+            var data = [
+                ['Emakhuwa', emakhuwa],
+                ['Ciyao', ciyao],
+                ['Cinyanja', cinyanja],
+                ['Portuguese', portuguese],
+                ['Elomwue', elomwue],
+                ['Outras línguas moçambicanas', outras_linguas_mocambicanas],
+                ['Outras línguas estrangeiras', outras_linguas_estrangeiras],
+                ['Xichangana', xichangana],
+                ['Mudo', mudo],
+                ['Desconhecida', desconhecida]
+            ];
+
+            // Data retrieved from https://olympics.com/en/olympic-games/beijing-2022/medals
+            Highcharts.chart('Population_aged_5_and_over', {
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: 'Language most often spoken',
+                    align: 'left'
+                },
+                subtitle: {
+                    text: 'Population aged 5 and over',
+                    align: 'left'
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Language',
+                    data: data
+                }]
+            });
+        }
+
+        function population_by_religion_professed(islamica, catolica, anglicana, evangelica_Pentecostal, zione_Siao,
+            Sem_religiao_animista, outra, desconhecida) {
+
+            // Convert string values to float
+            var islamicaVal = parseFloat(islamica);
+            var catolicaVal = parseFloat(catolica);
+            var anglicanaVal = parseFloat(anglicana);
+            var evangelica_PentecostalVal = parseFloat(evangelica_Pentecostal);
+            var zione_SiaoVal = parseFloat(zione_Siao);
+            var Sem_religiao_animistaVal = parseFloat(Sem_religiao_animista);
+            var outraval = parseFloat(outra);
+            var desconhecidaval = parseFloat(desconhecida);
+            // Repeat this for other variables
+
+            // Repeat this for other variables
+
+            // Print variables to the console
+            // console.log('Islamica:', islamicaVal);
+            // console.log('Catolica:', catolicaVal);
+            // console.log('Anglicana:', anglicanaVal);
+            // console.log('Evangelica Pentecostal:', evangelica_PentecostalVal);
+            // console.log('Zione Siao:', zione_SiaoVal);
+            // console.log('Sem Religiao Animista:', Sem_religiao_animistaVal);
+            // console.log('Outra:', outraval);
+            // console.log('Desconhecida:', desconhecidaval);
+
+            // Set dynamic data in the series
+            var seriesData = [
+                ['Islamica', islamicaVal],
+                ['Catolica', catolicaVal],
+                ['Anglicana', anglicanaVal],
+                ['Evangelica Pentecostal', evangelica_PentecostalVal],
+                ['Zione Siao', zione_SiaoVal],
+                ['Sem Religiao Animista', Sem_religiao_animistaVal],
+                ['Outra', outraval],
+                ['Desconhecida', desconhecidaval]
+            ];
+
+            // Data retrieved from https://netmarketshare.com/
+            Highcharts.chart('population_by_Religion_Professed', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Population by Religion Professed',
+                    align: 'left',
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -1375,74 +1653,28 @@
                 },
                 plotOptions: {
                     pie: {
-
-                        showInLegend: true
-                    },
-
-                    series: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: [{
-                            enabled: false,
-                            distance: 20
-                        }, {
+                        dataLabels: {
                             enabled: true,
-                            distance: -40,
-                            format: '{point.percentage:.1f}%',
+                            distance: -50,
                             style: {
-                                fontSize: '0.8em',
-                                textOutline: 'none'
-
-                            },
-                            filter: {
-                                operator: '>',
-                                property: 'percentage',
-                                value: 10
+                                fontWeight: 'bold',
+                                color: 'white'
                             }
-                        }]
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%'],
+                        size: '110%'
                     }
                 },
                 credits: {
-                    enabled: false // Hide the credits
+                    enabled: false
                 },
-                legend: {
-                    itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
-                    }
-                },
-                colors: [
-                    '#ffcc00',
-                    '#993366',
-                    '#0099cc',
-                    '#ff6666',
-                    '#669933'
-                ],
-
-
                 series: [{
-                    name: 'Age Group',
-                    colorByPoint: true,
-                    data: [{
-                            name: 'single',
-                            y: updatedSeriesWomensMarital[0], // Dynamic value for mulheres_014
-
-                        }, {
-                            name: 'married',
-                            y: updatedSeriesWomensMarital[1], // Dynamic value for mulheres_1564
-                        }, {
-                            name: 'unity',
-                            y: updatedSeriesWomensMarital[2], // Dynamic value for mulheres_65
-                        },
-                        {
-                            name: 'divorced',
-                            y: updatedSeriesWomensMarital[3], // Dynamic value for mulheres_65
-                        },
-                        {
-                            name: 'widower',
-                            y: updatedSeriesWomensMarital[4], // Dynamic value for mulheres_65
-                        }
-
-                    ]
+                    type: 'pie',
+                    name: 'Religion Professed',
+                    innerSize: '50%',
+                    data: seriesData
                 }]
             });
 
@@ -1456,33 +1688,37 @@
             document.getElementById('population_density').innerHTML = populationDensity;
         }
 
-        function updatedPopulationDependencyRatio(totalDependencyRatio, youthDependencyRatioZeroToFourteen,
-            elderlyDependencyRatioSixtyFiveAbove) {
+        function demographicDependencyRateBySex(rateDep_014_total, rateDep_014_men, rateDep_014_women, rateDep_65_total,
+            rateDep_65_men, rateDep_65_women) {
             // Convert strings to numbers
-            totalDependencyRatio = parseFloat(totalDependencyRatio);
-            youthDependencyRatioZeroToFourteen = parseFloat(youthDependencyRatioZeroToFourteen);
-            elderlyDependencyRatioSixtyFiveAbove = parseFloat(elderlyDependencyRatioSixtyFiveAbove);
-            // total Dependency Ratio Rate Bar charts of the Total population
-            Highcharts.chart('totalDependencyRatioRate', {
-                chart: {
-                    type: 'column',
+            rateDep_014_total = parseFloat(rateDep_014_total);
+            rateDep_014_men = parseFloat(rateDep_014_men);
+            rateDep_014_women = parseFloat(rateDep_014_women);
+            rateDep_65_total = parseFloat(rateDep_65_total);
+            rateDep_65_men = parseFloat(rateDep_65_men);
+            rateDep_65_women = parseFloat(rateDep_65_women);
 
+            // Dynamic data for the chart
+            var categories = ['Total', 'Men', 'Women'];
+
+            Highcharts.chart('demographic_dependency_rate_by_sex', {
+                chart: {
+                    type: 'column'
                 },
                 title: {
-                    text: 'Total Dependency rate by sex and age groups by District',
+                    text: 'Demographic dependency rate by sex',
                     align: 'left'
                 },
                 xAxis: {
-                    categories: ['Dependency', 'Men', 'Women'],
-                    crosshair: true,
-                    accessibility: {
-                        description: 'Districts'
-                    }
+                    categories: categories
                 },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Dependency rate'
+                    },
+                    stackLabels: {
+                        enabled: true
                     }
                 },
                 credits: {
@@ -1490,24 +1726,31 @@
                 },
                 legend: {
                     itemStyle: {
-                        fontSize: '16px' // Adjust the font size as needed
+                        fontSize: '13px' // Adjust the font size as needed
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{point.x}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true
+                        }
                     }
                 },
                 series: [{
-                        name: 'Total Ratio ',
-                        data: [totalDependencyRatio]
-                    },
-                    {
-                        name: 'Youth Ratio (0-14)',
-                        data: [youthDependencyRatioZeroToFourteen]
-                    },
-                    {
-                        name: 'Elderly Ratio (65+)',
-                        data: [elderlyDependencyRatioSixtyFiveAbove]
-                    }
-                ]
+                    name: '0-14',
+                    data: [rateDep_014_total, rateDep_014_men, rateDep_014_women]
+                }, {
+                    name: '65+',
+                    data: [rateDep_65_total, rateDep_65_men, rateDep_65_women]
+                }]
             });
         }
+
 
         // total Illiteracy Rate bar charts
 
@@ -1678,7 +1921,7 @@
             });
         }
 
-        function percent_distribution_2007(District,M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+        function percent_distribution_2007(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
             M_01_04_p_2007,
             F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
             F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,

@@ -296,6 +296,7 @@ return [
     'education' => 'Education',
     'pyramid' => 'Pyramid',
     'tables' => 'Tables',
+    'characteristics' => 'characteristics',
     'select_any_districts' => 'Please select any district from the map.',
 
 ];
