@@ -32,6 +32,12 @@
                                 <h2>{{ trans('global.population_density') }}</h2>
                             </div>
                         </div>
+                        <div class="col-12 col-sm">
+                            <div class="counter-box population_density">
+                                <div class="counter" id="Average_Number_of_Members_per_Household">4.3</div>
+                                <h2>{{ trans('global.Average_Number_Members_per_Household') }}</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,7 +110,25 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#education">{{ trans('global.education') }}</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#housing">{{ trans('global.housing') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab"
+                            href="#water_and_sanitation">{{ trans('global.water_and_sanitation') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab"
+                            href="#financial_Inclusion">{{ trans('global.financial_Inclusion') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab"
+                            href="#information_and_communications_technology">{{ trans('global.information_and_communications_technology') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab"
+                            href="#econoimc_Activity">{{ trans('global.econoimc_Activity') }}</a>
+                    </li>
                 </ul>
             </div>
             <!-- Tab panes -->
@@ -232,6 +256,132 @@
                                     {{ trans('global.select_any_districts') }}
                                 </div>
                                 <div id="illiteracy_Rate_by_Sex"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="comparison_of_gross_and_net_enrolment_rate"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="housing" class="tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="type_of_dwellings"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="ownership_of_durable_goods"></div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm">
+                            <div class="counter-box female-population">
+                                <div class="counter" id="PopulationCompany_Energy_Electric">0.0</div>
+                                <h2>{{ trans('global.population_with_electricity') }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="water_and_sanitation" class="tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="water_and_sanitation_chart"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="collection_of_solid_waste"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="type_of_sanitation"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="financial_Inclusion" class="tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="population_aged_15_and_over"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="population_aged_7_years_and_over"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="information_and_communications_technology" class="tab-pane fade"><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="access_to_ICT_devices_and_internet"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="econoimc_Activity" class="tab-pane fade"><br>
+                    <div class="row">
+                        {{-- <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                        {{-- <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="economically_and_non_active_population"></div>
+                            </div> --}}
+                        {{-- </div> --}}
+                        <div class="col-md-6">
+                            <div class="chart-visual totals">
+                                {{-- ILLITRACY RATE     --}}
+                                <div class="emptyMessage">
+                                    {{ trans('global.select_any_districts') }}
+                                </div>
+                                <div id="distribution_of_the_employed_population_by_industry"></div>
                             </div>
                         </div>
                     </div>
@@ -422,14 +572,18 @@
             });
 
 
-            // Three box Growth Rate Population
+            // Fours box Growth Rate Population
             var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
-            // Three box Growth Rate Population
+            // Fours box Growth Rate Population
             var popSexRatioBybirth = filteredData[0].sex_ratio_birth;
-            // Three box  Population Density
+            // Fours box  Population Density
             var populationDensity = filteredData[0].Densidade;
-
-            updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity);
+            // Fours box  Population Density
+            var AverageNumberofMembersperHousehold = filteredData[0].NumeroMedio_Memb_Hab;
+            // Box within the housing tab
+            var Population_Company_Energy_Electric = filteredData[0].Pop_Com_EnergElect;
+            updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity,
+                AverageNumberofMembersperHousehold, Population_Company_Energy_Electric);
 
             // Stacked column bar charts dependency ratio and Elderly Dependency Ratio
             var rateDep_014_total = filteredData[0].TaxaDep_014_total;
@@ -566,12 +720,194 @@
             illiteracy_Rate_by_Sex(Illiteracy_Rate_Total, Illiteracy_Rate_Male, Illiteracy_Rate_Female);
 
             var {
-                TBEnsPrim_1Grau_Tot,TBEnsPrim_1Grau_Hom,TBEnsPrim_1Grau_Mulh,TBEnsPrim_2Grau_Tot,TBEnsPrim_2Grau_Hom,TBEnsPrim_2Grau_Mulh,TBEnsiSec_1Ciclo_Tot,TBEnsiSec_1Ciclo_Hom,TBEnsiSec_1Ciclo_Mulh,TBEnsiSec_2Ciclo_Tot,TBEnsiSec_2Ciclo_Hom,TBEnsiSec_2Ciclo_Mulh,TLEnsPrim_1Grau_Tot,TLEnsPrim_1Grau_Hom,TLEnsPrim_1Grau_Mulh,TLEnsPrim_2Grau_Tot,TLEnsPrim_2Grau_Hom,TLEnsPrim_2Grau_Mulh,TLEnsiSec_1Ciclo_Tot,TLEnsiSec_1Ciclo_Hom,TLEnsiSec_1Ciclo_Mulh,TLEnsiSec_2Ciclo_Tot,TLEnsiSec_2Ciclo_Hom,TLEnsiSec_2Ciclo_Mulh
+                TBEnsPrim_1Grau_Tot,
+                TBEnsPrim_1Grau_Hom,
+                TBEnsPrim_1Grau_Mulh,
+                TBEnsPrim_2Grau_Tot,
+                TBEnsPrim_2Grau_Hom,
+                TBEnsPrim_2Grau_Mulh,
+                TBEnsiSec_1Ciclo_Tot,
+                TBEnsiSec_1Ciclo_Hom,
+                TBEnsiSec_1Ciclo_Mulh,
+                TBEnsiSec_2Ciclo_Tot,
+                TBEnsiSec_2Ciclo_Hom,
+                TBEnsiSec_2Ciclo_Mulh,
+                TLEnsPrim_1Grau_Tot,
+                TLEnsPrim_1Grau_Hom,
+                TLEnsPrim_1Grau_Mulh,
+                TLEnsPrim_2Grau_Tot,
+                TLEnsPrim_2Grau_Hom,
+                TLEnsPrim_2Grau_Mulh,
+                TLEnsiSec_1Ciclo_Tot,
+                TLEnsiSec_1Ciclo_Hom,
+                TLEnsiSec_1Ciclo_Mulh,
+                TLEnsiSec_2Ciclo_Tot,
+                TLEnsiSec_2Ciclo_Hom,
+                TLEnsiSec_2Ciclo_Mulh
             } = filteredData[0];
 
-            comparison_of_gross_and_net_enrolment_rate(TBEnsPrim_1Grau_Tot,TBEnsPrim_1Grau_Hom,TBEnsPrim_1Grau_Mulh,TBEnsPrim_2Grau_Tot,TBEnsPrim_2Grau_Hom,TBEnsPrim_2Grau_Mulh,TBEnsiSec_1Ciclo_Tot,TBEnsiSec_1Ciclo_Hom,TBEnsiSec_1Ciclo_Mulh,TBEnsiSec_2Ciclo_Tot,TBEnsiSec_2Ciclo_Hom,TBEnsiSec_2Ciclo_Mulh,TLEnsPrim_1Grau_Tot,TLEnsPrim_1Grau_Hom,TLEnsPrim_1Grau_Mulh,TLEnsPrim_2Grau_Tot,TLEnsPrim_2Grau_Hom,TLEnsPrim_2Grau_Mulh,TLEnsiSec_1Ciclo_Tot,TLEnsiSec_1Ciclo_Hom,TLEnsiSec_1Ciclo_Mulh,TLEnsiSec_2Ciclo_Tot,TLEnsiSec_2Ciclo_Hom,TLEnsiSec_2Ciclo_Mulh);
-            // continues from here 
+            comparison_of_gross_and_net_enrolment_rate(TBEnsPrim_1Grau_Tot, TBEnsPrim_1Grau_Hom, TBEnsPrim_1Grau_Mulh,
+                TBEnsPrim_2Grau_Tot, TBEnsPrim_2Grau_Hom, TBEnsPrim_2Grau_Mulh, TBEnsiSec_1Ciclo_Tot,
+                TBEnsiSec_1Ciclo_Hom, TBEnsiSec_1Ciclo_Mulh, TBEnsiSec_2Ciclo_Tot, TBEnsiSec_2Ciclo_Hom,
+                TBEnsiSec_2Ciclo_Mulh, TLEnsPrim_1Grau_Tot, TLEnsPrim_1Grau_Hom, TLEnsPrim_1Grau_Mulh,
+                TLEnsPrim_2Grau_Tot, TLEnsPrim_2Grau_Hom, TLEnsPrim_2Grau_Mulh, TLEnsiSec_1Ciclo_Tot,
+                TLEnsiSec_1Ciclo_Hom, TLEnsiSec_1Ciclo_Mulh, TLEnsiSec_2Ciclo_Tot, TLEnsiSec_2Ciclo_Hom,
+                TLEnsiSec_2Ciclo_Mulh);
 
+
+            // type of dwellings
+            var {
+                Hab_tipo_CC_CCCD,
+                Hab_tipo_CC_SCCD,
+                Hab_tipo_FlatApart,
+                Hab_tipo_Palhot,
+                Hab_tipo_CasaImprov,
+                Hab_tipo_CasaMista,
+                Hab_tipo_CasaBasica,
+                Hab_tipo_PartEdifComerc,
+                Hab_tipo_Outro
+
+            } = filteredData[0];
+            type_of_dwellings(Hab_tipo_CC_CCCD, Hab_tipo_CC_SCCD, Hab_tipo_FlatApart, Hab_tipo_Palhot, Hab_tipo_CasaImprov,
+                Hab_tipo_CasaMista, Hab_tipo_CasaBasica, Hab_tipo_PartEdifComerc, Hab_tipo_Outro);
+
+            // Source of water
+
+
+            var {
+                Agua_Canalizada_fora_casa,
+                Agua_Canalizada_casa_vizinho,
+                Agua_fontanario_publica,
+                Agua_furoPocoProtegidoBombaManual,
+                Agua_PocoProtegidoSemBombaManual,
+                Agua_PocoNaoProtegido,
+                Agua_Nascentes,
+                Agua_SuperficieRioLagoLagoa,
+                Agua_chuva,
+                Agua_Tanques_Camioes_Carregada_Tambores,
+                Agua_Mineral_Engarrafada,
+                Outra_duplication,
+                Desconhecida_duplication_three,
+                Agua_Font_Seg
+            } = filteredData[0];
+            source_of_water(Agua_Canalizada_fora_casa, Agua_Canalizada_casa_vizinho, Agua_fontanario_publica,
+                Agua_furoPocoProtegidoBombaManual, Agua_PocoProtegidoSemBombaManual, Agua_PocoNaoProtegido,
+                Agua_Nascentes, Agua_SuperficieRioLagoLagoa, Agua_chuva, Agua_Tanques_Camioes_Carregada_Tambores,
+                Agua_Mineral_Engarrafada, Outra_duplication, Desconhecida_duplication_three, Agua_Font_Seg);
+
+            // Collection of solid waste
+
+            var CollectedByMunicipalAuthorities = filteredData[0].RecolhidoAutoridadeMunicipais;
+            var CollectedByPrivateCompany = filteredData[0].RecolhidoEmpresaPrivada;
+            var Buried = filteredData[0].Enterra;
+            var Burned = filteredData[0].Queima;
+            var DumpedInWastelandSwampLakeRiverSea = filteredData[0].DeitaTerrenoBaldioPantanoLagoRioMar;
+            var Other = filteredData[0].Outro;
+
+            Collection_of_solid_waste(CollectedByMunicipalAuthorities, CollectedByPrivateCompany, Buried, Burned,
+                DumpedInWastelandSwampLakeRiverSea, Other);
+
+
+            // type of sanitation
+            var FlushToiletInsideHouse = filteredData[0].RetreteComAutoclismoDentroCasa;
+            var FlushToiletOutsideHouse = filteredData[0].RetreteSemAutoclismoForaCasa;
+            var FlushToiletNoAutoflush = filteredData[0].RetreteSemAutoclismo;
+            var ImprovedLatrine = filteredData[0].LatrinaMelhorada;
+            var ImprovedTraditionalLatrine = filteredData[0].LatrinaTradicionalMelhorada;
+            var UnimprovedLatrine = filteredData[0].LatrinaNaoMelhorada;
+            var NoToiletOrLatrine = filteredData[0].SemRetreteLatrina;
+            var Unknown = filteredData[0].Desconhecido;
+
+
+            type_of_sanitation(FlushToiletInsideHouse, FlushToiletOutsideHouse, FlushToiletNoAutoflush, ImprovedLatrine,
+                ImprovedTraditionalLatrine, UnimprovedLatrine, NoToiletOrLatrine, Unknown);
+
+            // Ownership of durable goods
+
+            var {
+                Bens_Dur_Radio,
+                Bens_Dur_Telev,
+                Bens_Dur_TelFixo,
+                Bens_Dur_Comp,
+                Bens_Dur_Inter,
+                Bens_Dur_FerEngom,
+                Bens_Dur_FogCarvLenha,
+                Bens_Dur_FogElectGas,
+                Bens_Dur_GeleiCong,
+                Bens_Dur_Carro,
+                Bens_Dur_Motoriza,
+                Bens_Dur_Biciclet,
+                Bens_Nenhum_Destes_Bens
+            } = filteredData[0];
+
+            ownership_of_durable_goods(Bens_Dur_Radio, Bens_Dur_Telev, Bens_Dur_TelFixo, Bens_Dur_Comp, Bens_Dur_Inter,
+                Bens_Dur_FerEngom, Bens_Dur_FogCarvLenha, Bens_Dur_FogElectGas, Bens_Dur_GeleiCong, Bens_Dur_Carro,
+                Bens_Dur_Motoriza, Bens_Dur_Biciclet, Bens_Nenhum_Destes_Bens);
+
+
+            var Total_Bank_Account = filteredData[0].ContaBancaria_Tot;
+            var Urban_Bank_Account = filteredData[0].ContaBancaria_Urb;
+            var Rural_Bank_Account = filteredData[0].ContaBancaria_Rur;
+            var Total_Bank_Account_Household = filteredData[0].ContaBancaria_TotHM;
+            var Bank_Account_Male = filteredData[0].ContaBancaria_Hom;
+            var Bank_Account_Female = filteredData[0].ContaBancaria_Mulh;
+
+            population_aged_15_and_over(Total_Bank_Account, Urban_Bank_Account, Rural_Bank_Account,
+                Total_Bank_Account_Household, Bank_Account_Male, Bank_Account_Female);
+
+
+            // population aged 7 years and over
+            var MPesaKesh_Total = filteredData[0].MPesaKesh_Tot;
+            var MPesaKesh_Male = filteredData[0].MPesaKesh_Hom;
+            var MPesaKesh_Female = filteredData[0].MPesaKesh_Mulh;
+
+            population_aged_7_years_and_over(MPesaKesh_Total, MPesaKesh_Male, MPesaKesh_Female);
+
+            // Access to ICT devices and internet
+            var Computer_Laptop_Total = filteredData[0].ComLapTab_Tot;
+            var Computer_Laptop_Male = filteredData[0].ComLapTab_Hom;
+            var Computer_Laptop_Female = filteredData[0].ComLapTab_Mulh;
+            var Internet_Total = filteredData[0].Internet_Tot;
+            var Internet_Male = filteredData[0].Internet_Hom;
+            var Internet_Female = filteredData[0].Internet_Mulh;
+            var Cellphone_Total = filteredData[0].TelefCelular_Tot;
+            var Cellphone_Male = filteredData[0].TelefCelular_Hom;
+            var Cellphone_Female = filteredData[0].TelefCelular_Mulh;
+
+            access_to_ICT_devices_and_internet(Computer_Laptop_Total, Computer_Laptop_Male, Computer_Laptop_Female,
+                Internet_Total, Internet_Male, Internet_Female, Cellphone_Total, Cellphone_Male, Cellphone_Female);
+
+
+            // population aged 15 and over
+            var N = filteredData[0].N;
+            var PEA = filteredData[0].PEA;
+            var PNEA = filteredData[0].PNEA;
+            economically_and_non_active_population(N, PEA, PNEA);
+
+
+
+            // distribution of the employed population by industry
+            var agricultureForestryFishing = filteredData[0].Agricult_Sivicult_Pesc;
+            var miningExtraction = filteredData[0].Extrac_Minas;
+            var industryManufacturing = filteredData[0].Industr_Manufact;
+            var energy = filteredData[0].Energia;
+            var construction = filteredData[0].Construcao;
+            var transportationCommunication = filteredData[0].Transp_Comunic;
+            var commerceFinance = filteredData[0].Comerc_Financ;
+            var servicesAdministration = filteredData[0].Servic_Admin;
+            var otherServices = filteredData[0].Outros_Servic;
+
+            distribution_of_the_employed_population_by_industry(
+                agricultureForestryFishing,
+                miningExtraction,
+                industryManufacturing,
+                energy,
+                construction,
+                transportationCommunication,
+                commerceFinance,
+                servicesAdministration,
+                otherServices
+            );
             // Percent distribution of the household population First paramyid Graph show on the right on the page
             var {
                 District,
@@ -1398,6 +1734,1087 @@
             });
         }
 
+
+
+        function comparison_of_gross_and_net_enrolment_rate(
+            TBEnsPrim_1Grau_Tot, TBEnsPrim_1Grau_Hom, TBEnsPrim_1Grau_Mulh,
+            TBEnsPrim_2Grau_Tot, TBEnsPrim_2Grau_Hom, TBEnsPrim_2Grau_Mulh,
+            TBEnsiSec_1Ciclo_Tot, TBEnsiSec_1Ciclo_Hom, TBEnsiSec_1Ciclo_Mulh,
+            TBEnsiSec_2Ciclo_Tot, TBEnsiSec_2Ciclo_Hom, TBEnsiSec_2Ciclo_Mulh,
+            TLEnsPrim_1Grau_Tot, TLEnsPrim_1Grau_Hom, TLEnsPrim_1Grau_Mulh,
+            TLEnsPrim_2Grau_Tot, TLEnsPrim_2Grau_Hom, TLEnsPrim_2Grau_Mulh,
+            TLEnsiSec_1Ciclo_Tot, TLEnsiSec_1Ciclo_Hom, TLEnsiSec_1Ciclo_Mulh,
+            TLEnsiSec_2Ciclo_Tot, TLEnsiSec_2Ciclo_Hom, TLEnsiSec_2Ciclo_Mulh
+        ) {
+            // Convert input variables to float and log to the console
+            var Gross_Enrolment_Primary_1st_Grade_Total_Float = parseFloat(TBEnsPrim_1Grau_Tot);
+            var Gross_Enrolment_Primary_1st_Grade_Male_Float = parseFloat(TBEnsPrim_1Grau_Hom);
+            var Gross_Enrolment_Primary_1st_Grade_Female_Float = parseFloat(TBEnsPrim_1Grau_Mulh);
+            var Gross_Enrolment_Primary_2nd_Grade_Total_Float = parseFloat(TBEnsPrim_2Grau_Tot);
+            var Gross_Enrolment_Primary_2nd_Grade_Male_Float = parseFloat(TBEnsPrim_2Grau_Hom);
+            var Gross_Enrolment_Primary_2nd_Grade_Female_Float = parseFloat(TBEnsPrim_2Grau_Mulh);
+            var Gross_Enrolment_Lower_Secondary_1st_Cycle_Total_Float = parseFloat(TBEnsiSec_1Ciclo_Tot);
+            var Gross_Enrolment_Lower_Secondary_1st_Cycle_Male_Float = parseFloat(TBEnsiSec_1Ciclo_Hom);
+            var Gross_Enrolment_Lower_Secondary_1st_Cycle_Female_Float = parseFloat(TBEnsiSec_1Ciclo_Mulh);
+            var Gross_Enrolment_Lower_Secondary_2nd_Cycle_Total_Float = parseFloat(TBEnsiSec_2Ciclo_Tot);
+            var Gross_Enrolment_Lower_Secondary_2nd_Cycle_Male_Float = parseFloat(TBEnsiSec_2Ciclo_Hom);
+            var Gross_Enrolment_Lower_Secondary_2nd_Cycle_Female_Float = parseFloat(TBEnsiSec_2Ciclo_Mulh);
+
+            var Net_Enrolment_Upper_Secondary_1st_Cycle_Total_Float = parseFloat(TLEnsPrim_1Grau_Tot);
+            var Net_Enrolment_Upper_Secondary_1st_Cycle_Male_Float = parseFloat(TLEnsPrim_1Grau_Hom);
+            var Net_Enrolment_Upper_Secondary_1st_Cycle_Female_Float = parseFloat(TLEnsPrim_1Grau_Mulh);
+            var Net_Enrolment_Upper_Secondary_2nd_Cycle_Total_Float = parseFloat(TLEnsPrim_2Grau_Tot);
+            var Net_Enrolment_Upper_Secondary_2nd_Cycle_Male_Float = parseFloat(TLEnsPrim_2Grau_Hom);
+            var Net_Enrolment_Upper_Secondary_2nd_Cycle_Female_Float = parseFloat(TLEnsPrim_2Grau_Mulh);
+            var Net_Enrolment_TotalLowerSecondary_1stCycle = parseFloat(TLEnsiSec_1Ciclo_Tot);
+            var Net_Enrolment_MaleLowerSecondary_1stCycle = parseFloat(TLEnsiSec_1Ciclo_Hom);
+            var Net_Enrolment_FemaleLowerSecondary_1stCycle = parseFloat(TLEnsiSec_1Ciclo_Mulh);
+            var Net_Enrolment_TotalLowerSecondary_2ndCycle = parseFloat(TLEnsiSec_2Ciclo_Tot);
+            var Net_Enrolment_MaleLowerSecondary_2ndCycle = parseFloat(TLEnsiSec_2Ciclo_Hom);
+            var Net_Enrolment_FemaleLowerSecondary_2ndCycle = parseFloat(TLEnsiSec_2Ciclo_Mulh);
+
+            // Log the converted variables to the console
+            // console.log("Primary 1st Grade Total: ", Primary_1st_Grade_Total_Float);
+            // console.log("Primary 1st Grade Male: ", Primary_1st_Grade_Male_Float);
+            // console.log("Primary 1st Grade Female: ", Primary_1st_Grade_Female_Float);
+            // console.log("Primary 2nd Grade Total: ", Primary_2nd_Grade_Total_Float);
+            // console.log("Primary 2nd Grade Male: ", Primary_2nd_Grade_Male_Float);
+            // console.log("Primary 2nd Grade Female: ", Primary_2nd_Grade_Female_Float);
+            // console.log("Lower Secondary 1st Cycle Total: ", Lower_Secondary_1st_Cycle_Total_Float);
+            // console.log("Lower Secondary 1st Cycle Male: ", Lower_Secondary_1st_Cycle_Male_Float);
+            // console.log("Lower Secondary 1st Cycle Female: ", Lower_Secondary_1st_Cycle_Female_Float);
+            // console.log("Lower Secondary 2nd Cycle Total: ", Lower_Secondary_2nd_Cycle_Total_Float);
+            // console.log("Lower Secondary 2nd Cycle Male: ", Lower_Secondary_2nd_Cycle_Male_Float);
+            // console.log("Lower Secondary 2nd Cycle Female: ", Lower_Secondary_2nd_Cycle_Female_Float);
+            // console.log("Upper Secondary 1st Cycle Total: ", Upper_Secondary_1st_Cycle_Total_Float);
+            // console.log("Upper Secondary 1st Cycle Male: ", Upper_Secondary_1st_Cycle_Male_Float);
+            // console.log("Upper Secondary 1st Cycle Female: ", Upper_Secondary_1st_Cycle_Female_Float);
+            // console.log("Upper Secondary 2nd Cycle Total: ", Upper_Secondary_2nd_Cycle_Total_Float);
+            // console.log("Upper Secondary 2nd Cycle Male: ", Upper_Secondary_2nd_Cycle_Male_Float);
+            // console.log("Upper Secondary 2nd Cycle Female: ", Upper_Secondary_2nd_Cycle_Female_Float);
+            // continue from here
+
+            const Gross_Enrolment = {
+                Male: [
+                    ['1st Grade Primary Education', Gross_Enrolment_Primary_1st_Grade_Male_Float],
+                    ['2nd Grade Primary Education', Gross_Enrolment_Primary_2nd_Grade_Male_Float],
+                    ['1st Cycle Secondary Education', Gross_Enrolment_Lower_Secondary_1st_Cycle_Male_Float],
+                    ['2nd Cycle Secondary Education', Gross_Enrolment_Lower_Secondary_2nd_Cycle_Male_Float],
+                ],
+                Female: [
+                    ['1st Grade Primary Education', Gross_Enrolment_Primary_1st_Grade_Female_Float],
+                    ['2nd Grade Primary Education', Gross_Enrolment_Primary_2nd_Grade_Female_Float],
+                    ['1st Cycle Secondary Education', Gross_Enrolment_Lower_Secondary_1st_Cycle_Female_Float],
+                    ['2nd Cycle Secondary Education', Gross_Enrolment_Lower_Secondary_2nd_Cycle_Female_Float],
+                ],
+                Total: [
+                    ['1st Grade Primary Education', Gross_Enrolment_Primary_1st_Grade_Total_Float],
+                    ['2nd Grade Primary Education', Gross_Enrolment_Primary_2nd_Grade_Total_Float],
+                    ['1st Cycle Secondary Education', Gross_Enrolment_Lower_Secondary_1st_Cycle_Total_Float],
+                    ['2nd Cycle Secondary Education', Gross_Enrolment_Lower_Secondary_2nd_Cycle_Total_Float],
+                ]
+            };
+
+            const Net_Enrolment = {
+                Male: [
+                    ['1st Grade Primary Education', Net_Enrolment_Upper_Secondary_1st_Cycle_Male_Float],
+                    ['2nd Grade Primary Education', Net_Enrolment_Upper_Secondary_2nd_Cycle_Male_Float],
+                    ['1st Cycle Secondary Education', Net_Enrolment_TotalLowerSecondary_1stCycle],
+                    ['2nd Cycle Secondary Education', Net_Enrolment_TotalLowerSecondary_2ndCycle],
+                ],
+                Female: [
+                    ['1st Grade Primary Education', Net_Enrolment_Upper_Secondary_1st_Cycle_Female_Float],
+                    ['2nd Grade Primary Education', Net_Enrolment_Upper_Secondary_2nd_Cycle_Female_Float],
+                    ['1st Cycle Secondary Education', Net_Enrolment_FemaleLowerSecondary_1stCycle],
+                    ['2nd Cycle Secondary Education', Net_Enrolment_FemaleLowerSecondary_2ndCycle],
+                ],
+                Total: [
+                    ['1st Grade Primary Education', Net_Enrolment_Upper_Secondary_1st_Cycle_Total_Float],
+                    ['2nd Grade Primary Education', Net_Enrolment_Upper_Secondary_2nd_Cycle_Total_Float],
+                    ['1st Cycle Secondary Education', Net_Enrolment_MaleLowerSecondary_1stCycle],
+                    ['2nd Cycle Secondary Education', Net_Enrolment_MaleLowerSecondary_2ndCycle],
+                ]
+            };
+
+            const countries = {
+                Male: {
+                    name: 'Male',
+                    color: '#FE2371'
+                },
+                Female: {
+                    name: 'Female',
+                    color: '#544FC5'
+                },
+                Total: {
+                    name: 'Total',
+                    color: '#2CAFFE'
+                }
+            };
+
+            // Add upper case country code
+            for (const [key, value] of Object.entries(countries)) {
+                value.ucCode = key.toUpperCase();
+            }
+
+            const getData = data => data.map(point => ({
+                name: point[0],
+                y: point[1]
+            }));
+
+            const chart = Highcharts.chart('comparison_of_gross_and_net_enrolment_rate', {
+                chart: {
+                    type: 'column'
+                },
+                // Custom option for templates
+                countries,
+                title: {
+                    text: 'Comparison of Gross and Net Enrolment Rate',
+                    align: 'left'
+                },
+
+                plotOptions: {
+                    series: {
+                        grouping: false,
+                        borderWidth: 0
+                    }
+                },
+                legend: {
+                    enabled: true,
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    itemStyle: {
+                        fontSize: '14px'
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                tooltip: {
+                    shared: true,
+                    headerFormat: '<span style="font-size: 15px">{point.key}</span><br/>',
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> ' +
+                        '{series.name}: <b>{point.y} Enrolment Rate</b><br/>'
+                },
+                xAxis: {
+                    type: 'category',
+                    accessibility: {
+                        description: 'Countries'
+                    },
+                    max: 4,
+                    labels: {
+                        enabled: false,
+                        useHTML: false,
+                        animate: false,
+                        format: '{value}',
+                        style: {
+                            textAlign: 'center'
+                        }
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'Enrolment Rate'
+                    },
+                    showFirstLabel: false
+                }],
+                series: [{
+                    name: 'Female - Gross',
+                    data: getData(Gross_Enrolment['Female']).slice(),
+                    color: '#544FC5',
+                    pointPlacement: -0.2
+                }, {
+                    name: 'Male - Gross',
+                    data: getData(Gross_Enrolment['Male']).slice(),
+                    color: '#FE2371',
+                    pointPlacement: -0.2
+                }, {
+                    name: 'Total - Gross',
+                    data: getData(Gross_Enrolment['Total']).slice(),
+                    color: '#2CAFFE',
+                    pointPlacement: -0.2
+                }, {
+                    name: 'Female - Net',
+                    data: getData(Net_Enrolment['Female']).slice(),
+                    color: '#544FC5',
+                    pointPlacement: 0.2
+                }, {
+                    name: 'Male - Net',
+                    data: getData(Net_Enrolment['Male']).slice(),
+                    color: '#FE2371',
+                    pointPlacement: 0.2
+                }, {
+                    name: 'Total - Net',
+                    data: getData(Net_Enrolment['Total']).slice(),
+                    color: '#2CAFFE',
+                    pointPlacement: 0.2
+                }],
+                exporting: {
+                    allowHTML: true
+                }
+            });
+
+        }
+
+
+        // type of dwellings
+        function type_of_dwellings(
+            Hab_tipo_CC_CCCD, Hab_tipo_CC_SCCD, Hab_tipo_FlatApart,
+            Hab_tipo_Palhot, Hab_tipo_CasaImprov, Hab_tipo_CasaMista,
+            Hab_tipo_CasaBasica, Hab_tipo_PartEdifComerc, Hab_tipo_Outro
+        ) {
+            // Convert input variables to float
+            var CC_CCCD = parseFloat(Hab_tipo_CC_CCCD);
+            var CC_SCCD = parseFloat(Hab_tipo_CC_SCCD);
+            var FlatApart = parseFloat(Hab_tipo_FlatApart);
+            var Palhot = parseFloat(Hab_tipo_Palhot);
+            var CasaImprov = parseFloat(Hab_tipo_CasaImprov);
+            var CasaMista = parseFloat(Hab_tipo_CasaMista);
+            var CasaBasica = parseFloat(Hab_tipo_CasaBasica);
+            var PartEdifComerc = parseFloat(Hab_tipo_PartEdifComerc);
+            var Outro = parseFloat(Hab_tipo_Outro);
+
+            var totalSum = (
+                CC_CCCD + CC_SCCD + FlatApart +
+                Palhot + CasaImprov + CasaMista +
+                CasaBasica + PartEdifComerc + Outro
+            );
+
+            // // Log the converted variables to the console in English
+            // console.log("CC_CCCD: ", CC_CCCD);
+            // console.log("CC_SCCD: ", CC_SCCD);
+            // console.log("Flat/Apartment: ", FlatApart);
+            // console.log("Palhot: ", Palhot);
+            // console.log("Improvised House: ", CasaImprov);
+            // console.log("Mixed House: ", CasaMista);
+            // console.log("Basic House: ", CasaBasica);
+            // console.log("Commercial Building: ", PartEdifComerc);
+            // console.log("Other: ", Outro);
+
+            // // Log the sum of all variables to the console
+            // console.log("Sum of all variables: ", totalSum);
+
+            // Build the chart
+            Highcharts.chart('type_of_dwellings', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Type of Dwellings',
+                    align: 'left'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<span style="font-size: 1.2em"><b>{point.name}</b></span><br>' +
+                                '<span style="opacity: 0.6">{point.percentage:.1f} %</span>',
+                            connectorColor: 'rgba(128,128,128,0.5)'
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                series: [{
+                    name: 'Share',
+                    data: [{
+                            name: 'CC_CCCD',
+                            y: CC_CCCD
+                        },
+                        {
+                            name: 'CC_SCCD',
+                            y: CC_SCCD
+                        },
+                        {
+                            name: 'Flat/Apartment',
+                            y: FlatApart
+                        },
+                        {
+                            name: 'Palhot',
+                            y: Palhot
+                        },
+                        {
+                            name: 'Improvised House',
+                            y: CasaImprov
+                        },
+                        {
+                            name: 'Mixed House',
+                            y: CasaMista
+                        },
+                        {
+                            name: 'Basic House',
+                            y: CasaBasica
+                        },
+                        {
+                            name: 'Commercial Building',
+                            y: PartEdifComerc
+                        },
+                        {
+                            name: 'Other',
+                            y: Outro
+                        }
+                    ]
+                }]
+            });
+        }
+
+        function source_of_water(
+            Agua_Canalizada_fora_casa, Agua_Canalizada_casa_vizinho, Agua_fontanario_publica,
+            Agua_furoPocoProtegidoBombaManual, Agua_PocoProtegidoSemBombaManual, Agua_PocoNaoProtegido,
+            Agua_Nascentes, Agua_SuperficieRioLagoLagoa, Agua_chuva, Agua_Tanques_Camioes_Carregada_Tambores,
+            Agua_Mineral_Engarrafada, Outra_duplication, Desconhecida_duplication_three, Agua_Font_Seg
+        ) {
+            // Convert input variables to float
+            var Water_Piped_outside_house = parseFloat(Agua_Canalizada_fora_casa);
+            var Water_Piped_inside_neighbor_house = parseFloat(Agua_Canalizada_casa_vizinho);
+            var Water_Public_fountain = parseFloat(Agua_fontanario_publica);
+            var Water_WellProtectedManualPump = parseFloat(Agua_furoPocoProtegidoBombaManual);
+            var Water_WellProtectedWithoutManualPump = parseFloat(Agua_PocoProtegidoSemBombaManual);
+            var Water_UnprotectedWell = parseFloat(Agua_PocoNaoProtegido);
+            var Water_Springs = parseFloat(Agua_Nascentes);
+            var Water_SurfaceRiverLakeLagoon = parseFloat(Agua_SuperficieRioLagoLagoa);
+            var Water_Rainwater = parseFloat(Agua_chuva);
+            var Water_Tanks_Trucks_Carried_Drums = parseFloat(Agua_Tanques_Camioes_Carregada_Tambores);
+            var Water_Mineral_Bottled = parseFloat(Agua_Mineral_Engarrafada);
+            var Other_duplicate = parseFloat(Outra_duplication);
+            var Unknown_duplicate_three = parseFloat(Desconhecida_duplication_three);
+            var Water_Spring_Art = parseFloat(Agua_Font_Seg);
+
+            // Sum all variables
+            var sumOfVariables =
+                Water_Piped_outside_house + Water_Piped_inside_neighbor_house +
+                Water_Public_fountain + Water_WellProtectedManualPump +
+                Water_WellProtectedWithoutManualPump + Water_UnprotectedWell +
+                Water_Springs + Water_SurfaceRiverLakeLagoon +
+                Water_Rainwater + Water_Tanks_Trucks_Carried_Drums +
+                Water_Mineral_Bottled + Other_duplicate +
+                Unknown_duplicate_three + Water_Spring_Art;
+
+            // Log the sum to the console
+            // console.log("Sum of all variables: ", sumOfVariables);
+
+            // Data for the Highcharts chart
+            var chartData = [
+                ['Piped_outside', Water_Piped_outside_house],
+                ['Piped_inside_neighbor', Water_Piped_inside_neighbor_house],
+                ['Public_fountain', Water_Public_fountain],
+                ['WellProtectedManualPump', Water_WellProtectedManualPump],
+                ['WellProtectedWithoutManualPump', Water_WellProtectedWithoutManualPump],
+                ['UnprotectedWell', Water_UnprotectedWell],
+                ['Springs', Water_Springs],
+                ['SurfaceRiverLakeLagoon', Water_SurfaceRiverLakeLagoon],
+                ['Rainwater', Water_Rainwater],
+                ['Tanks_Trucks_Carried_Drums', Water_Tanks_Trucks_Carried_Drums],
+                ['Mineral_Bottled', Water_Mineral_Bottled],
+                ['Other_duplicate', Other_duplicate],
+                ['Unknown_duplicate_three', Unknown_duplicate_three],
+                ['Spring_Art', Water_Spring_Art],
+            ];
+
+
+            // Create the chart using Highcharts
+            Highcharts.chart('water_and_sanitation_chart', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Source of water',
+                    align: 'center',
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: true,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%'],
+                        size: '110%'
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Water Source Share',
+                    innerSize: '50%',
+                    data: chartData
+                }]
+            });
+        }
+
+        function Collection_of_solid_waste(
+            CollectedByMunicipalAuthorities, CollectedByPrivateCompany, Buried, Burned,
+            DumpedInWastelandSwampLakeRiverSea, Other
+        ) {
+            // Apply parseFloat to function variables
+            CollectedByMunicipalAuthorities = parseFloat(CollectedByMunicipalAuthorities);
+            CollectedByPrivateCompany = parseFloat(CollectedByPrivateCompany);
+            Buried = parseFloat(Buried);
+            Burned = parseFloat(Burned);
+            DumpedInWastelandSwampLakeRiverSea = parseFloat(DumpedInWastelandSwampLakeRiverSea);
+            Other = parseFloat(Other);
+
+            // Sum all parsed variables
+            var sumOfParsedVariables =
+                CollectedByMunicipalAuthorities + CollectedByPrivateCompany +
+                Buried + Burned + DumpedInWastelandSwampLakeRiverSea + Other;
+
+            // Log the sum to the console
+            // console.log("Sum of all parsed variables: ", sumOfParsedVariables);
+
+            // Data for the Highcharts chart
+            var chartData = [{
+                name: 'MunicipalAuthorty',
+                y: CollectedByMunicipalAuthorities
+            }, {
+                name: 'PrivateCompany',
+                y: CollectedByPrivateCompany
+            }, {
+                name: 'Buried',
+                y: Buried
+            }, {
+                name: 'Burned',
+                y: Burned
+            }, {
+                name: 'DumpedInWasteland',
+                y: DumpedInWastelandSwampLakeRiverSea
+            }, {
+                name: 'Other',
+                y: Other
+            }];
+
+            // Create the chart using Highcharts
+            Highcharts.chart('collection_of_solid_waste', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Collection of Solid Waste'
+                },
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                subtitle: {
+                    text: 'Municipal Authority and Private Company'
+                },
+                plotOptions: {
+                    series: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: [{
+                            enabled: true,
+                            distance: 20
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.1f}%',
+                            style: {
+                                fontSize: '0.7em',
+                                textOutline: 'none',
+                                opacity: 0.7
+                            },
+                            filter: {
+                                operator: '>',
+                                property: 'percentage',
+                                value: 10
+                            }
+                        }]
+                    }
+                },
+                credits: {
+                    enabled: false // Hide the credits
+                },
+                series: [{
+                    name: 'Percentage',
+                    colorByPoint: true,
+                    data: chartData
+                }]
+            });
+        }
+
+        function type_of_sanitation(
+            FlushToiletInsideHouse, FlushToiletOutsideHouse, FlushToiletNoAutoflush,
+            ImprovedLatrine, ImprovedTraditionalLatrine, UnimprovedLatrine,
+            NoToiletOrLatrine, Unknown
+        ) {
+            // Apply parseFloat to function variables
+            FlushToiletInsideHouse = parseFloat(FlushToiletInsideHouse);
+            FlushToiletOutsideHouse = parseFloat(FlushToiletOutsideHouse);
+            FlushToiletNoAutoflush = parseFloat(FlushToiletNoAutoflush);
+            ImprovedLatrine = parseFloat(ImprovedLatrine);
+            ImprovedTraditionalLatrine = parseFloat(ImprovedTraditionalLatrine);
+            UnimprovedLatrine = parseFloat(UnimprovedLatrine);
+            NoToiletOrLatrine = parseFloat(NoToiletOrLatrine);
+            Unknown = parseFloat(Unknown);
+
+            // Sum all parsed variables
+            var sumOfParsedVariables =
+                FlushToiletInsideHouse + FlushToiletOutsideHouse +
+                FlushToiletNoAutoflush + ImprovedLatrine +
+                ImprovedTraditionalLatrine + UnimprovedLatrine +
+                NoToiletOrLatrine + Unknown;
+
+            // Log the sum to the console
+            // console.log("Sum of all parsed variables: ", sumOfParsedVariables);
+
+            // Data for the Highcharts chart
+
+            var chartData = [
+                ['Toilet Inside House', FlushToiletOutsideHouse],
+                ['Toilet Outside House', FlushToiletOutsideHouse],
+                ['Toilet No Autoflush', FlushToiletNoAutoflush],
+                ['Improved Latrine', ImprovedLatrine],
+                ['Improved Traditional Latrine', ImprovedTraditionalLatrine],
+                ['Unimproved Latrine', UnimprovedLatrine],
+                ['No Toilet or Latrine', NoToiletOrLatrine],
+                ['Unknown', Unknown]
+            ];
+            // Create the chart using Highcharts
+            Highcharts.chart('type_of_sanitation', {
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: 'TYPE OF SANITATION',
+                    align: 'left'
+                },
+                subtitle: {
+                    text: 'PERCENTAGE OF DWELLINGS BY TYPE OF SANITATION',
+                    align: 'left'
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Percentage',
+                    data: chartData
+                }]
+            });
+        }
+
+
+
+
+        function ownership_of_durable_goods(
+            Bens_Dur_Radio, Bens_Dur_Telev, Bens_Dur_TelFixo, Bens_Dur_Comp, Bens_Dur_Inter,
+            Bens_Dur_FerEngom, Bens_Dur_FogCarvLenha, Bens_Dur_FogElectGas, Bens_Dur_GeleiCong,
+            Bens_Dur_Carro, Bens_Dur_Motoriza, Bens_Dur_Biciclet, Bens_Nenhum_Destes_Bens
+        ) {
+            // Apply parseFloat to function variables
+            Durables_Radio = parseFloat(Bens_Dur_Radio);
+            Durables_Television = parseFloat(Bens_Dur_Telev);
+            Durables_LandlinePhone = parseFloat(Bens_Dur_TelFixo);
+            Durables_Computer = parseFloat(Bens_Dur_Comp);
+            Durables_Internet = parseFloat(Bens_Dur_Inter);
+            Durables_Iron = parseFloat(Bens_Dur_FerEngom);
+            Durables_WoodCoalGasStove = parseFloat(Bens_Dur_FogCarvLenha);
+            Durables_ElectricGasStove = parseFloat(Bens_Dur_FogElectGas);
+            Durables_RefrigeratorFreezer = parseFloat(Bens_Dur_GeleiCong);
+            Durables_Car = parseFloat(Bens_Dur_Carro);
+            Durables_Motorcycle = parseFloat(Bens_Dur_Motoriza);
+            Durables_Bicycle = parseFloat(Bens_Dur_Biciclet);
+            None_of_These_Durables = parseFloat(Bens_Nenhum_Destes_Bens);
+            // Log all variables to the console
+            // console.log("Durables_Radio:", Durables_Radio);
+            // console.log("Durables_Television:", Durables_Television);
+            // console.log("Durables_LandlinePhone:", Durables_LandlinePhone);
+            // console.log("Durables_Computer:", Durables_Computer);
+            // console.log("Durables_Internet:", Durables_Internet);
+            // console.log("Durables_Iron:", Durables_Iron);
+            // console.log("Durables_WoodCoalGasStove:", Durables_WoodCoalGasStove);
+            // console.log("Durables_ElectricGasStove:", Durables_ElectricGasStove);
+            // console.log("Durables_RefrigeratorFreezer:", Durables_RefrigeratorFreezer);
+            // console.log("Durables_Car:", Durables_Car);
+            // console.log("Durables_Motorcycle:", Durables_Motorcycle);
+            // console.log("Durables_Bicycle:", Durables_Bicycle);
+            // console.log("None_of_These_Durables:", None_of_These_Durables);
+            // Create data array using function variables
+            var data = [
+                Durables_Radio, Durables_Television, Durables_LandlinePhone, Durables_Computer,
+                Durables_Internet, Durables_Iron, Durables_WoodCoalGasStove, Durables_ElectricGasStove,
+                Durables_RefrigeratorFreezer, Durables_Car, Durables_Motorcycle, Durables_Bicycle,
+                None_of_These_Durables
+            ];
+
+            // Create categories array using function variable names
+            var categories = [
+                'Radio', 'Television', 'Landline Phone', 'Computer',
+                'Internet', 'Iron', 'Wood/Coal/Gas Stove', 'Electric/Gas Stove',
+                'Refrigerator/Freezer', 'Car', 'Motorcycle', 'Bicycle',
+                'None of These Durables'
+            ];
+
+            // Create colors array for each variable
+            var colors = [
+                '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF5733', '#33FF57',
+                '#5733FF', '#33FFD6', '#FF3366', '#33FF33', '#3366FF', '#FF9933', '#A9A9A9'
+            ];
+
+            Highcharts.chart('ownership_of_durable_goods', {
+                chart: {
+                    type: 'bar',
+                    colors: colors
+                },
+                title: {
+                    text: 'Ownership of Durable Goods',
+                    align: 'left'
+                },
+
+                xAxis: {
+                    categories: categories,
+                    title: {
+                        text: null
+                    },
+                    gridLineWidth: 1,
+                    lineWidth: 0
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    },
+                    gridLineWidth: 0
+                },
+                tooltip: {
+                    valueSuffix: ' %'
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: '',
+                        dataLabels: {
+                            enabled: true,
+                            align: 'left', // Align data labels to the left
+                            inside: true
+                        },
+                        groupPadding: 0.1,
+                        colorByPoint: true // Assign colors based on the order of data
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: '',
+                    data: data
+                }]
+            });
+        }
+
+
+
+        function population_aged_15_and_over(
+            Total_Bank_Account, Urban_Bank_Account, Rural_Bank_Account,
+            Total_Bank_Account_Household, Bank_Account_Male, Bank_Account_Female
+        ) {
+            // Apply parseFloat to function variables
+            Total_Bank_Account = parseFloat(Total_Bank_Account);
+            Urban_Bank_Account = parseFloat(Urban_Bank_Account);
+            Rural_Bank_Account = parseFloat(Rural_Bank_Account);
+            Total_Bank_Account_Household = parseFloat(Total_Bank_Account_Household);
+            Bank_Account_Male = parseFloat(Bank_Account_Male);
+            Bank_Account_Female = parseFloat(Bank_Account_Female);
+
+            // Parsed values
+            // console.log("\nParsed values:");
+            // console.log("Total_Bank_Account:", Total_Bank_Account);
+            // console.log("Urban_Bank_Account:", Urban_Bank_Account);
+            // console.log("Rural_Bank_Account:", Rural_Bank_Account);
+            // console.log("Total_Bank_Account_Household:", Total_Bank_Account_Household);
+            // console.log("Bank_Account_Male:", Bank_Account_Male);
+            // console.log("Bank_Account_Female:", Bank_Account_Female);
+
+            Highcharts.chart('population_aged_15_and_over', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Bank Accounts by Area of Residence and Sex',
+                    align: 'left'
+                },
+                subtitle: {
+                    text: 'Population Aged 15 and Over',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Total', 'Area of Residence', 'Sex'],
+                    title: {
+                        text: null
+                    },
+                    gridLineWidth: 1,
+                    lineWidth: 0
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Percentage',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    },
+                    gridLineWidth: 0
+                },
+                tooltip: {
+                    valueSuffix: ' percentage'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        groupPadding: 0.1
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '13px' // Adjust the font size as needed
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total',
+                    data: [Total_Bank_Account]
+                }, {
+                    name: 'Residence Area',
+                    data: [Urban_Bank_Account, Rural_Bank_Account]
+                }, {
+                    name: 'Sex',
+                    data: [Bank_Account_Male, Bank_Account_Female]
+                }]
+            });
+        }
+
+        function population_aged_7_years_and_over(MPesaKesh_Total, MPesaKesh_Male, MPesaKesh_Female) {
+            // Apply parseFloat to function variables
+            MPesaKesh_Total = parseFloat(MPesaKesh_Total);
+            MPesaKesh_Male = parseFloat(MPesaKesh_Male);
+            MPesaKesh_Female = parseFloat(MPesaKesh_Female);
+
+            // Parsed values
+            // console.log("\nParsed values:");
+            // console.log("MPesaKesh_Total:", MPesaKesh_Total);
+            // console.log("MPesaKesh_Male:", MPesaKesh_Male);
+            // console.log("MPesaKesh_Female:", MPesaKesh_Female);
+
+            // Create the chart with dynamic data
+            Highcharts.chart('population_aged_7_years_and_over', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    align: 'left',
+                    text: 'Use of Mpesa or Mkesh'
+                },
+                subtitle: {
+                    align: 'left',
+                    text: 'Population Aged 7 Years and Over'
+                },
+                accessibility: {
+                    announceNewData: {
+                        enabled: true
+                    }
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total percent market share'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.1f}%'
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                },
+                series: [{
+                    name: 'Browsers',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'MPesaKesh Total',
+                        y: MPesaKesh_Total
+                    }, {
+                        name: 'MPesaKesh Male',
+                        y: MPesaKesh_Male
+                    }, {
+                        name: 'MPesaKesh Female',
+                        y: MPesaKesh_Female
+                    }]
+                }]
+            });
+        }
+
+        function access_to_ICT_devices_and_internet(
+            Computer_Laptop_Total, Computer_Laptop_Male, Computer_Laptop_Female,
+            Internet_Total, Internet_Male, Internet_Female,
+            Cellphone_Total, Cellphone_Male, Cellphone_Female
+        ) {
+            // Apply parseFloat to function variables
+            Computer_Laptop_Total = parseFloat(Computer_Laptop_Total);
+            Computer_Laptop_Male = parseFloat(Computer_Laptop_Male);
+            Computer_Laptop_Female = parseFloat(Computer_Laptop_Female);
+            Internet_Total = parseFloat(Internet_Total);
+            Internet_Male = parseFloat(Internet_Male);
+            Internet_Female = parseFloat(Internet_Female);
+            Cellphone_Total = parseFloat(Cellphone_Total);
+            Cellphone_Male = parseFloat(Cellphone_Male);
+            Cellphone_Female = parseFloat(Cellphone_Female);
+
+            // Parsed values
+            // console.log("\nParsed values:");
+            // console.log("Computer_Laptop_Total:", Computer_Laptop_Total);
+            // console.log("Computer_Laptop_Male:", Computer_Laptop_Male);
+            // console.log("Computer_Laptop_Female:", Computer_Laptop_Female);
+            // console.log("Internet_Total:", Internet_Total);
+            // console.log("Internet_Male:", Internet_Male);
+            // console.log("Internet_Female:", Internet_Female);
+            // console.log("Cellphone_Total:", Cellphone_Total);
+            // console.log("Cellphone_Male:", Cellphone_Male);
+            // console.log("Cellphone_Female:", Cellphone_Female);
+
+            // Create the chart
+            Highcharts.chart('access_to_ICT_devices_and_internet', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Access to ICT devices and internet',
+                    align: 'left'
+                },
+                subtitle: {
+                    text: '',
+                    align: 'left'
+                },
+                xAxis: {
+                    categories: ['Computer/Laptop/Tablet', 'Used Internet', 'Cell Phone Possession'],
+                    title: {
+                        text: null
+                    },
+                    gridLineWidth: 1,
+                    lineWidth: 0
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Percentage',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    },
+                    gridLineWidth: 0
+                },
+                tooltip: {
+                    valueSuffix: '%'
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: '50%',
+                        dataLabels: {
+                            enabled: true
+                        },
+                        groupPadding: 0.1
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -40,
+                    y: 80,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total',
+                    data: [Computer_Laptop_Total, Internet_Total, Cellphone_Total]
+                }, {
+                    name: 'Male',
+                    data: [Computer_Laptop_Male, Internet_Male, Cellphone_Male]
+                }, {
+                    name: 'Female',
+                    data: [Computer_Laptop_Female, Internet_Female, Cellphone_Female]
+                }]
+            });
+        }
+
+        function economically_and_non_active_population(N, PEA, PNEA) {
+            // Apply parseFloat to function variables
+            N_Float = parseFloat(N);
+            PEA_Float = parseFloat(PEA);
+            PNEA_Float = parseFloat(PNEA);
+
+            // Log the parsed values to the console
+            // console.log("\nParsed values:");
+            // console.log("N:", N_Float);
+            // console.log("PEA:", PEA_Float);
+            // console.log("PNEA:", PNEA_Float);
+
+            // Add any additional logic or processing if needed
+            // continue here
+        }
+
+
+        function distribution_of_the_employed_population_by_industry(
+            agricultureForestryFishing,
+            miningExtraction,
+            industryManufacturing,
+            energy,
+            construction,
+            transportationCommunication,
+            commerceFinance,
+            servicesAdministration,
+            otherServices
+        ) {
+            // Parse variables as floats
+            agricultureForestryFishing_Float = parseFloat(agricultureForestryFishing);
+            miningExtraction_Float = parseFloat(miningExtraction);
+            industryManufacturing_Float = parseFloat(industryManufacturing);
+            energy_Float = parseFloat(energy);
+            construction_Float = parseFloat(construction);
+            transportationCommunication_Float = parseFloat(transportationCommunication);
+            commerceFinance_Float = parseFloat(commerceFinance);
+            servicesAdministration_Float = parseFloat(servicesAdministration);
+            otherServices_Float = parseFloat(otherServices);
+            var totalSum = (
+                agricultureForestryFishing_Float +
+                miningExtraction_Float +
+                industryManufacturing_Float +
+                energy_Float +
+                construction_Float +
+                transportationCommunication_Float +
+                commerceFinance_Float +
+                servicesAdministration_Float +
+                otherServices_Float
+            );
+            // console.log("Total Sum:", totalSum);
+            // Data for the Highcharts chart
+            var chartData = [
+                ['Agriculture, Forestry, Fishing', agricultureForestryFishing_Float],
+                ['Mining and Extraction', miningExtraction_Float],
+                ['Industry and Manufacturing', industryManufacturing_Float],
+                ['Energy', energy_Float],
+                ['Construction', construction_Float],
+                ['Transportation and Communication', transportationCommunication_Float],
+                ['Commerce and Finance', commerceFinance_Float],
+                ['Services and Administration', servicesAdministration_Float],
+                ['Other Services', otherServices_Float],
+            ];
+            // Data retrieved from https://netmarketshare.com/
+            Highcharts.chart('distribution_of_the_employed_population_by_industry', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Distribution of the employed population by industry',
+                    align: 'center'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: ''
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: true,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '75%'],
+                        size: '110%'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Industry Distribution',
+                    innerSize: '50%',
+                    data: chartData
+                }]
+            });
+        }
+
         // chart marital ratio characteristics
         function highlightPieChartMaritalRatio(
             solteiro_homens, casado_homens, uniao_Marital_homens, divorciado_Separado_homens, viuvo_homens,
@@ -1680,12 +3097,17 @@
 
         }
 
-        function updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity) {
+        function updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity,
+            AverageNumberofMembersperHousehold, Population_Company_Energy_Electric) {
             // Update the innerHTML of the counter elements with the provided values
             // document.getElementById('total_population').innerHTML = popTotalValue;
             document.getElementById('sex_ratio_by_birth').innerHTML = popSexRatioBybirth;
             document.getElementById('population_growth_rate').innerHTML = popGrowthRate;
             document.getElementById('population_density').innerHTML = populationDensity;
+            document.getElementById('Average_Number_of_Members_per_Household').innerHTML =
+                AverageNumberofMembersperHousehold;
+            document.getElementById('PopulationCompany_Energy_Electric').innerHTML =
+                Population_Company_Energy_Electric;
         }
 
         function demographicDependencyRateBySex(rateDep_014_total, rateDep_014_men, rateDep_014_women, rateDep_65_total,

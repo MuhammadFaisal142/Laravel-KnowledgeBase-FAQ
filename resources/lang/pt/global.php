@@ -298,4 +298,10 @@ return [
     'pyramid' => 'Pirâmide',
     'tables' => 'Tabelas',
     'select_any_districts' => 'Selecione qualquer distrito no mapa.',
+    'Average_Number_Members_per_Household' => 'Média Tamanho família.',
+    'water_and_sanitation' => 'água saneamento',
+    'population_with_electricity' => 'população eletricidade',
+    'financial_Inclusion' => 'Inclusão financeira',
+    'information_and_communications_technology' => 'Informação Comunicações',
+    'econoimc_Activity' => 'Atividade Econômica',
 ];

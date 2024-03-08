@@ -298,5 +298,11 @@ return [
     'tables' => 'Tables',
     'characteristics' => 'characteristics',
     'select_any_districts' => 'Please select any district from the map.',
+    'Average_Number_Members_per_Household' => 'Avg. Household Size.',
+    'water_and_sanitation' => 'water & sanitation',
+    'population_with_electricity' => 'population with electricity',
+    'financial_Inclusion' => 'Financial Inclusion',
+    'information_and_communications_technology' => 'Information Communications',
+    'econoimc_Activity' => 'Econoimc Activity',
 
 ];
