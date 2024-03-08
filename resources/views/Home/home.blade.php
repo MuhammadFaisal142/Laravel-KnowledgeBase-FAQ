@@ -2354,7 +2354,6 @@
             Durables_Motorcycle = parseFloat(Bens_Dur_Motoriza);
             Durables_Bicycle = parseFloat(Bens_Dur_Biciclet);
             None_of_These_Durables = parseFloat(Bens_Nenhum_Destes_Bens);
-            // Log all variables to the console
             // console.log("Durables_Radio:", Durables_Radio);
             // console.log("Durables_Television:", Durables_Television);
             // console.log("Durables_LandlinePhone:", Durables_LandlinePhone);
@@ -2390,10 +2389,38 @@
                 '#5733FF', '#33FFD6', '#FF3366', '#33FF33', '#3366FF', '#FF9933', '#A9A9A9'
             ];
 
+            // Create an array of objects for sorting
+            var dataObjects = [];
+            for (var i = 0; i < data.length; i++) {
+                dataObjects.push({
+                    y: data[i],
+                    color: colors[i],
+                    name: categories[i]
+                });
+            }
+
+            // Sort dataObjects array based on y (values) in descending order
+            dataObjects.sort(function(a, b) {
+                return b.y - a.y;
+            });
+
+            // Extract sorted data, categories, and colors arrays
+            var sortedData = dataObjects.map(function(item) {
+                return item.y;
+            });
+
+            var sortedCategories = dataObjects.map(function(item) {
+                return item.name;
+            });
+
+            var sortedColors = dataObjects.map(function(item) {
+                return item.color;
+            });
+
             Highcharts.chart('ownership_of_durable_goods', {
                 chart: {
                     type: 'bar',
-                    colors: colors
+                    colors: sortedColors
                 },
                 title: {
                     text: 'Ownership of Durable Goods',
@@ -2401,7 +2428,7 @@
                 },
 
                 xAxis: {
-                    categories: categories,
+                    categories: sortedCategories,
                     title: {
                         text: null
                     },
@@ -2442,10 +2469,11 @@
                 },
                 series: [{
                     name: '',
-                    data: data
+                    data: sortedData
                 }]
             });
         }
+
 
 
 
