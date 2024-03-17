@@ -282,7 +282,7 @@ return [
     'illiteracyRate' => 'Taxa de analfabetismo',
     'dependency' => 'Dependência',
     'population_growth' => 'Crescimento populacional',
-    'Sex_Ratio_By_Birth' => 'Proporção de sexo por nascimento',
+    'Sex_Ratio_at_Birth' => 'Proporção de sexo no nascimento',
     'mozambique-map' => 'Mapa de Moçambique',
     'population-contribution' => 'Contribuição Populacional',
     'population' => 'Populacional',

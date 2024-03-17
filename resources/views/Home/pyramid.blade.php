@@ -1,4 +1,36 @@
 @extends('layouts.main')
+<style>
+    /* Default styles for .highcharts-subtitle */
+    .highcharts-subtitle {
+        width: -webkit-fill-available !important;
+    }
+
+    /* Media query for screens below 1200px */
+    @media screen and (max-width: 1199px) {
+        .highcharts-subtitle {
+            top: 49px !important;
+        }
+    }
+
+    /* Media query for screens below 880px */
+    @media screen and (max-width: 879px) {
+        .highcharts-subtitle {
+            top: 70px !important;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .highcharts-subtitle {
+            top: 30px !important;
+        }
+    }
+
+    @media screen and (max-width: 445px) {
+        .highcharts-subtitle {
+            top: 50px !important;
+        }
+    }
+</style>
 @section('content')
     <div class="graphs-row mt-4">
         <div class="row">
@@ -13,7 +45,8 @@
                                         <option value="">{{ trans('global.all_provinces') }}</option>
                                         @foreach ($population_data as $key => $province_first)
                                             @if (!isset($encounteredProvincesFirst[$province_first->Cod_Prov]))
-                                                <option value="{{ $province_first->Cod_Prov }}">{{ $province_first->Provincia }}</option>
+                                                <option value="{{ $province_first->Cod_Prov }}">
+                                                    {{ $province_first->Provincia }}</option>
                                                 @php $encounteredProvincesFirst[$province_first->Cod_Prov] = true; @endphp
                                             @endif
                                         @endforeach
@@ -64,11 +97,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="custom-select" for="selecteProvince_second">
-                                    <select id="selecteProvince_second" name="options" onchange="updateDistrictsSecondFilter()">
+                                    <select id="selecteProvince_second" name="options"
+                                        onchange="updateDistrictsSecondFilter()">
                                         <option value="">{{ trans('global.all_provinces') }}</option>
                                         @foreach ($population_data as $key => $province_second)
                                             @if (!isset($encounteredProvincesSecond[$province_second->Cod_Prov]))
-                                                <option value="{{ $province_second->Cod_Prov }}">{{ $province_second->Provincia }}</option>
+                                                <option value="{{ $province_second->Cod_Prov }}">
+                                                    {{ $province_second->Provincia }}</option>
                                                 @php $encounteredProvincesSecond[$province_second->Cod_Prov] = true; @endphp
                                             @endif
                                         @endforeach
@@ -120,11 +155,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <label class="custom-select" for="selecteProvince_third">
-                                    <select id="selecteProvince_third" name="options" onchange="updateDistrictsThirdFilter()">
+                                    <select id="selecteProvince_third" name="options"
+                                        onchange="updateDistrictsThirdFilter()">
                                         <option value="">{{ trans('global.all_provinces') }}</option>
                                         @foreach ($population_data as $key => $province_third)
                                             @if (!isset($encounteredProvincesThird[$province_third->Cod_Prov]))
-                                                <option value="{{ $province_third->Cod_Prov }}">{{ $province_third->Provincia }}</option>
+                                                <option value="{{ $province_third->Cod_Prov }}">
+                                                    {{ $province_third->Provincia }}</option>
                                                 @php $encounteredProvincesThird[$province_third->Cod_Prov] = true; @endphp
                                             @endif
                                         @endforeach
@@ -210,6 +247,37 @@
                     districtsDropdown.appendChild(option);
                 }
             @endforeach
+
+            update_Map_Pyramid_by_Provinces_Vise_Data();
+        }
+
+        function update_Map_Pyramid_by_Provinces_Vise_Data() {
+
+            var selectedProvincevalue = document.getElementById('selecteProvince').value;
+            const dataFromServerOfProvinces = @json($provinces_all_data);
+
+
+            // Find the object that matches selected Province and District
+            var matchingObject = dataFromServerOfProvinces.find(function(item) {
+                return item.Cod_Prov == selectedProvincevalue;
+            });
+
+            if (matchingObject) {
+                // Extract the 'id' from the matching object
+                var mainId = matchingObject.Cod_Prov;
+                var mainProvince = matchingObject.Provincia;
+                // console.log("Main ID:", mainId , "Provinces Name : " , mainProvince );
+            } else {
+                console.log("Matching object not found");
+            }
+
+            const filteredDataProvinceVise = dataFromServerOfProvinces.filter(function(record) {
+                return record.id === mainId;
+            });
+
+            // continue from here
+
+
         }
 
         function performSearch() {
@@ -249,68 +317,12 @@
                 return record.id === mainId;
             });
 
-            // Percent distribution of the household population First paramyid Graph show on the right on the page
-            var {
-                District,
-                M_00_00_p,
-                F_00_00_p,
-                T_00_00_p,
-                M_01_04_p,
-                F_01_04_p,
-                T_01_04_p,
-                M_05_09_p,
-                F_05_09_p,
-                T_05_09_p,
-                M_10_14_p,
-                F_10_14_p,
-                T_10_14_p,
-                M_15_19_p,
-                F_15_19_p,
-                T_15_19_p,
-                M_20_24_p,
-                F_20_24_p,
-                T_20_24_p,
-                M_25_29_p,
-                F_25_29_p,
-                T_25_29_p,
-                M_30_34_p,
-                F_30_34_p,
-                T_30_34_p,
-                M_35_39_p,
-                F_35_39_p,
-                T_35_39_p,
-                M_40_44_p,
-                F_40_44_p,
-                T_40_44_p,
-                M_45_49_p,
-                F_45_49_p,
-                T_45_49_p,
-                M_50_54_p,
-                F_50_54_p,
-                T_50_54_p,
-                M_55_59_p,
-                F_55_59_p,
-                T_55_59_p,
-                M_60_64_p,
-                F_60_64_p,
-                T_60_64_p,
-                M_65_69_p,
-                F_65_69_p,
-                T_65_69_p,
-                M_70_74_p,
-                F_70_74_p,
-                T_70_74_p,
-                M_75_79_p,
-                F_75_79_p,
-                T_75_79_p,
-                M_80plus_p,
-                F_80plus_p,
-                T_80plus_p
-            } = filteredData[0];
+
 
             // this 2007 data districts
             var {
                 District,
+                T_TL_2007,
                 M_00_00_p_2007,
                 F_00_00_p_2007,
                 T_00_00_p_2007,
@@ -367,7 +379,7 @@
                 T_80plus_p_2007
             } = filteredData[0];
 
-            percent_distribution_2007(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+            percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
                 F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
                 F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
                 F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
@@ -377,10 +389,68 @@
                 F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
                 F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
                 F_80plus_p_2007, T_80plus_p_2007);
-
+            // Percent distribution of the household population First paramyid Graph show on the right on the page
+            var {
+                District,
+                T_TL,
+                M_00_00_p,
+                F_00_00_p,
+                T_00_00_p,
+                M_01_04_p,
+                F_01_04_p,
+                T_01_04_p,
+                M_05_09_p,
+                F_05_09_p,
+                T_05_09_p,
+                M_10_14_p,
+                F_10_14_p,
+                T_10_14_p,
+                M_15_19_p,
+                F_15_19_p,
+                T_15_19_p,
+                M_20_24_p,
+                F_20_24_p,
+                T_20_24_p,
+                M_25_29_p,
+                F_25_29_p,
+                T_25_29_p,
+                M_30_34_p,
+                F_30_34_p,
+                T_30_34_p,
+                M_35_39_p,
+                F_35_39_p,
+                T_35_39_p,
+                M_40_44_p,
+                F_40_44_p,
+                T_40_44_p,
+                M_45_49_p,
+                F_45_49_p,
+                T_45_49_p,
+                M_50_54_p,
+                F_50_54_p,
+                T_50_54_p,
+                M_55_59_p,
+                F_55_59_p,
+                T_55_59_p,
+                M_60_64_p,
+                F_60_64_p,
+                T_60_64_p,
+                M_65_69_p,
+                F_65_69_p,
+                T_65_69_p,
+                M_70_74_p,
+                F_70_74_p,
+                T_70_74_p,
+                M_75_79_p,
+                F_75_79_p,
+                T_75_79_p,
+                M_80plus_p,
+                F_80plus_p,
+                T_80plus_p
+            } = filteredData[0];
             // Call the function and pass the variables
             percent_distribution_2017(
-                District,
+                District, T_TL,
                 M_00_00_p, F_00_00_p, T_00_00_p,
                 M_01_04_p, F_01_04_p, T_01_04_p,
                 M_05_09_p, F_05_09_p, T_05_09_p,
@@ -403,7 +473,7 @@
 
         }
 
-        function percent_distribution_2017(District,
+        function percent_distribution_2017(District, T_TL,
             M_00_00_p, F_00_00_p, T_00_00_p,
             M_01_04_p, F_01_04_p, T_01_04_p,
             M_05_09_p, F_05_09_p, T_05_09_p,
@@ -435,27 +505,34 @@
                     type: 'bar'
                 },
                 title: {
-                    text: 'Population Pyramid of ' + District
+                    text: 'Population Pyramid of ' + District,
+                    useHTML: true,
                 },
+
                 subtitle: {
-                    text: 'Population of 2017'
+                    useHTML: true, // Enable HTML in subtitle
+                    text: '<div class="subtitle-container">' +
+                        '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL + '</b></div>' +
+                        '<div style="float: right; margin-right:65px">Census-2017</div>' +
+                        '</div>',
+                    align: 'left',
+                    x: 0, // Set x to 0 to start subtitle from the left
+                    y: 32 // Adjust y position as needed
+
                 },
                 credits: {
                     enabled: false
                 },
                 xAxis: [{
-                    categories: categories,
-                    reversed: false,
-                    labels: {
-                        step: 1
-                    }
-                }, {
                     opposite: true,
                     reversed: false,
                     categories: categories,
-                    linkedTo: 0,
+                    linkedTo: 1,
                     labels: {
                         step: 1
+                    },
+                    accessibility: {
+                        description: 'Age (female)'
                     }
                 }],
                 yAxis: {
@@ -504,7 +581,8 @@
             });
         }
 
-        function percent_distribution_2007(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+        function percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+            M_01_04_p_2007,
             F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
             F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
             F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
@@ -528,25 +606,31 @@
                 title: {
                     text: 'Population Pyramid of ' + District
                 },
+
                 subtitle: {
-                    text: 'Population of 2007'
+                    useHTML: true, // Enable HTML in subtitle
+                    text: '<div class="subtitle-container">' +
+                        '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL_2007 + '</b></div>' +
+                        '<div style="float: right; margin-right:65px">Census-2007</div>' +
+                        '</div>',
+                    align: 'left',
+                    x: 0, // Set x to 0 to start subtitle from the left
+                    y: 32 // Adjust y position as needed
+
                 },
                 credits: {
                     enabled: false
                 },
                 xAxis: [{
-                    categories: categories,
-                    reversed: false,
-                    labels: {
-                        step: 1
-                    }
-                }, {
                     opposite: true,
                     reversed: false,
                     categories: categories,
-                    linkedTo: 0,
+                    linkedTo: 1,
                     labels: {
                         step: 1
+                    },
+                    accessibility: {
+                        description: 'Age (female)'
                     }
                 }],
                 yAxis: {
@@ -654,6 +738,7 @@
                 updateMapPyramidSecondFilter();
             }, 2000);
         }
+
         function performSearchThirdFilterbtn() {
             // Show the loader and hide the button text
             document.getElementById('loader-third').style.display = 'inline-block';
@@ -740,17 +825,70 @@
             const filteredData = dataFromServer.filter(function(record) {
                 return record.id === mainId;
             });
-            // Percent distribution of the household population First paramyid Graph show on the right on the page
-            var {District,M_00_00_p,F_00_00_p,T_00_00_p,M_01_04_p,F_01_04_p,T_01_04_p,M_05_09_p,F_05_09_p,T_05_09_p,M_10_14_p,F_10_14_p,T_10_14_p,M_15_19_p,F_15_19_p,T_15_19_p,M_20_24_p,F_20_24_p,T_20_24_p,M_25_29_p,F_25_29_p,T_25_29_p,M_30_34_p,F_30_34_p,T_30_34_p,M_35_39_p,F_35_39_p,T_35_39_p,M_40_44_p,
-                F_40_44_p,T_40_44_p,M_45_49_p,F_45_49_p,T_45_49_p,M_50_54_p,F_50_54_p,T_50_54_p,M_55_59_p,F_55_59_p,T_55_59_p,M_60_64_p,F_60_64_p,T_60_64_p,M_65_69_p,F_65_69_p,T_65_69_p,M_70_74_p,F_70_74_p,T_70_74_p,M_75_79_p,F_75_79_p,T_75_79_p,M_80plus_p,F_80plus_p,T_80plus_p
-            } = filteredData[0];
+
 
             // this 2007 data districts
             var {
-                District,M_00_00_p_2007,F_00_00_p_2007,T_00_00_p_2007,M_01_04_p_2007,F_01_04_p_2007,T_01_04_p_2007,M_05_09_p_2007,F_05_09_p_2007,T_05_09_p_2007,M_10_14_p_2007,F_10_14_p_2007,T_10_14_p_2007,M_15_19_p_2007,F_15_19_p_2007,T_15_19_p_2007,M_20_24_p_2007,F_20_24_p_2007,T_20_24_p_2007,M_25_29_p_2007,F_25_29_p_2007,T_25_29_p_2007,M_30_34_p_2007,F_30_34_p_2007,T_30_34_p_2007,M_35_39_p_2007,F_35_39_p_2007,T_35_39_p_2007,M_40_44_p_2007,F_40_44_p_2007,T_40_44_p_2007,M_45_49_p_2007,F_45_49_p_2007,T_45_49_p_2007,M_50_54_p_2007,F_50_54_p_2007,T_50_54_p_2007,M_55_59_p_2007,F_55_59_p_2007,T_55_59_p_2007,M_60_64_p_2007,F_60_64_p_2007,T_60_64_p_2007,M_65_69_p_2007,F_65_69_p_2007,T_65_69_p_2007,M_70_74_p_2007,F_70_74_p_2007,T_70_74_p_2007,M_75_79_p_2007,F_75_79_p_2007,T_75_79_p_2007,M_80plus_p_2007,F_80plus_p_2007,T_80plus_p_2007
+                District,
+                T_TL_2007,
+                M_00_00_p_2007,
+                F_00_00_p_2007,
+                T_00_00_p_2007,
+                M_01_04_p_2007,
+                F_01_04_p_2007,
+                T_01_04_p_2007,
+                M_05_09_p_2007,
+                F_05_09_p_2007,
+                T_05_09_p_2007,
+                M_10_14_p_2007,
+                F_10_14_p_2007,
+                T_10_14_p_2007,
+                M_15_19_p_2007,
+                F_15_19_p_2007,
+                T_15_19_p_2007,
+                M_20_24_p_2007,
+                F_20_24_p_2007,
+                T_20_24_p_2007,
+                M_25_29_p_2007,
+                F_25_29_p_2007,
+                T_25_29_p_2007,
+                M_30_34_p_2007,
+                F_30_34_p_2007,
+                T_30_34_p_2007,
+                M_35_39_p_2007,
+                F_35_39_p_2007,
+                T_35_39_p_2007,
+                M_40_44_p_2007,
+                F_40_44_p_2007,
+                T_40_44_p_2007,
+                M_45_49_p_2007,
+                F_45_49_p_2007,
+                T_45_49_p_2007,
+                M_50_54_p_2007,
+                F_50_54_p_2007,
+                T_50_54_p_2007,
+                M_55_59_p_2007,
+                F_55_59_p_2007,
+                T_55_59_p_2007,
+                M_60_64_p_2007,
+                F_60_64_p_2007,
+                T_60_64_p_2007,
+                M_65_69_p_2007,
+                F_65_69_p_2007,
+                T_65_69_p_2007,
+                M_70_74_p_2007,
+                F_70_74_p_2007,
+                T_70_74_p_2007,
+                M_75_79_p_2007,
+                F_75_79_p_2007,
+                T_75_79_p_2007,
+                M_80plus_p_2007,
+                F_80plus_p_2007,
+                T_80plus_p_2007
             } = filteredData[0];
 
-            percent_distribution_2007_second(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+            percent_distribution_2007_second(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+                M_01_04_p_2007,
                 F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
                 F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
                 F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
@@ -761,14 +899,83 @@
                 F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
                 F_80plus_p_2007, T_80plus_p_2007);
 
+            // Percent distribution of the household population First paramyid Graph show on the right on the page
+            var {
+                District,
+                T_TL,
+                M_00_00_p,
+                F_00_00_p,
+                T_00_00_p,
+                M_01_04_p,
+                F_01_04_p,
+                T_01_04_p,
+                M_05_09_p,
+                F_05_09_p,
+                T_05_09_p,
+                M_10_14_p,
+                F_10_14_p,
+                T_10_14_p,
+                M_15_19_p,
+                F_15_19_p,
+                T_15_19_p,
+                M_20_24_p,
+                F_20_24_p,
+                T_20_24_p,
+                M_25_29_p,
+                F_25_29_p,
+                T_25_29_p,
+                M_30_34_p,
+                F_30_34_p,
+                T_30_34_p,
+                M_35_39_p,
+                F_35_39_p,
+                T_35_39_p,
+                M_40_44_p,
+                F_40_44_p,
+                T_40_44_p,
+                M_45_49_p,
+                F_45_49_p,
+                T_45_49_p,
+                M_50_54_p,
+                F_50_54_p,
+                T_50_54_p,
+                M_55_59_p,
+                F_55_59_p,
+                T_55_59_p,
+                M_60_64_p,
+                F_60_64_p,
+                T_60_64_p,
+                M_65_69_p,
+                F_65_69_p,
+                T_65_69_p,
+                M_70_74_p,
+                F_70_74_p,
+                T_70_74_p,
+                M_75_79_p,
+                F_75_79_p,
+                T_75_79_p,
+                M_80plus_p,
+                F_80plus_p,
+                T_80plus_p
+            } = filteredData[0];
             // Call the function and pass the variables
             percent_distribution_2017_second(
-                District,M_00_00_p, F_00_00_p, T_00_00_p,M_01_04_p, F_01_04_p, T_01_04_p,M_05_09_p, F_05_09_p, T_05_09_p,M_10_14_p, F_10_14_p, T_10_14_p,M_15_19_p, F_15_19_p, T_15_19_p,M_20_24_p, F_20_24_p, T_20_24_p,
-                M_25_29_p, F_25_29_p, T_25_29_p,M_30_34_p, F_30_34_p, T_30_34_p,M_35_39_p, F_35_39_p, T_35_39_p,M_40_44_p, F_40_44_p, T_40_44_p,M_45_49_p, F_45_49_p, T_45_49_p,M_50_54_p, F_50_54_p, T_50_54_p,M_55_59_p, F_55_59_p, T_55_59_p,M_60_64_p, F_60_64_p, T_60_64_p,M_65_69_p, F_65_69_p, T_65_69_p,M_70_74_p, F_70_74_p, T_70_74_p,M_75_79_p, F_75_79_p, T_75_79_p,M_80plus_p, F_80plus_p, T_80plus_p
+                District, T_TL, M_00_00_p, F_00_00_p, T_00_00_p, M_01_04_p, F_01_04_p, T_01_04_p, M_05_09_p, F_05_09_p,
+                T_05_09_p, M_10_14_p, F_10_14_p, T_10_14_p, M_15_19_p, F_15_19_p, T_15_19_p, M_20_24_p, F_20_24_p,
+                T_20_24_p,
+                M_25_29_p, F_25_29_p, T_25_29_p, M_30_34_p, F_30_34_p, T_30_34_p, M_35_39_p, F_35_39_p, T_35_39_p,
+                M_40_44_p, F_40_44_p, T_40_44_p, M_45_49_p, F_45_49_p, T_45_49_p, M_50_54_p, F_50_54_p, T_50_54_p,
+                M_55_59_p, F_55_59_p, T_55_59_p, M_60_64_p, F_60_64_p, T_60_64_p, M_65_69_p, F_65_69_p, T_65_69_p,
+                M_70_74_p, F_70_74_p, T_70_74_p, M_75_79_p, F_75_79_p, T_75_79_p, M_80plus_p, F_80plus_p, T_80plus_p
             );
         }
 
-        function percent_distribution_2017_second(District,M_00_00_p, F_00_00_p, T_00_00_p,M_01_04_p, F_01_04_p, T_01_04_p,M_05_09_p, F_05_09_p, T_05_09_p,M_10_14_p, F_10_14_p, T_10_14_p,M_15_19_p, F_15_19_p, T_15_19_p,M_20_24_p, F_20_24_p, T_20_24_p,M_25_29_p, F_25_29_p, T_25_29_p,M_30_34_p, F_30_34_p, T_30_34_p,M_35_39_p, F_35_39_p, T_35_39_p,M_40_44_p, F_40_44_p, T_40_44_p,M_45_49_p, F_45_49_p, T_45_49_p,M_50_54_p, F_50_54_p, T_50_54_p,M_55_59_p, F_55_59_p, T_55_59_p,M_60_64_p, F_60_64_p, T_60_64_p,M_65_69_p, F_65_69_p, T_65_69_p,M_70_74_p, F_70_74_p, T_70_74_p,M_75_79_p, F_75_79_p, T_75_79_p,M_80plus_p, F_80plus_p, T_80plus_p
+        function percent_distribution_2017_second(District, T_TL, M_00_00_p, F_00_00_p, T_00_00_p, M_01_04_p, F_01_04_p,
+            T_01_04_p, M_05_09_p, F_05_09_p, T_05_09_p, M_10_14_p, F_10_14_p, T_10_14_p, M_15_19_p, F_15_19_p, T_15_19_p,
+            M_20_24_p, F_20_24_p, T_20_24_p, M_25_29_p, F_25_29_p, T_25_29_p, M_30_34_p, F_30_34_p, T_30_34_p, M_35_39_p,
+            F_35_39_p, T_35_39_p, M_40_44_p, F_40_44_p, T_40_44_p, M_45_49_p, F_45_49_p, T_45_49_p, M_50_54_p, F_50_54_p,
+            T_50_54_p, M_55_59_p, F_55_59_p, T_55_59_p, M_60_64_p, F_60_64_p, T_60_64_p, M_65_69_p, F_65_69_p, T_65_69_p,
+            M_70_74_p, F_70_74_p, T_70_74_p, M_75_79_p, F_75_79_p, T_75_79_p, M_80plus_p, F_80plus_p, T_80plus_p
         ) {
             var categories = [
                 '0-0', '1-4', '5-9', '10-14', '15-19',
@@ -782,27 +989,34 @@
                     type: 'bar'
                 },
                 title: {
-                    text: 'Population Pyramid of ' + District
+                    text: 'Population Pyramid of ' + District,
+                    useHTML: true,
                 },
+
                 subtitle: {
-                    text: 'Population of 2017'
+                    useHTML: true, // Enable HTML in subtitle
+                    text: '<div class="subtitle-container">' +
+                        '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL + '</b></div>' +
+                        '<div style="float: right; margin-right:65px">Census-2017</div>' +
+                        '</div>',
+                    align: 'left',
+                    x: 0, // Set x to 0 to start subtitle from the left
+                    y: 32 // Adjust y position as needed
+
                 },
                 credits: {
                     enabled: false
                 },
                 xAxis: [{
-                    categories: categories,
-                    reversed: false,
-                    labels: {
-                        step: 1
-                    }
-                }, {
                     opposite: true,
                     reversed: false,
                     categories: categories,
-                    linkedTo: 0,
+                    linkedTo: 1,
                     labels: {
                         step: 1
+                    },
+                    accessibility: {
+                        description: 'Age (female)'
                     }
                 }],
                 yAxis: {
@@ -850,7 +1064,9 @@
                 }]
             });
         }
-        function percent_distribution_2007_second(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+
+        function percent_distribution_2007_second(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+            M_01_04_p_2007,
             F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
             F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
             F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
@@ -874,25 +1090,31 @@
                 title: {
                     text: 'Population Pyramid of ' + District
                 },
+
                 subtitle: {
-                    text: 'Population of 2007'
+                    useHTML: true, // Enable HTML in subtitle
+                    text: '<div class="subtitle-container">' +
+                        '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL_2007 + '</b></div>' +
+                        '<div style="float: right; margin-right:65px">Census-2007</div>' +
+                        '</div>',
+                    align: 'left',
+                    x: 0, // Set x to 0 to start subtitle from the left
+                    y: 32 // Adjust y position as needed
+
                 },
                 credits: {
                     enabled: false
                 },
                 xAxis: [{
-                    categories: categories,
-                    reversed: false,
-                    labels: {
-                        step: 1
-                    }
-                }, {
                     opposite: true,
                     reversed: false,
                     categories: categories,
-                    linkedTo: 0,
+                    linkedTo: 1,
                     labels: {
                         step: 1
+                    },
+                    accessibility: {
+                        description: 'Age (female)'
                     }
                 }],
                 yAxis: {
@@ -942,8 +1164,8 @@
         }
 
 
-         // Function for updating the map for the third filter box (2017 data)
-         function updateMapPyramidThirdFilter() {
+        // Function for updating the map for the third filter box (2017 data)
+        function updateMapPyramidThirdFilter() {
             var selectedProvincevalue = document.getElementById('selecteProvince_third').value;
             var selectedDistrict = document.getElementById('selectedDistrict_third').value;
 
@@ -965,15 +1187,69 @@
             const filteredData = dataFromServer.filter(function(record) {
                 return record.id === mainId;
             });
-            // Percent distribution of the household population First paramyid Graph show on the right on the page
-            var {District,M_00_00_p,F_00_00_p,T_00_00_p,M_01_04_p,F_01_04_p,T_01_04_p,M_05_09_p,F_05_09_p,T_05_09_p,M_10_14_p,F_10_14_p,T_10_14_p,M_15_19_p,F_15_19_p,T_15_19_p,M_20_24_p,F_20_24_p,T_20_24_p,M_25_29_p,F_25_29_p,T_25_29_p,M_30_34_p,F_30_34_p,T_30_34_p,M_35_39_p,F_35_39_p,T_35_39_p,M_40_44_p,F_40_44_p,T_40_44_p,M_45_49_p,F_45_49_p,T_45_49_p,M_50_54_p,F_50_54_p,T_50_54_p,M_55_59_p,F_55_59_p,T_55_59_p,M_60_64_p,F_60_64_p,T_60_64_p,M_65_69_p,F_65_69_p,T_65_69_p,M_70_74_p,F_70_74_p,T_70_74_p,M_75_79_p,F_75_79_p,T_75_79_p,M_80plus_p,F_80plus_p,T_80plus_p
-            } = filteredData[0];
 
             // this 2007 data districts
-            var {District,M_00_00_p_2007,F_00_00_p_2007,T_00_00_p_2007,M_01_04_p_2007,F_01_04_p_2007,T_01_04_p_2007,M_05_09_p_2007,F_05_09_p_2007,T_05_09_p_2007,M_10_14_p_2007,F_10_14_p_2007,T_10_14_p_2007,M_15_19_p_2007,F_15_19_p_2007,T_15_19_p_2007,M_20_24_p_2007,F_20_24_p_2007,T_20_24_p_2007,M_25_29_p_2007,F_25_29_p_2007,T_25_29_p_2007,M_30_34_p_2007,F_30_34_p_2007,T_30_34_p_2007,M_35_39_p_2007,F_35_39_p_2007,T_35_39_p_2007,M_40_44_p_2007,F_40_44_p_2007,T_40_44_p_2007,M_45_49_p_2007,F_45_49_p_2007,T_45_49_p_2007,M_50_54_p_2007,F_50_54_p_2007,T_50_54_p_2007,M_55_59_p_2007,F_55_59_p_2007,T_55_59_p_2007,M_60_64_p_2007,F_60_64_p_2007,T_60_64_p_2007,M_65_69_p_2007,F_65_69_p_2007,T_65_69_p_2007,M_70_74_p_2007,F_70_74_p_2007,T_70_74_p_2007,M_75_79_p_2007,F_75_79_p_2007,T_75_79_p_2007,M_80plus_p_2007,F_80plus_p_2007,T_80plus_p_2007
+            var {
+                District,
+                T_TL_2007,
+                M_00_00_p_2007,
+                F_00_00_p_2007,
+                T_00_00_p_2007,
+                M_01_04_p_2007,
+                F_01_04_p_2007,
+                T_01_04_p_2007,
+                M_05_09_p_2007,
+                F_05_09_p_2007,
+                T_05_09_p_2007,
+                M_10_14_p_2007,
+                F_10_14_p_2007,
+                T_10_14_p_2007,
+                M_15_19_p_2007,
+                F_15_19_p_2007,
+                T_15_19_p_2007,
+                M_20_24_p_2007,
+                F_20_24_p_2007,
+                T_20_24_p_2007,
+                M_25_29_p_2007,
+                F_25_29_p_2007,
+                T_25_29_p_2007,
+                M_30_34_p_2007,
+                F_30_34_p_2007,
+                T_30_34_p_2007,
+                M_35_39_p_2007,
+                F_35_39_p_2007,
+                T_35_39_p_2007,
+                M_40_44_p_2007,
+                F_40_44_p_2007,
+                T_40_44_p_2007,
+                M_45_49_p_2007,
+                F_45_49_p_2007,
+                T_45_49_p_2007,
+                M_50_54_p_2007,
+                F_50_54_p_2007,
+                T_50_54_p_2007,
+                M_55_59_p_2007,
+                F_55_59_p_2007,
+                T_55_59_p_2007,
+                M_60_64_p_2007,
+                F_60_64_p_2007,
+                T_60_64_p_2007,
+                M_65_69_p_2007,
+                F_65_69_p_2007,
+                T_65_69_p_2007,
+                M_70_74_p_2007,
+                F_70_74_p_2007,
+                T_70_74_p_2007,
+                M_75_79_p_2007,
+                F_75_79_p_2007,
+                T_75_79_p_2007,
+                M_80plus_p_2007,
+                F_80plus_p_2007,
+                T_80plus_p_2007
             } = filteredData[0];
 
-            percent_distribution_2007_third(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+            percent_distribution_2007_third(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+                M_01_04_p_2007,
                 F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
                 F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
                 F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
@@ -983,12 +1259,80 @@
                 F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
                 F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
                 F_80plus_p_2007, T_80plus_p_2007);
+            // Percent distribution of the household population First paramyid Graph show on the right on the page
+            var {
+                District,
+                T_TL,
+                M_00_00_p,
+                F_00_00_p,
+                T_00_00_p,
+                M_01_04_p,
+                F_01_04_p,
+                T_01_04_p,
+                M_05_09_p,
+                F_05_09_p,
+                T_05_09_p,
+                M_10_14_p,
+                F_10_14_p,
+                T_10_14_p,
+                M_15_19_p,
+                F_15_19_p,
+                T_15_19_p,
+                M_20_24_p,
+                F_20_24_p,
+                T_20_24_p,
+                M_25_29_p,
+                F_25_29_p,
+                T_25_29_p,
+                M_30_34_p,
+                F_30_34_p,
+                T_30_34_p,
+                M_35_39_p,
+                F_35_39_p,
+                T_35_39_p,
+                M_40_44_p,
+                F_40_44_p,
+                T_40_44_p,
+                M_45_49_p,
+                F_45_49_p,
+                T_45_49_p,
+                M_50_54_p,
+                F_50_54_p,
+                T_50_54_p,
+                M_55_59_p,
+                F_55_59_p,
+                T_55_59_p,
+                M_60_64_p,
+                F_60_64_p,
+                T_60_64_p,
+                M_65_69_p,
+                F_65_69_p,
+                T_65_69_p,
+                M_70_74_p,
+                F_70_74_p,
+                T_70_74_p,
+                M_75_79_p,
+                F_75_79_p,
+                T_75_79_p,
+                M_80plus_p,
+                F_80plus_p,
+                T_80plus_p
+            } = filteredData[0];
 
             // Call the function and pass the variables
-            percent_distribution_2017_third(District,M_00_00_p, F_00_00_p, T_00_00_p,M_01_04_p, F_01_04_p, T_01_04_p,M_05_09_p, F_05_09_p, T_05_09_p,M_10_14_p, F_10_14_p, T_10_14_p,M_15_19_p, F_15_19_p, T_15_19_p,M_20_24_p, F_20_24_p, T_20_24_p,M_25_29_p, F_25_29_p, T_25_29_p,M_30_34_p, F_30_34_p, T_30_34_p,M_35_39_p, F_35_39_p, T_35_39_p,M_40_44_p, F_40_44_p, T_40_44_p,M_45_49_p, F_45_49_p, T_45_49_p,M_50_54_p, F_50_54_p, T_50_54_p,M_55_59_p, F_55_59_p, T_55_59_p,M_60_64_p, F_60_64_p, T_60_64_p,M_65_69_p, F_65_69_p, T_65_69_p,M_70_74_p, F_70_74_p, T_70_74_p,M_75_79_p, F_75_79_p, T_75_79_p,M_80plus_p, F_80plus_p, T_80plus_p
+            percent_distribution_2017_third(District, T_TL, M_00_00_p, F_00_00_p, T_00_00_p, M_01_04_p, F_01_04_p,
+                T_01_04_p,
+                M_05_09_p, F_05_09_p, T_05_09_p, M_10_14_p, F_10_14_p, T_10_14_p, M_15_19_p, F_15_19_p, T_15_19_p,
+                M_20_24_p, F_20_24_p, T_20_24_p, M_25_29_p, F_25_29_p, T_25_29_p, M_30_34_p, F_30_34_p, T_30_34_p,
+                M_35_39_p, F_35_39_p, T_35_39_p, M_40_44_p, F_40_44_p, T_40_44_p, M_45_49_p, F_45_49_p, T_45_49_p,
+                M_50_54_p, F_50_54_p, T_50_54_p, M_55_59_p, F_55_59_p, T_55_59_p, M_60_64_p, F_60_64_p, T_60_64_p,
+                M_65_69_p, F_65_69_p, T_65_69_p, M_70_74_p, F_70_74_p, T_70_74_p, M_75_79_p, F_75_79_p, T_75_79_p,
+                M_80plus_p, F_80plus_p, T_80plus_p
             );
         }
-        function percent_distribution_2007_third(District, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
+
+        function percent_distribution_2007_third(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+            M_01_04_p_2007,
             F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
             F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
             F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
@@ -1012,25 +1356,31 @@
                 title: {
                     text: 'Population Pyramid of ' + District
                 },
+
                 subtitle: {
-                    text: 'Population of 2007'
+                    useHTML: true, // Enable HTML in subtitle
+                    text: '<div class="subtitle-container">' +
+                        '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL_2007 + '</b></div>' +
+                        '<div style="float: right; margin-right:65px">Census-2007</div>' +
+                        '</div>',
+                    align: 'left',
+                    x: 0, // Set x to 0 to start subtitle from the left
+                    y: 32 // Adjust y position as needed
+
                 },
                 credits: {
                     enabled: false
                 },
                 xAxis: [{
-                    categories: categories,
-                    reversed: false,
-                    labels: {
-                        step: 1
-                    }
-                }, {
                     opposite: true,
                     reversed: false,
                     categories: categories,
-                    linkedTo: 0,
+                    linkedTo: 1,
                     labels: {
                         step: 1
+                    },
+                    accessibility: {
+                        description: 'Age (female)'
                     }
                 }],
                 yAxis: {
@@ -1080,7 +1430,7 @@
         }
 
 
-        function percent_distribution_2017_third(District,
+        function percent_distribution_2017_third(District, T_TL,
             M_00_00_p, F_00_00_p, T_00_00_p,
             M_01_04_p, F_01_04_p, T_01_04_p,
             M_05_09_p, F_05_09_p, T_05_09_p,
@@ -1112,27 +1462,34 @@
                     type: 'bar'
                 },
                 title: {
-                    text: 'Population Pyramid of ' + District
+                    text: 'Population Pyramid of ' + District,
+                    useHTML: true,
                 },
+
                 subtitle: {
-                    text: 'Population of 2017'
+                    useHTML: true, // Enable HTML in subtitle
+                    text: '<div class="subtitle-container">' +
+                        '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL + '</b></div>' +
+                        '<div style="float: right; margin-right:65px">Census-2017</div>' +
+                        '</div>',
+                    align: 'left',
+                    x: 0, // Set x to 0 to start subtitle from the left
+                    y: 32 // Adjust y position as needed
+
                 },
                 credits: {
                     enabled: false
                 },
                 xAxis: [{
-                    categories: categories,
-                    reversed: false,
-                    labels: {
-                        step: 1
-                    }
-                }, {
                     opposite: true,
                     reversed: false,
                     categories: categories,
-                    linkedTo: 0,
+                    linkedTo: 1,
                     labels: {
                         step: 1
+                    },
+                    accessibility: {
+                        description: 'Age (female)'
                     }
                 }],
                 yAxis: {

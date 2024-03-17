@@ -282,7 +282,7 @@ return [
     'illiteracyRate' => 'Illiteracy Rate',
     'dependency' => 'Dependency',
     'population_growth' => 'Population Growth',
-    'Sex_Ratio_By_Birth' => 'Sex Ratio By Birth',
+    'Sex_Ratio_at_Birth' => 'Sex Ratio at Birth',
     'mozambique-map' => 'Mozambique Map',
     'population-contribution' => 'Population Contribution',
     'population' => 'Population',
