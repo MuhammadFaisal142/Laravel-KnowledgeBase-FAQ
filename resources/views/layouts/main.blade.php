@@ -33,6 +33,7 @@
 
     {{-- new shape file chart  scripts --}}
     <script src="{{ asset('js/districtsfinalfile.js') }}"></script>
+    <script src="{{ asset('js/provinceLevelGeoJson.js') }}"></script>
     {{-- <script src="{{ asset('js/check.js') }}"></script> --}}
     {{-- leaflet js --}}
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>

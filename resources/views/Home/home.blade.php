@@ -1,5 +1,4 @@
 {{-- Outras_linguas_estrangeirasç_duplication --}}
-{{-- update_All_charts_by_Provinces_Vise_Data --}}
 @extends('layouts.main')
 <style>
     /* Default styles for .highcharts-subtitle */
@@ -31,6 +30,18 @@
         .highcharts-subtitle {
             top: 50px !important;
         }
+    }
+
+    .leaflet-tooltip {
+        position: relative;
+    }
+
+    .fa-spinner-tooltip {
+        position: absolute;
+        top: 5px;
+        /* Adjust as needed */
+        right: 5px;
+        /* Adjust as needed */
     }
 </style>
 @section('content')
@@ -81,6 +92,8 @@
                             <div class="col-md-8">
                                 <label class="custom-select" for="styledSelect2">
                                     <select id="styledSelect2" name="options">
+                                        <option value="" disabled>Select any province</option>
+                                        <option value="all_provinces">All Provinces</option>
                                         <option value="">{{ trans('global.all_districts') }}</option>
                                         <option value="Niassa">Niassa</option>
                                         <option value="Tete">Tete</option>
@@ -475,6 +488,16 @@
                 '#FFED00';
         }
 
+        function getProvinceColor(d) {
+            return d > 5156587 ? '#BD0026' :
+                d > 2644650 ? '#E31A1C' :
+                d > 2255439 ? '#FC4E2A' :
+                d > 1808010 ? '#FD8D3C' :
+                d > 5750350 ? '#FEB24C' :
+                d > 1127565 ? '#FED976' :
+                d > 1964779 ? '#FFEDA0' :
+                '#FFED00';
+        }
 
         // Assuming $population_data is a JSON object passed from PHP
         const populationData = @json($population_data);
@@ -482,7 +505,7 @@
         function style(feature) {
             // Get the "id" property from the feature
             const id_of_districts = feature.properties.id;
-
+            // console.log("Type of id_of_districts:", typeof id_of_districts);
             // Find the corresponding record in the population data
             const filteredData = populationData.find(record => record.id === id_of_districts);
 
@@ -491,6 +514,7 @@
                 // Assuming popTotalValue is a string like "123,232"
                 const popTotalString = filteredData.Pop_Total;
 
+                // console.log('Total population of the districts ' , typeof popTotalString);
                 // Remove commas from the string
                 const popTotalWithoutCommas = popTotalString.replace(/,/g, '');
 
@@ -498,6 +522,37 @@
                 const popTotalValue = parseInt(popTotalWithoutCommas, 10);
                 return {
                     fillColor: getColor(popTotalValue),
+                    weight: 2,
+                    opacity: 1,
+                    color: 'white',
+                    dashArray: '3',
+                    fillOpacity: 0.7
+                };
+            }
+        }
+
+
+        const populationDataProvince = @json($provinces_all_data);
+
+        function styleProvince(feature) {
+            // Get the "id" property from the feature
+            const id_of_Province = parseInt(feature.properties.id);
+            // console.log("Type of id_of_Province:", typeof id_of_Province);
+            // Find the corresponding record in the population data
+            const filteredData = populationDataProvince.find(record => record.Cod_Prov === id_of_Province);
+
+            // Check if the record is found
+            if (filteredData) {
+                // Assuming popTotalValue is a string like "123,232"
+                const popTotalString = filteredData.Pop_Total;
+                // console.log('Total population of the Province ', popTotalString);
+                // Remove commas from the string
+                const popTotalWithoutCommas = popTotalString.replace(/,/g, '');
+
+                // Convert the string without commas to a number
+                const popTotalValue = parseInt(popTotalWithoutCommas, 10);
+                return {
+                    fillColor: getProvinceColor(popTotalValue),
                     weight: 2,
                     opacity: 1,
                     color: 'white',
@@ -538,10 +593,10 @@
             });
         }
 
-        // var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //     maxZoom: 19,
-        //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        // }).addTo(map2);
+        var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map2);
 
         // Define global variable to track the highlighted layer
         var highlightedLayer;
@@ -570,7 +625,6 @@
             const id_of_districts = layer.feature.properties.id;
 
             const dataFromServer = @json($population_data);
-
             // Filter data to include only records where id is equal to id_of_districts
             const filteredData = dataFromServer.filter(function(record) {
                 return record.id === id_of_districts;
@@ -578,15 +632,12 @@
             // console.log(filteredData);
             const popID = filteredData[0].id;
             // console.log(popID);
-
-
             layer.setStyle({
                 weight: 4,
                 color: '#666',
                 dashArray: '',
                 fillOpacity: 0.8
             });
-
 
             // Fours box Growth Rate Population
             var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
@@ -1080,9 +1131,7 @@
         function onEachFeature(feature, layer) {
             var layer1 = layer;
             const id_of_districts = feature.properties.id;
-
             const dataFromServer = @json($population_data);
-
             // Filter data to include only records where id is equal to id_of_districts
             const filteredData = dataFromServer.filter(function(record) {
                 return record.id === id_of_districts;
@@ -1095,7 +1144,6 @@
                 var popTotalValue = filteredData[0].Pop_Total;
                 var popWomenName = filteredData[0].Pop_mulheres;
                 var popMenName = filteredData[0].Pop_homens;
-
                 const customIcon = L.divIcon({
                     className: 'district-label', // Add a CSS class for styling
                     html: nameOfDistrict,
@@ -1125,16 +1173,172 @@
                     }).openTooltip();
             } else {
                 // Handle the case where no matching data is found
-                console.error('No data found for id:', id_of_districts);
+                console.error('No Districts data found for id:', id_of_districts);
+            }
+        }
+
+        function zoomToFeatureProvince(e) {
+            const layer = e.target;
+            const id_of_Province = parseInt(layer.feature.properties.id);
+            const dataFromServerProvince = @json($provinces_all_data);
+            // Filter data to include only records where id is equal to id_of_districts
+            const filteredData = dataFromServerProvince.filter(function(record) {
+                return record.Cod_Prov === id_of_Province;
+            });
+            // console.log(filteredData);
+            const provinceID = filteredData[0].Cod_Prov;
+            // console.log("Province ID ", provinceID);
+            const selectedProvinceName = filteredData[0].Provincia;
+            // console.log("Province Name ", selectedProvinceName);
+            // console.log(popID);
+            layer.setStyle({
+                weight: 4,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.8
+            });
+
+            // Update the desiredProvince variable with the selected province
+            desiredProvince = selectedProvinceName;
+            update_All_charts_by_Provinces_Vise_Data(selectedProvinceName);
+            // Delay the updateMap function by 2 seconds
+            setTimeout(function() {
+                // Update the map based on the selected province
+                updateMap();
+                const selectedProvinceName = document.getElementById('styledSelect2').value;
+                update_All_charts_by_Provinces_Vise_Data(selectedProvinceName);
+            }, 1000);
+
+        }
+
+        function onEachFeatureProvince(feature, layer) {
+            var layer1 = layer;
+            const id_of_province = parseInt(feature.properties.id);
+            const dataFromServerProvince = @json($provinces_all_data);
+            // Filter data to include only records where id is equal to id_of_province
+            const filteredProvinceData = dataFromServerProvince.filter(function(record) {
+                return record.Cod_Prov === id_of_province;
+            });
+
+            // Check if filteredProvinceData is not empty
+            if (filteredProvinceData.length > 0) {
+                var id = filteredProvinceData[0].Cod_Prov;
+                var popTotalValue = filteredProvinceData[0].Pop_Total;
+                var nameOfProvinces = filteredProvinceData[0].Provincia;
+                const customIcon = L.divIcon({
+                    className: 'district-label', // Add a CSS class for styling
+                    html: nameOfProvinces,
+                });
+
+                // Create a marker with the custom icon
+                const labelMarker = L.marker(layer1.getBounds().getCenter(), {
+                    icon: customIcon
+                });
+
+                // Add the marker to the map only if a specific province is selected
+
+                labelMarker.addTo(map2);
+
+                // Set up event listeners for the GeoJSON layer1
+                layer1.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                    click: zoomToFeatureProvince
+                });
+
+                // Add tooltip to the layer
+                layer1.bindTooltip(nameOfProvinces +
+                    '<i id="loader-spin" class="fa fa-spinner fa-spin fa-spinner-tooltip" style="display:none;"></i>' +
+                    '</br>' + '<b>' +
+                    translations.total_population + ": " + '</b>' + popTotalValue, {
+                        sticky: true
+                    }).openTooltip();
+            } else {
+                // Handle the case where no matching data is found
+                console.error('No Province data found for id:', id_of_province);
             }
         }
 
 
-        var geojson;
-        geojson = L.geoJson(mozambiquefulldistricts, {
-            style: style,
-            onEachFeature: onEachFeature
+
+
+        geojson = L.geoJson(mozambiquefullProvince, {
+            style: styleProvince,
+            onEachFeature: onEachFeatureProvince
         }).addTo(map2);
+
+
+        // Event listener for the province button
+
+        function loadAllProvinceData() {
+            // Set coordinates
+            var coordinates = [-19.00, 34.00];
+
+            // Set the view of the map to the specified coordinates
+            map2.setView(coordinates, 5);
+
+            // Clear existing layers
+            map2.eachLayer(function(layer) {
+                map2.removeLayer(layer);
+            });
+
+            // Remove legend if it exists
+            var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map2);
+
+            // Hide all functions
+            var functionsToHide = document.querySelectorAll('.legend ');
+            for (var i = 0; i < functionsToHide.length; i++) {
+                functionsToHide[i].style.display = 'none';
+            }
+
+            // Load province data
+            // Initial loading of districts data
+            geojson = L.geoJson(mozambiquefullProvince, {
+                style: styleProvince,
+                onEachFeature: onEachFeatureProvince
+            }).addTo(map2);
+
+            // Show provinces legends
+            showProvincesLegends();
+        }
+
+        function showProvincesLegends() {
+            var legend = L.control({
+                position: 'bottomright'
+            });
+
+            legend.onAdd = function(map2) {
+                var div = L.DomUtil.create('div', 'info legend');
+                var grades = [500000, 1000000, 1500000, 2000000, 2500000,
+                    3000000
+                ]; // Adjusted to match getProvinceColor values
+
+                // Divide all grades by 1000
+                grades = grades.map(function(grade) {
+                    return grade / 1000;
+                });
+
+                for (var i = 0; i < grades.length; i++) {
+                    var from = grades[i];
+                    var to = grades[i + 1];
+                    var label = from + (to ? '&ndash;' + to : '+');
+
+                    var color = getProvinceColor(from * 1000 + 1); // Use getProvinceColor function
+
+                    // Add label inside the button without removing <br>
+                    div.innerHTML +=
+                        '<button style="background:' + color +
+                        '; border: 0; height: 10px; width: 15px; line-height: 10px;"></button>' + " " + label +
+                        '<br>';
+                }
+
+                return div;
+            };
+            legend.addTo(map2);
+        }
 
         // Add event listeners after creating the geojson layer
         geojson.on('mouseover', function() {
@@ -1145,43 +1349,12 @@
             map2.scrollWheelZoom.disable();
         });
         // print legends on the mozambique map
-        var legend = L.control({
-            position: 'bottomright'
-        });
-
-        legend.onAdd = function(map2) {
-            var div = L.DomUtil.create('div', 'info legend');
-            var grades = [0, 50000, 70000, 100000, 200000, 350000, 400000, 600000];
-
-            // Divide all grades by 1000
-            grades = grades.map(function(grade) {
-                return grade / 1000;
-            });
-
-            for (var i = 0; i < grades.length; i++) {
-                var from = grades[i];
-                var to = grades[i + 1];
-                var label = from + (to ? '&ndash;' + to : '+');
-
-                var color = getColor(from * 1000 + 1); // Adjust the color scale accordingly
-
-                // Add label inside the button without removing <br>
-                div.innerHTML +=
-                    '<button style="background:' + color +
-                    '; border: 0; height: 10px; width: 15px; line-height: 10px;"></button>' + " " + label + '<br>';
-            }
-
-            return div;
-        };
-
-
-        legend.addTo(map2);
+        showProvincesLegends();
 
         function performSearch() {
             // Get selected option for styledSelect2
             var selectedOption2 = document.getElementById('styledSelect2');
             var selectedProvince = selectedOption2.options[selectedOption2.selectedIndex].value;
-
             // Update the desiredProvince variable with the selected province
             desiredProvince = selectedProvince;
 
@@ -1195,510 +1368,518 @@
             setTimeout(function() {
                 // Update the map based on the selected province
                 updateMap();
-                update_All_charts_by_Provinces_Vise_Data();
+                const selectedProvinceName = document.getElementById('styledSelect2').value;
+                update_All_charts_by_Provinces_Vise_Data(selectedProvinceName);
             }, 2000);
 
         }
 
-        function update_All_charts_by_Provinces_Vise_Data() {
+        function update_All_charts_by_Provinces_Vise_Data(selectedProvinceName) {
 
-            var selectedProvinceName = document.getElementById('styledSelect2').value;
-
+            var selectedProvinceNameForFilter = selectedProvinceName;
+            // console.log("Selected Province ", selectedProvinceNameForFilter, typeof selectedProvinceNameForFilter);
             // console.log("pyramid Is Update according to the selected Province" + " " + selectedProvinceName);
             const dataFromServerOfProvinces = @json($provinces_all_data);
             // Find the object that matches selected Province and District
             var matchingObject = dataFromServerOfProvinces.find(function(item) {
-                return item.Provincia == selectedProvinceName;
+                return item.Provincia == selectedProvinceNameForFilter;
             });
 
             if (matchingObject) {
                 // Extract the 'id' from the matching object
                 var Province_Name = matchingObject.Provincia;
                 var cod_Id = matchingObject.Cod_Prov;
-                console.log("Main ID:", cod_Id, "Provinces Name : ", Province_Name);
+                // console.log("Main ID:", cod_Id, "Provinces Name : ", Province_Name);
             } else {
-                console.log("Matching object not found");
+                // console.log("Matching object not found");
             }
 
             const filteredData = dataFromServerOfProvinces.filter(function(record) {
                 return record.Cod_Prov === cod_Id;
             });
 
+            if (filteredData.length > 0) {
+                // Pie charts total population
+                var popID = filteredData[0].Cod_Prov;
+                var grupIdad_014_Total = filteredData[0].GrupIdad_014_Total;
+                var grupIdad_1564_Total = filteredData[0].GrupIdad_1564_Total;
+                var grupIdad_65_Total = filteredData[0].GrupIdad_65_Total;
+                // Pie charts mens population
+                var grupIdad_014_homens = filteredData[0].GrupIdad_014_homens;
+                var grupIdad_1564_homens = filteredData[0].GrupIdad_1564_homens;
+                var grupIdad_65_homens = filteredData[0].GrupIdad_65_homens;
+                // Pie charts womens population
+                var grupIdad_014_mulheres = filteredData[0].GrupIdad_014_mulheres;
+                var grupIdad_1564_mulheres = filteredData[0].GrupIdad_1564_mulheres;
+                var grupIdad_65_mulheres = filteredData[0].GrupIdad_65_mulheres;
 
-            // Pie charts total population
-            const popID = filteredData[0].Cod_Prov;
-            var grupIdad_014_Total = filteredData[0].GrupIdad_014_Total;
-            var grupIdad_1564_Total = filteredData[0].GrupIdad_1564_Total;
-            var grupIdad_65_Total = filteredData[0].GrupIdad_65_Total;
-            // Pie charts mens population
-            var grupIdad_014_homens = filteredData[0].GrupIdad_014_homens;
-            var grupIdad_1564_homens = filteredData[0].GrupIdad_1564_homens;
-            var grupIdad_65_homens = filteredData[0].GrupIdad_65_homens;
-            // Pie charts womens population
-            var grupIdad_014_mulheres = filteredData[0].GrupIdad_014_mulheres;
-            var grupIdad_1564_mulheres = filteredData[0].GrupIdad_1564_mulheres;
-            var grupIdad_65_mulheres = filteredData[0].GrupIdad_65_mulheres;
-
-
-            // PieChartsPopulation();
-            stackedBarChartByAgeGroup(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
-                grupIdad_014_homens,
-                grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
-                grupIdad_65_mulheres);
-
-
-            // Basir Bar chart for foreign population
-
-            var pop_Estr_total = filteredData[0].Pop_Estr_total;
-            var pop_Estr_homens = filteredData[0].Pop_Estr_homens;
-            var pop_Estr_mulheres = filteredData[0].Pop_Estr_mulheres;
+                // PieChartsPopulation();
+                stackedBarChartByAgeGroup(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
+                    grupIdad_014_homens,
+                    grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
+                    grupIdad_65_mulheres);
 
 
-            basicBarChartForiegnPopulation(pop_Estr_total, pop_Estr_homens, pop_Estr_mulheres);
+                // Basir Bar chart for foreign population
+
+                var pop_Estr_total = filteredData[0].Pop_Estr_total;
+                var pop_Estr_homens = filteredData[0].Pop_Estr_homens;
+                var pop_Estr_mulheres = filteredData[0].Pop_Estr_mulheres;
 
 
-            // Stacked column bar charts dependency ratio and Elderly Dependency Ratio
-            var youth_Dep_014_total = filteredData[0].TaxaDep_014_total;
-            var youth_Dep_014_men = filteredData[0].TaxaDep_014_homens;
-            var youth_Dep_014_women = filteredData[0].TaxaDep_014_mulheres;
-            var elderly_Dep_65_total = filteredData[0].TaxaDep_65_total;
-            var elderly_Dep_65_men = filteredData[0].TaxaDep_65_homens;
-            var elderly_Dep_65_women = filteredData[0].TaxaDep_65_mulheres;
-            var total_dep_014_Plus_65 = filteredData[0].TaxaDep_01465_total;
-            var men_dep_014_Plus_65 = filteredData[0].TaxaDep_01465_homens;
-            var women_dep_014_Plus_65 = filteredData[0].TaxaDep_01465_mulheres;
+                basicBarChartForiegnPopulation(pop_Estr_total, pop_Estr_homens, pop_Estr_mulheres);
 
 
-
-            demographicDependencyRateBySex(youth_Dep_014_total, youth_Dep_014_men,
-                youth_Dep_014_women, elderly_Dep_65_total, elderly_Dep_65_men, elderly_Dep_65_women,
-                total_dep_014_Plus_65, men_dep_014_Plus_65, women_dep_014_Plus_65);
-
-            // Pie charts mens marital ratio
-            var solteiro_homens = filteredData[0].Solteiro_homens;
-            var casado_homens = filteredData[0].Casado_homens;
-            var uniao_Marital_homens = filteredData[0].União_Marital_homens;
-            var divorciado_Separado_homens = filteredData[0].Divorciado_Separado_homens;
-            var viuvo_homens = filteredData[0].Viúvo_homens;
-
-            // Pie charts womens marital ratio
-            var solteiro_mulheres = filteredData[0].Solteiro_mulheres;
-            var casado_mulheres = filteredData[0].Casado_mulheres;
-            var uniao_Marital_mulheres = filteredData[0].União_Marital_mulheres;
-            var divorciado_Separado_mulheres = filteredData[0].Divorciado_Separado_mulheres;
-            var viuvo_mulheres = filteredData[0].Viúvo_mulheres;
-
-            highlightPieChartMaritalRatio(
-                solteiro_homens, casado_homens, uniao_Marital_homens, divorciado_Separado_homens, viuvo_homens,
-                solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres, viuvo_mulheres
-            );
-            var Emakhuwa = filteredData[0].Emakhuwa_duplication;
-            var Ciyao = filteredData[0].Ciyao_duplication;
-            var Cinyanja = filteredData[0].Cinyanja_duplication;
-            var Portugues = filteredData[0].Português_duplication;
-            var Elomwue = filteredData[0].Elomwue_duplication;
-            var Outras_linguas_mocambicanas = filteredData[0].Outras_linguas_moçambicanas_duplication;
-            var Outras_linguas_estrangeiras = filteredData[0].Outras_linguas_estrangeirasç_duplication;
-            var Xichangana = filteredData[0].Xichangana_duplication;
-            var Mudo = filteredData[0].Mudo_duplication;
-            var Desconhecida = filteredData[0].Desconhecida_duplication_one;
-            Population_aged_5_and_over(Emakhuwa, Ciyao, Cinyanja, Portugues, Elomwue, Outras_linguas_mocambicanas,
-                Outras_linguas_estrangeiras, Xichangana, Mudo, Desconhecida);
-
-
-            var islamica = filteredData[0].Islâmica;
-            var catolica = filteredData[0].Católica;
-            var anglicana = filteredData[0].Anglicana;
-            var evangelica_Pentecostal = filteredData[0].Evangélica_Pentecostal;
-            var zione_Siao = filteredData[0].Zione_Sião;
-            var Sem_religiao_animista = filteredData[0].Sem_religião__animista;
-            var outra = filteredData[0].Outra;
-            var desconhecida = filteredData[0].Desconhecida_duplication_two;
-
-            population_by_religion_professed(islamica, catolica, anglicana, evangelica_Pentecostal, zione_Siao,
-                Sem_religiao_animista, outra, desconhecida);
-
-
-            // POPULATION FROM 0 TO 17 YEARS OLD
-            var Registered_Total = filteredData[0].Registada_Tot;
-            var Registered_Male = filteredData[0].Registada_Hom;
-            var Registered_Female = filteredData[0].Registada_Mulh;
-            var Unregistered_Total = filteredData[0].NaoRegist_Tot;
-            var Unregistered_Male = filteredData[0].NaoRegist_Hom;
-            var Unregistered_Female = filteredData[0].NaoRegist_Mulh;
-
-            Population_from_0_to_17_years(Registered_Total, Registered_Male, Registered_Female, Unregistered_Total,
-                Unregistered_Male, Unregistered_Female);
-            // Population with Disabilities
-
-            var Deficiency_Total = filteredData[0].Defic_Tot;
-            var Deficiency_Male = filteredData[0].Defic_Hom;
-            var Deficiency_Female = filteredData[0].Defic_Mulh;
-            population_with_Disabilities(Deficiency_Total, Deficiency_Male, Deficiency_Female);
-
-
-            var Orphanage_Both_Genders_Percentage_Total = filteredData[0].Orf_Ambos_Perc_Tot;
-            var Orphanage_Both_Genders_Percentage_Male = filteredData[0].Orf_Ambos_Perc_Hom;
-            var Orphanage_Both_Genders_Percentage_Female = filteredData[0].Orf_Ambos_Perc_Mulh;
-
-            orphanage_by_sex(Orphanage_Both_Genders_Percentage_Total, Orphanage_Both_Genders_Percentage_Male,
-                Orphanage_Both_Genders_Percentage_Female);
-
-            // illiteracy Rate by Sex
-            var Illiteracy_Rate_Total = filteredData[0].Taxa_Analf_Tot;
-            var Illiteracy_Rate_Male = filteredData[0].Taxa_Analf_Hom;
-            var Illiteracy_Rate_Female = filteredData[0].Taxa_Analf_Mulh;
-
-            illiteracy_Rate_by_Sex(Illiteracy_Rate_Total, Illiteracy_Rate_Male, Illiteracy_Rate_Female);
-
-
-            var {
-                TBEnsPrim_1Grau_Tot,
-                TBEnsPrim_1Grau_Hom,
-                TBEnsPrim_1Grau_Mulh,
-                TBEnsPrim_2Grau_Tot,
-                TBEnsPrim_2Grau_Hom,
-                TBEnsPrim_2Grau_Mulh,
-                TBEnsiSec_1Ciclo_Tot,
-                TBEnsiSec_1Ciclo_Hom,
-                TBEnsiSec_1Ciclo_Mulh,
-                TBEnsiSec_2Ciclo_Tot,
-                TBEnsiSec_2Ciclo_Hom,
-                TBEnsiSec_2Ciclo_Mulh,
-                TLEnsPrim_1Grau_Tot,
-                TLEnsPrim_1Grau_Hom,
-                TLEnsPrim_1Grau_Mulh,
-                TLEnsPrim_2Grau_Tot,
-                TLEnsPrim_2Grau_Hom,
-                TLEnsPrim_2Grau_Mulh,
-                TLEnsiSec_1Ciclo_Tot,
-                TLEnsiSec_1Ciclo_Hom,
-                TLEnsiSec_1Ciclo_Mulh,
-                TLEnsiSec_2Ciclo_Tot,
-                TLEnsiSec_2Ciclo_Hom,
-                TLEnsiSec_2Ciclo_Mulh
-            } = filteredData[0];
-
-            gross_enrolment_rate(TBEnsPrim_1Grau_Tot, TBEnsPrim_1Grau_Hom, TBEnsPrim_1Grau_Mulh, TBEnsPrim_2Grau_Tot,
-                TBEnsPrim_2Grau_Hom, TBEnsPrim_2Grau_Mulh, TBEnsiSec_1Ciclo_Tot, TBEnsiSec_1Ciclo_Hom,
-                TBEnsiSec_1Ciclo_Mulh, TBEnsiSec_2Ciclo_Tot, TBEnsiSec_2Ciclo_Hom, TBEnsiSec_2Ciclo_Mulh);
-
-            net_enrolment_rate(TLEnsPrim_1Grau_Tot, TLEnsPrim_1Grau_Hom, TLEnsPrim_1Grau_Mulh,
-                TLEnsPrim_2Grau_Tot, TLEnsPrim_2Grau_Hom, TLEnsPrim_2Grau_Mulh, TLEnsiSec_1Ciclo_Tot,
-                TLEnsiSec_1Ciclo_Hom, TLEnsiSec_1Ciclo_Mulh, TLEnsiSec_2Ciclo_Tot, TLEnsiSec_2Ciclo_Hom,
-                TLEnsiSec_2Ciclo_Mulh);
-
-            // type of dwellings
-            var {
-                Hab_tipo_CC_CCCD,
-                Hab_tipo_CC_SCCD,
-                Hab_tipo_FlatApart,
-                Hab_tipo_Palhot,
-                Hab_tipo_CasaImprov,
-                Hab_tipo_CasaMista,
-                Hab_tipo_CasaBasica,
-                Hab_tipo_PartEdifComerc,
-                Hab_tipo_Outro
-
-            } = filteredData[0];
-            type_of_dwellings(Hab_tipo_CC_CCCD, Hab_tipo_CC_SCCD, Hab_tipo_FlatApart, Hab_tipo_Palhot, Hab_tipo_CasaImprov,
-                Hab_tipo_CasaMista, Hab_tipo_CasaBasica, Hab_tipo_PartEdifComerc, Hab_tipo_Outro);
-            // Ownership of durable goods
-
-            var {
-                Bens_Dur_Radio,
-                Bens_Dur_Telev,
-                Bens_Dur_TelFixo,
-                Bens_Dur_Comp,
-                Bens_Dur_Inter,
-                Bens_Dur_FerEngom,
-                Bens_Dur_FogCarvLenha,
-                Bens_Dur_FogElectGas,
-                Bens_Dur_GeleiCong,
-                Bens_Dur_Carro,
-                Bens_Dur_Motoriza,
-                Bens_Dur_Biciclet,
-                Bens_Nenhum_Destes_Bens
-            } = filteredData[0];
-
-            ownership_of_durable_goods(Bens_Dur_Radio, Bens_Dur_Telev, Bens_Dur_TelFixo, Bens_Dur_Comp, Bens_Dur_Inter,
-                Bens_Dur_FerEngom, Bens_Dur_FogCarvLenha, Bens_Dur_FogElectGas, Bens_Dur_GeleiCong, Bens_Dur_Carro,
-                Bens_Dur_Motoriza, Bens_Dur_Biciclet, Bens_Nenhum_Destes_Bens);
+                // Stacked column bar charts dependency ratio and Elderly Dependency Ratio
+                var youth_Dep_014_total = filteredData[0].TaxaDep_014_total;
+                var youth_Dep_014_men = filteredData[0].TaxaDep_014_homens;
+                var youth_Dep_014_women = filteredData[0].TaxaDep_014_mulheres;
+                var elderly_Dep_65_total = filteredData[0].TaxaDep_65_total;
+                var elderly_Dep_65_men = filteredData[0].TaxaDep_65_homens;
+                var elderly_Dep_65_women = filteredData[0].TaxaDep_65_mulheres;
+                var total_dep_014_Plus_65 = filteredData[0].TaxaDep_01465_total;
+                var men_dep_014_Plus_65 = filteredData[0].TaxaDep_01465_homens;
+                var women_dep_014_Plus_65 = filteredData[0].TaxaDep_01465_mulheres;
 
 
 
-            // this 2007 data districts
-            var {
-                District,
-                T_TL_2007,
-                M_00_00_p_2007,
-                F_00_00_p_2007,
-                T_00_00_p_2007,
-                M_01_04_p_2007,
-                F_01_04_p_2007,
-                T_01_04_p_2007,
-                M_05_09_p_2007,
-                F_05_09_p_2007,
-                T_05_09_p_2007,
-                M_10_14_p_2007,
-                F_10_14_p_2007,
-                T_10_14_p_2007,
-                M_15_19_p_2007,
-                F_15_19_p_2007,
-                T_15_19_p_2007,
-                M_20_24_p_2007,
-                F_20_24_p_2007,
-                T_20_24_p_2007,
-                M_25_29_p_2007,
-                F_25_29_p_2007,
-                T_25_29_p_2007,
-                M_30_34_p_2007,
-                F_30_34_p_2007,
-                T_30_34_p_2007,
-                M_35_39_p_2007,
-                F_35_39_p_2007,
-                T_35_39_p_2007,
-                M_40_44_p_2007,
-                F_40_44_p_2007,
-                T_40_44_p_2007,
-                M_45_49_p_2007,
-                F_45_49_p_2007,
-                T_45_49_p_2007,
-                M_50_54_p_2007,
-                F_50_54_p_2007,
-                T_50_54_p_2007,
-                M_55_59_p_2007,
-                F_55_59_p_2007,
-                T_55_59_p_2007,
-                M_60_64_p_2007,
-                F_60_64_p_2007,
-                T_60_64_p_2007,
-                M_65_69_p_2007,
-                F_65_69_p_2007,
-                T_65_69_p_2007,
-                M_70_74_p_2007,
-                F_70_74_p_2007,
-                T_70_74_p_2007,
-                M_75_79_p_2007,
-                F_75_79_p_2007,
-                T_75_79_p_2007,
-                M_80plus_p_2007,
-                F_80plus_p_2007,
-                T_80plus_p_2007
-            } = filteredData[0];
+                demographicDependencyRateBySex(youth_Dep_014_total, youth_Dep_014_men,
+                    youth_Dep_014_women, elderly_Dep_65_total, elderly_Dep_65_men, elderly_Dep_65_women,
+                    total_dep_014_Plus_65, men_dep_014_Plus_65, women_dep_014_Plus_65);
 
-            percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007, M_01_04_p_2007,
-                F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
-                F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
-                F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
-                F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
-                F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
-                F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
-                F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
-                F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
-                F_80plus_p_2007, T_80plus_p_2007);
-            // Percent distribution of the household population First paramyid Graph show on the right on the page
-            var {
-                District,
-                T_TL,
-                M_00_00_p,
-                F_00_00_p,
-                T_00_00_p,
-                M_01_04_p,
-                F_01_04_p,
-                T_01_04_p,
-                M_05_09_p,
-                F_05_09_p,
-                T_05_09_p,
-                M_10_14_p,
-                F_10_14_p,
-                T_10_14_p,
-                M_15_19_p,
-                F_15_19_p,
-                T_15_19_p,
-                M_20_24_p,
-                F_20_24_p,
-                T_20_24_p,
-                M_25_29_p,
-                F_25_29_p,
-                T_25_29_p,
-                M_30_34_p,
-                F_30_34_p,
-                T_30_34_p,
-                M_35_39_p,
-                F_35_39_p,
-                T_35_39_p,
-                M_40_44_p,
-                F_40_44_p,
-                T_40_44_p,
-                M_45_49_p,
-                F_45_49_p,
-                T_45_49_p,
-                M_50_54_p,
-                F_50_54_p,
-                T_50_54_p,
-                M_55_59_p,
-                F_55_59_p,
-                T_55_59_p,
-                M_60_64_p,
-                F_60_64_p,
-                T_60_64_p,
-                M_65_69_p,
-                F_65_69_p,
-                T_65_69_p,
-                M_70_74_p,
-                F_70_74_p,
-                T_70_74_p,
-                M_75_79_p,
-                F_75_79_p,
-                T_75_79_p,
-                M_80plus_p,
-                F_80plus_p,
-                T_80plus_p
-            } = filteredData[0];
-            // Call the function and pass the variables
-            percent_distribution(
-                District, T_TL,
-                M_00_00_p, F_00_00_p, T_00_00_p,
-                M_01_04_p, F_01_04_p, T_01_04_p,
-                M_05_09_p, F_05_09_p, T_05_09_p,
-                M_10_14_p, F_10_14_p, T_10_14_p,
-                M_15_19_p, F_15_19_p, T_15_19_p,
-                M_20_24_p, F_20_24_p, T_20_24_p,
-                M_25_29_p, F_25_29_p, T_25_29_p,
-                M_30_34_p, F_30_34_p, T_30_34_p,
-                M_35_39_p, F_35_39_p, T_35_39_p,
-                M_40_44_p, F_40_44_p, T_40_44_p,
-                M_45_49_p, F_45_49_p, T_45_49_p,
-                M_50_54_p, F_50_54_p, T_50_54_p,
-                M_55_59_p, F_55_59_p, T_55_59_p,
-                M_60_64_p, F_60_64_p, T_60_64_p,
-                M_65_69_p, F_65_69_p, T_65_69_p,
-                M_70_74_p, F_70_74_p, T_70_74_p,
-                M_75_79_p, F_75_79_p, T_75_79_p,
-                M_80plus_p, F_80plus_p, T_80plus_p
-            );
+                // Pie charts mens marital ratio
+                var solteiro_homens = filteredData[0].Solteiro_homens;
+                var casado_homens = filteredData[0].Casado_homens;
+                var uniao_Marital_homens = filteredData[0].União_Marital_homens;
+                var divorciado_Separado_homens = filteredData[0].Divorciado_Separado_homens;
+                var viuvo_homens = filteredData[0].Viúvo_homens;
+
+                // Pie charts womens marital ratio
+                var solteiro_mulheres = filteredData[0].Solteiro_mulheres;
+                var casado_mulheres = filteredData[0].Casado_mulheres;
+                var uniao_Marital_mulheres = filteredData[0].União_Marital_mulheres;
+                var divorciado_Separado_mulheres = filteredData[0].Divorciado_Separado_mulheres;
+                var viuvo_mulheres = filteredData[0].Viúvo_mulheres;
+
+                highlightPieChartMaritalRatio(
+                    solteiro_homens, casado_homens, uniao_Marital_homens, divorciado_Separado_homens, viuvo_homens,
+                    solteiro_mulheres, casado_mulheres, uniao_Marital_mulheres, divorciado_Separado_mulheres,
+                    viuvo_mulheres
+                );
+                var Emakhuwa = filteredData[0].Emakhuwa_duplication;
+                var Ciyao = filteredData[0].Ciyao_duplication;
+                var Cinyanja = filteredData[0].Cinyanja_duplication;
+                var Portugues = filteredData[0].Português_duplication;
+                var Elomwue = filteredData[0].Elomwue_duplication;
+                var Outras_linguas_mocambicanas = filteredData[0].Outras_linguas_moçambicanas_duplication;
+                var Outras_linguas_estrangeiras = filteredData[0].Outras_linguas_estrangeirasç_duplication;
+                var Xichangana = filteredData[0].Xichangana_duplication;
+                var Mudo = filteredData[0].Mudo_duplication;
+                var Desconhecida = filteredData[0].Desconhecida_duplication_one;
+                Population_aged_5_and_over(Emakhuwa, Ciyao, Cinyanja, Portugues, Elomwue, Outras_linguas_mocambicanas,
+                    Outras_linguas_estrangeiras, Xichangana, Mudo, Desconhecida);
 
 
-            // Source of water
+                var islamica = filteredData[0].Islâmica;
+                var catolica = filteredData[0].Católica;
+                var anglicana = filteredData[0].Anglicana;
+                var evangelica_Pentecostal = filteredData[0].Evangélica_Pentecostal;
+                var zione_Siao = filteredData[0].Zione_Sião;
+                var Sem_religiao_animista = filteredData[0].Sem_religião__animista;
+                var outra = filteredData[0].Outra;
+                var desconhecida = filteredData[0].Desconhecida_duplication_two;
+
+                population_by_religion_professed(islamica, catolica, anglicana, evangelica_Pentecostal, zione_Siao,
+                    Sem_religiao_animista, outra, desconhecida);
 
 
-            var {
-                Agua_Canalizada_fora_casa,
-                Agua_Canalizada_casa_vizinho,
-                Agua_fontanario_publica,
-                Agua_furoPocoProtegidoBombaManual,
-                Agua_PocoProtegidoSemBombaManual,
-                Agua_PocoNaoProtegido,
-                Agua_Nascentes,
-                Agua_SuperficieRioLagoLagoa,
-                Agua_chuva,
-                Agua_Tanques_Camioes_Carregada_Tambores,
-                Agua_Mineral_Engarrafada,
-                Outra_duplication,
-                Desconhecida_duplication_three,
-                Agua_Font_Seg
-            } = filteredData[0];
-            source_of_water(Agua_Canalizada_fora_casa, Agua_Canalizada_casa_vizinho, Agua_fontanario_publica,
-                Agua_furoPocoProtegidoBombaManual, Agua_PocoProtegidoSemBombaManual, Agua_PocoNaoProtegido,
-                Agua_Nascentes, Agua_SuperficieRioLagoLagoa, Agua_chuva, Agua_Tanques_Camioes_Carregada_Tambores,
-                Agua_Mineral_Engarrafada, Outra_duplication, Desconhecida_duplication_three, Agua_Font_Seg);
+                // POPULATION FROM 0 TO 17 YEARS OLD
+                var Registered_Total = filteredData[0].Registada_Tot;
+                var Registered_Male = filteredData[0].Registada_Hom;
+                var Registered_Female = filteredData[0].Registada_Mulh;
+                var Unregistered_Total = filteredData[0].NaoRegist_Tot;
+                var Unregistered_Male = filteredData[0].NaoRegist_Hom;
+                var Unregistered_Female = filteredData[0].NaoRegist_Mulh;
 
-            // Collection of solid waste
+                Population_from_0_to_17_years(Registered_Total, Registered_Male, Registered_Female, Unregistered_Total,
+                    Unregistered_Male, Unregistered_Female);
+                // Population with Disabilities
 
-            var CollectedByMunicipalAuthorities = filteredData[0].RecolhidoAutoridadeMunicipais;
-            var CollectedByPrivateCompany = filteredData[0].RecolhidoEmpresaPrivada;
-            var Buried = filteredData[0].Enterra;
-            var Burned = filteredData[0].Queima;
-            var DumpedInWastelandSwampLakeRiverSea = filteredData[0].DeitaTerrenoBaldioPantanoLagoRioMar;
-            var Other = filteredData[0].Outro;
-
-            Collection_of_solid_waste(CollectedByMunicipalAuthorities, CollectedByPrivateCompany, Buried, Burned,
-                DumpedInWastelandSwampLakeRiverSea, Other);
-
-            // type of sanitation
-            var FlushToiletInsideHouse = filteredData[0].RetreteComAutoclismoDentroCasa;
-            var FlushToiletOutsideHouse = filteredData[0].RetreteSemAutoclismoForaCasa;
-            var FlushToiletNoAutoflush = filteredData[0].RetreteSemAutoclismo;
-            var ImprovedLatrine = filteredData[0].LatrinaMelhorada;
-            var ImprovedTraditionalLatrine = filteredData[0].LatrinaTradicionalMelhorada;
-            var UnimprovedLatrine = filteredData[0].LatrinaNaoMelhorada;
-            var NoToiletOrLatrine = filteredData[0].SemRetreteLatrina;
-            var Unknown = filteredData[0].Desconhecido;
+                var Deficiency_Total = filteredData[0].Defic_Tot;
+                var Deficiency_Male = filteredData[0].Defic_Hom;
+                var Deficiency_Female = filteredData[0].Defic_Mulh;
+                population_with_Disabilities(Deficiency_Total, Deficiency_Male, Deficiency_Female);
 
 
-            type_of_sanitation(FlushToiletInsideHouse, FlushToiletOutsideHouse, FlushToiletNoAutoflush, ImprovedLatrine,
-                ImprovedTraditionalLatrine, UnimprovedLatrine, NoToiletOrLatrine, Unknown);
+                var Orphanage_Both_Genders_Percentage_Total = filteredData[0].Orf_Ambos_Perc_Tot;
+                var Orphanage_Both_Genders_Percentage_Male = filteredData[0].Orf_Ambos_Perc_Hom;
+                var Orphanage_Both_Genders_Percentage_Female = filteredData[0].Orf_Ambos_Perc_Mulh;
 
-            var Total_Bank_Account = filteredData[0].ContaBancaria_Tot;
-            var Urban_Bank_Account = filteredData[0].ContaBancaria_Urb;
-            var Rural_Bank_Account = filteredData[0].ContaBancaria_Rur;
-            var Total_Bank_Account_Household = filteredData[0].ContaBancaria_TotHM;
-            var Bank_Account_Male = filteredData[0].ContaBancaria_Hom;
-            var Bank_Account_Female = filteredData[0].ContaBancaria_Mulh;
+                orphanage_by_sex(Orphanage_Both_Genders_Percentage_Total, Orphanage_Both_Genders_Percentage_Male,
+                    Orphanage_Both_Genders_Percentage_Female);
 
-            population_aged_15_and_over(Total_Bank_Account, Urban_Bank_Account, Rural_Bank_Account,
-                Total_Bank_Account_Household, Bank_Account_Male, Bank_Account_Female);
+                // illiteracy Rate by Sex
+                var Illiteracy_Rate_Total = filteredData[0].Taxa_Analf_Tot;
+                var Illiteracy_Rate_Male = filteredData[0].Taxa_Analf_Hom;
+                var Illiteracy_Rate_Female = filteredData[0].Taxa_Analf_Mulh;
 
-            // population aged 7 years and over
-            var MPesaKesh_Total = filteredData[0].MPesaKesh_Tot;
-            var MPesaKesh_Male = filteredData[0].MPesaKesh_Hom;
-            var MPesaKesh_Female = filteredData[0].MPesaKesh_Mulh;
+                illiteracy_Rate_by_Sex(Illiteracy_Rate_Total, Illiteracy_Rate_Male, Illiteracy_Rate_Female);
 
-            population_aged_7_years_and_over(MPesaKesh_Total, MPesaKesh_Male, MPesaKesh_Female);
-            // Access to ICT devices and internet
-            var Computer_Laptop_Total = filteredData[0].ComLapTab_Tot;
-            var Computer_Laptop_Male = filteredData[0].ComLapTab_Hom;
-            var Computer_Laptop_Female = filteredData[0].ComLapTab_Mulh;
-            var Internet_Total = filteredData[0].Internet_Tot;
-            var Internet_Male = filteredData[0].Internet_Hom;
-            var Internet_Female = filteredData[0].Internet_Mulh;
-            var Cellphone_Total = filteredData[0].TelefCelular_Tot;
-            var Cellphone_Male = filteredData[0].TelefCelular_Hom;
-            var Cellphone_Female = filteredData[0].TelefCelular_Mulh;
 
-            access_to_ICT_devices_and_internet(Computer_Laptop_Total, Computer_Laptop_Male, Computer_Laptop_Female,
-                Internet_Total, Internet_Male, Internet_Female, Cellphone_Total, Cellphone_Male, Cellphone_Female);
-            // population aged 15 and over
-            var PEA = filteredData[0].PEA;
-            var PNEA = filteredData[0].PNEA;
-            economically_and_non_active_population(PEA, PNEA);
+                var {
+                    TBEnsPrim_1Grau_Tot,
+                    TBEnsPrim_1Grau_Hom,
+                    TBEnsPrim_1Grau_Mulh,
+                    TBEnsPrim_2Grau_Tot,
+                    TBEnsPrim_2Grau_Hom,
+                    TBEnsPrim_2Grau_Mulh,
+                    TBEnsiSec_1Ciclo_Tot,
+                    TBEnsiSec_1Ciclo_Hom,
+                    TBEnsiSec_1Ciclo_Mulh,
+                    TBEnsiSec_2Ciclo_Tot,
+                    TBEnsiSec_2Ciclo_Hom,
+                    TBEnsiSec_2Ciclo_Mulh,
+                    TLEnsPrim_1Grau_Tot,
+                    TLEnsPrim_1Grau_Hom,
+                    TLEnsPrim_1Grau_Mulh,
+                    TLEnsPrim_2Grau_Tot,
+                    TLEnsPrim_2Grau_Hom,
+                    TLEnsPrim_2Grau_Mulh,
+                    TLEnsiSec_1Ciclo_Tot,
+                    TLEnsiSec_1Ciclo_Hom,
+                    TLEnsiSec_1Ciclo_Mulh,
+                    TLEnsiSec_2Ciclo_Tot,
+                    TLEnsiSec_2Ciclo_Hom,
+                    TLEnsiSec_2Ciclo_Mulh
+                } = filteredData[0];
 
-            // distribution of the employed population by industry
-            var agricultureForestryFishing = filteredData[0].Agricult_Sivicult_Pesc;
-            var miningExtraction = filteredData[0].Extrac_Minas;
-            var industryManufacturing = filteredData[0].Industr_Manufact;
-            var energy = filteredData[0].Energia;
-            var construction = filteredData[0].Construcao;
-            var transportationCommunication = filteredData[0].Transp_Comunic;
-            var commerceFinance = filteredData[0].Comerc_Financ;
-            var servicesAdministration = filteredData[0].Servic_Admin;
-            var otherServices = filteredData[0].Outros_Servic;
+                gross_enrolment_rate(TBEnsPrim_1Grau_Tot, TBEnsPrim_1Grau_Hom, TBEnsPrim_1Grau_Mulh, TBEnsPrim_2Grau_Tot,
+                    TBEnsPrim_2Grau_Hom, TBEnsPrim_2Grau_Mulh, TBEnsiSec_1Ciclo_Tot, TBEnsiSec_1Ciclo_Hom,
+                    TBEnsiSec_1Ciclo_Mulh, TBEnsiSec_2Ciclo_Tot, TBEnsiSec_2Ciclo_Hom, TBEnsiSec_2Ciclo_Mulh);
 
-            distribution_of_the_employed_population_by_industry(
-                agricultureForestryFishing,
-                miningExtraction,
-                industryManufacturing,
-                energy,
-                construction,
-                transportationCommunication,
-                commerceFinance,
-                servicesAdministration,
-                otherServices
-            );
+                net_enrolment_rate(TLEnsPrim_1Grau_Tot, TLEnsPrim_1Grau_Hom, TLEnsPrim_1Grau_Mulh,
+                    TLEnsPrim_2Grau_Tot, TLEnsPrim_2Grau_Hom, TLEnsPrim_2Grau_Mulh, TLEnsiSec_1Ciclo_Tot,
+                    TLEnsiSec_1Ciclo_Hom, TLEnsiSec_1Ciclo_Mulh, TLEnsiSec_2Ciclo_Tot, TLEnsiSec_2Ciclo_Hom,
+                    TLEnsiSec_2Ciclo_Mulh);
 
-            // Fours box Growth Rate Population
-            var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
-            // Fours box Growth Rate Population
-            var popSexRatioBybirth = filteredData[0].sex_ratio_birth;
-            // Fours box  Population Density
-            var populationDensity = filteredData[0].Densidade;
-            // Fours box  Population Density
-            var AverageNumberofMembersperHousehold = filteredData[0].NumeroMedio_Memb_Hab;
-            // Box within the housing tab
-            var Population_Company_Energy_Electric = filteredData[0].Pop_Com_EnergElect;
-            updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity,
-                AverageNumberofMembersperHousehold, Population_Company_Energy_Electric);
+                // type of dwellings
+                var {
+                    Hab_tipo_CC_CCCD,
+                    Hab_tipo_CC_SCCD,
+                    Hab_tipo_FlatApart,
+                    Hab_tipo_Palhot,
+                    Hab_tipo_CasaImprov,
+                    Hab_tipo_CasaMista,
+                    Hab_tipo_CasaBasica,
+                    Hab_tipo_PartEdifComerc,
+                    Hab_tipo_Outro
+
+                } = filteredData[0];
+                type_of_dwellings(Hab_tipo_CC_CCCD, Hab_tipo_CC_SCCD, Hab_tipo_FlatApart, Hab_tipo_Palhot,
+                    Hab_tipo_CasaImprov,
+                    Hab_tipo_CasaMista, Hab_tipo_CasaBasica, Hab_tipo_PartEdifComerc, Hab_tipo_Outro);
+                // Ownership of durable goods
+
+                var {
+                    Bens_Dur_Radio,
+                    Bens_Dur_Telev,
+                    Bens_Dur_TelFixo,
+                    Bens_Dur_Comp,
+                    Bens_Dur_Inter,
+                    Bens_Dur_FerEngom,
+                    Bens_Dur_FogCarvLenha,
+                    Bens_Dur_FogElectGas,
+                    Bens_Dur_GeleiCong,
+                    Bens_Dur_Carro,
+                    Bens_Dur_Motoriza,
+                    Bens_Dur_Biciclet,
+                    Bens_Nenhum_Destes_Bens
+                } = filteredData[0];
+
+                ownership_of_durable_goods(Bens_Dur_Radio, Bens_Dur_Telev, Bens_Dur_TelFixo, Bens_Dur_Comp, Bens_Dur_Inter,
+                    Bens_Dur_FerEngom, Bens_Dur_FogCarvLenha, Bens_Dur_FogElectGas, Bens_Dur_GeleiCong, Bens_Dur_Carro,
+                    Bens_Dur_Motoriza, Bens_Dur_Biciclet, Bens_Nenhum_Destes_Bens);
+
+
+
+                // this 2007 data districts
+                var {
+                    District,
+                    T_TL_2007,
+                    M_00_00_p_2007,
+                    F_00_00_p_2007,
+                    T_00_00_p_2007,
+                    M_01_04_p_2007,
+                    F_01_04_p_2007,
+                    T_01_04_p_2007,
+                    M_05_09_p_2007,
+                    F_05_09_p_2007,
+                    T_05_09_p_2007,
+                    M_10_14_p_2007,
+                    F_10_14_p_2007,
+                    T_10_14_p_2007,
+                    M_15_19_p_2007,
+                    F_15_19_p_2007,
+                    T_15_19_p_2007,
+                    M_20_24_p_2007,
+                    F_20_24_p_2007,
+                    T_20_24_p_2007,
+                    M_25_29_p_2007,
+                    F_25_29_p_2007,
+                    T_25_29_p_2007,
+                    M_30_34_p_2007,
+                    F_30_34_p_2007,
+                    T_30_34_p_2007,
+                    M_35_39_p_2007,
+                    F_35_39_p_2007,
+                    T_35_39_p_2007,
+                    M_40_44_p_2007,
+                    F_40_44_p_2007,
+                    T_40_44_p_2007,
+                    M_45_49_p_2007,
+                    F_45_49_p_2007,
+                    T_45_49_p_2007,
+                    M_50_54_p_2007,
+                    F_50_54_p_2007,
+                    T_50_54_p_2007,
+                    M_55_59_p_2007,
+                    F_55_59_p_2007,
+                    T_55_59_p_2007,
+                    M_60_64_p_2007,
+                    F_60_64_p_2007,
+                    T_60_64_p_2007,
+                    M_65_69_p_2007,
+                    F_65_69_p_2007,
+                    T_65_69_p_2007,
+                    M_70_74_p_2007,
+                    F_70_74_p_2007,
+                    T_70_74_p_2007,
+                    M_75_79_p_2007,
+                    F_75_79_p_2007,
+                    T_75_79_p_2007,
+                    M_80plus_p_2007,
+                    F_80plus_p_2007,
+                    T_80plus_p_2007
+                } = filteredData[0];
+
+                percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+                    M_01_04_p_2007,
+                    F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
+                    F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
+                    F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
+                    F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
+                    F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
+                    F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
+                    F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
+                    F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
+                    F_80plus_p_2007, T_80plus_p_2007);
+                // Percent distribution of the household population First paramyid Graph show on the right on the page
+                var {
+                    District,
+                    T_TL,
+                    M_00_00_p,
+                    F_00_00_p,
+                    T_00_00_p,
+                    M_01_04_p,
+                    F_01_04_p,
+                    T_01_04_p,
+                    M_05_09_p,
+                    F_05_09_p,
+                    T_05_09_p,
+                    M_10_14_p,
+                    F_10_14_p,
+                    T_10_14_p,
+                    M_15_19_p,
+                    F_15_19_p,
+                    T_15_19_p,
+                    M_20_24_p,
+                    F_20_24_p,
+                    T_20_24_p,
+                    M_25_29_p,
+                    F_25_29_p,
+                    T_25_29_p,
+                    M_30_34_p,
+                    F_30_34_p,
+                    T_30_34_p,
+                    M_35_39_p,
+                    F_35_39_p,
+                    T_35_39_p,
+                    M_40_44_p,
+                    F_40_44_p,
+                    T_40_44_p,
+                    M_45_49_p,
+                    F_45_49_p,
+                    T_45_49_p,
+                    M_50_54_p,
+                    F_50_54_p,
+                    T_50_54_p,
+                    M_55_59_p,
+                    F_55_59_p,
+                    T_55_59_p,
+                    M_60_64_p,
+                    F_60_64_p,
+                    T_60_64_p,
+                    M_65_69_p,
+                    F_65_69_p,
+                    T_65_69_p,
+                    M_70_74_p,
+                    F_70_74_p,
+                    T_70_74_p,
+                    M_75_79_p,
+                    F_75_79_p,
+                    T_75_79_p,
+                    M_80plus_p,
+                    F_80plus_p,
+                    T_80plus_p
+                } = filteredData[0];
+                // Call the function and pass the variables
+                percent_distribution(
+                    District, T_TL,
+                    M_00_00_p, F_00_00_p, T_00_00_p,
+                    M_01_04_p, F_01_04_p, T_01_04_p,
+                    M_05_09_p, F_05_09_p, T_05_09_p,
+                    M_10_14_p, F_10_14_p, T_10_14_p,
+                    M_15_19_p, F_15_19_p, T_15_19_p,
+                    M_20_24_p, F_20_24_p, T_20_24_p,
+                    M_25_29_p, F_25_29_p, T_25_29_p,
+                    M_30_34_p, F_30_34_p, T_30_34_p,
+                    M_35_39_p, F_35_39_p, T_35_39_p,
+                    M_40_44_p, F_40_44_p, T_40_44_p,
+                    M_45_49_p, F_45_49_p, T_45_49_p,
+                    M_50_54_p, F_50_54_p, T_50_54_p,
+                    M_55_59_p, F_55_59_p, T_55_59_p,
+                    M_60_64_p, F_60_64_p, T_60_64_p,
+                    M_65_69_p, F_65_69_p, T_65_69_p,
+                    M_70_74_p, F_70_74_p, T_70_74_p,
+                    M_75_79_p, F_75_79_p, T_75_79_p,
+                    M_80plus_p, F_80plus_p, T_80plus_p
+                );
+
+
+                // Source of water
+
+
+                var {
+                    Agua_Canalizada_fora_casa,
+                    Agua_Canalizada_casa_vizinho,
+                    Agua_fontanario_publica,
+                    Agua_furoPocoProtegidoBombaManual,
+                    Agua_PocoProtegidoSemBombaManual,
+                    Agua_PocoNaoProtegido,
+                    Agua_Nascentes,
+                    Agua_SuperficieRioLagoLagoa,
+                    Agua_chuva,
+                    Agua_Tanques_Camioes_Carregada_Tambores,
+                    Agua_Mineral_Engarrafada,
+                    Outra_duplication,
+                    Desconhecida_duplication_three,
+                    Agua_Font_Seg
+                } = filteredData[0];
+                source_of_water(Agua_Canalizada_fora_casa, Agua_Canalizada_casa_vizinho, Agua_fontanario_publica,
+                    Agua_furoPocoProtegidoBombaManual, Agua_PocoProtegidoSemBombaManual, Agua_PocoNaoProtegido,
+                    Agua_Nascentes, Agua_SuperficieRioLagoLagoa, Agua_chuva, Agua_Tanques_Camioes_Carregada_Tambores,
+                    Agua_Mineral_Engarrafada, Outra_duplication, Desconhecida_duplication_three, Agua_Font_Seg);
+
+                // Collection of solid waste
+
+                var CollectedByMunicipalAuthorities = filteredData[0].RecolhidoAutoridadeMunicipais;
+                var CollectedByPrivateCompany = filteredData[0].RecolhidoEmpresaPrivada;
+                var Buried = filteredData[0].Enterra;
+                var Burned = filteredData[0].Queima;
+                var DumpedInWastelandSwampLakeRiverSea = filteredData[0].DeitaTerrenoBaldioPantanoLagoRioMar;
+                var Other = filteredData[0].Outro;
+
+                Collection_of_solid_waste(CollectedByMunicipalAuthorities, CollectedByPrivateCompany, Buried, Burned,
+                    DumpedInWastelandSwampLakeRiverSea, Other);
+
+                // type of sanitation
+                var FlushToiletInsideHouse = filteredData[0].RetreteComAutoclismoDentroCasa;
+                var FlushToiletOutsideHouse = filteredData[0].RetreteSemAutoclismoForaCasa;
+                var FlushToiletNoAutoflush = filteredData[0].RetreteSemAutoclismo;
+                var ImprovedLatrine = filteredData[0].LatrinaMelhorada;
+                var ImprovedTraditionalLatrine = filteredData[0].LatrinaTradicionalMelhorada;
+                var UnimprovedLatrine = filteredData[0].LatrinaNaoMelhorada;
+                var NoToiletOrLatrine = filteredData[0].SemRetreteLatrina;
+                var Unknown = filteredData[0].Desconhecido;
+
+
+                type_of_sanitation(FlushToiletInsideHouse, FlushToiletOutsideHouse, FlushToiletNoAutoflush, ImprovedLatrine,
+                    ImprovedTraditionalLatrine, UnimprovedLatrine, NoToiletOrLatrine, Unknown);
+
+                var Total_Bank_Account = filteredData[0].ContaBancaria_Tot;
+                var Urban_Bank_Account = filteredData[0].ContaBancaria_Urb;
+                var Rural_Bank_Account = filteredData[0].ContaBancaria_Rur;
+                var Total_Bank_Account_Household = filteredData[0].ContaBancaria_TotHM;
+                var Bank_Account_Male = filteredData[0].ContaBancaria_Hom;
+                var Bank_Account_Female = filteredData[0].ContaBancaria_Mulh;
+
+                population_aged_15_and_over(Total_Bank_Account, Urban_Bank_Account, Rural_Bank_Account,
+                    Total_Bank_Account_Household, Bank_Account_Male, Bank_Account_Female);
+
+                // population aged 7 years and over
+                var MPesaKesh_Total = filteredData[0].MPesaKesh_Tot;
+                var MPesaKesh_Male = filteredData[0].MPesaKesh_Hom;
+                var MPesaKesh_Female = filteredData[0].MPesaKesh_Mulh;
+
+                population_aged_7_years_and_over(MPesaKesh_Total, MPesaKesh_Male, MPesaKesh_Female);
+                // Access to ICT devices and internet
+                var Computer_Laptop_Total = filteredData[0].ComLapTab_Tot;
+                var Computer_Laptop_Male = filteredData[0].ComLapTab_Hom;
+                var Computer_Laptop_Female = filteredData[0].ComLapTab_Mulh;
+                var Internet_Total = filteredData[0].Internet_Tot;
+                var Internet_Male = filteredData[0].Internet_Hom;
+                var Internet_Female = filteredData[0].Internet_Mulh;
+                var Cellphone_Total = filteredData[0].TelefCelular_Tot;
+                var Cellphone_Male = filteredData[0].TelefCelular_Hom;
+                var Cellphone_Female = filteredData[0].TelefCelular_Mulh;
+
+                access_to_ICT_devices_and_internet(Computer_Laptop_Total, Computer_Laptop_Male, Computer_Laptop_Female,
+                    Internet_Total, Internet_Male, Internet_Female, Cellphone_Total, Cellphone_Male, Cellphone_Female);
+                // population aged 15 and over
+                var PEA = filteredData[0].PEA;
+                var PNEA = filteredData[0].PNEA;
+                economically_and_non_active_population(PEA, PNEA);
+
+                // distribution of the employed population by industry
+                var agricultureForestryFishing = filteredData[0].Agricult_Sivicult_Pesc;
+                var miningExtraction = filteredData[0].Extrac_Minas;
+                var industryManufacturing = filteredData[0].Industr_Manufact;
+                var energy = filteredData[0].Energia;
+                var construction = filteredData[0].Construcao;
+                var transportationCommunication = filteredData[0].Transp_Comunic;
+                var commerceFinance = filteredData[0].Comerc_Financ;
+                var servicesAdministration = filteredData[0].Servic_Admin;
+                var otherServices = filteredData[0].Outros_Servic;
+
+                distribution_of_the_employed_population_by_industry(
+                    agricultureForestryFishing,
+                    miningExtraction,
+                    industryManufacturing,
+                    energy,
+                    construction,
+                    transportationCommunication,
+                    commerceFinance,
+                    servicesAdministration,
+                    otherServices
+                );
+
+                // Fours box Growth Rate Population
+                var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
+                // Fours box Growth Rate Population
+                var popSexRatioBybirth = filteredData[0].sex_ratio_birth;
+                // Fours box  Population Density
+                var populationDensity = filteredData[0].Densidade;
+                // Fours box  Population Density
+                var AverageNumberofMembersperHousehold = filteredData[0].NumeroMedio_Memb_Hab;
+                // Box within the housing tab
+                var Population_Company_Energy_Electric = filteredData[0].Pop_Com_EnergElect;
+                updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity,
+                    AverageNumberofMembersperHousehold, Population_Company_Energy_Electric);
+
+            } else {
+                // console.log("No data found for selected province.");
+                // Handle this case accordingly, e.g., show an error message to the user
+            }
         }
 
         function updateMap() {
@@ -1706,6 +1887,8 @@
             if (map2) {
                 map2.remove(); // Remove the existing map instance
             }
+
+
             map2.removeLayer(geojson);
 
             // Get coordinates for the selected province
@@ -1720,13 +1903,20 @@
                     maxZoom: 9,
                     scrollWheelZoom: true
                 });
-
+                var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map2);
                 // Check if the desired province is "Maputo Cidade"
                 if (desiredProvince === "Maputo Cidade") {
                     // Adjust zoom levels for Maputo Cidade
                     map2.setMinZoom(10);
                     map2.setMaxZoom(12);
                     map2.setZoom(20);
+                }
+                if (desiredProvince === "all_provinces") {
+                    loadAllProvinceData(); // Call loadProvincesData function if desiredProvince is "all_provinces"
+                    return; // Exit the function as we don't need to execute further
                 }
             } else {
                 map2 = L.map('map2', {
@@ -1736,7 +1926,10 @@
                     maxZoom: 9,
                     scrollWheelZoom: true
                 });
-
+                var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map2);
                 // If desiredProvince is empty, add the GeoJSON layer with all features
                 geojson = L.geoJson(mozambiquefulldistricts, {
                     style: style,
@@ -1749,6 +1942,7 @@
                 geojson.on('mouseout', function() {
                     map2.scrollWheelZoom.disable();
                 });
+                showDistrictsLegends();
                 return; // Exit the function as we don't need to filter features further
             }
 
@@ -1770,18 +1964,50 @@
             geojson.on('mouseout', function() {
                 map2.scrollWheelZoom.disable();
             });
-            legend.addTo(map2);
-
+            showDistrictsLegends();
         }
 
 
+        function showDistrictsLegends() {
+            var legend = L.control({
+                position: 'bottomright'
+            });
+
+            legend.onAdd = function(map2) {
+                var div = L.DomUtil.create('div', 'info legend');
+                var grades = [0, 50000, 70000, 100000, 200000, 350000, 400000, 600000];
+
+                // Divide all grades by 1000
+                grades = grades.map(function(grade) {
+                    return grade / 1000;
+                });
+
+                for (var i = 0; i < grades.length; i++) {
+                    var from = grades[i];
+                    var to = grades[i + 1];
+                    var label = from + (to ? '&ndash;' + to : '+');
+
+                    var color = getColor(from * 1000 + 1); // Adjust the color scale accordingly
+
+                    // Add label inside the button without removing <br>
+                    div.innerHTML +=
+                        '<button style="background:' + color +
+                        '; border: 0; height: 10px; width: 15px; line-height: 10px;"></button>' + " " + label +
+                        '<br>';
+                }
+
+                return div;
+            };
+            legend.addTo(map2);
+        }
 
         // These are pie charts code
 
 
 
         function stackedBarChartByAgeGroup(popID, grupIdad_014_Total, grupIdad_1564_Total, grupIdad_65_Total,
-            grupIdad_014_homens, grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres, grupIdad_1564_mulheres,
+            grupIdad_014_homens, grupIdad_1564_homens, grupIdad_65_homens, grupIdad_014_mulheres,
+            grupIdad_1564_mulheres,
             grupIdad_65_mulheres) {
 
             // Check if the charts exist and destroy them
@@ -2280,7 +2506,8 @@
 
 
 
-        function gross_enrolment_rate(TBEnsPrim_1Grau_Tot, TBEnsPrim_1Grau_Hom, TBEnsPrim_1Grau_Mulh, TBEnsPrim_2Grau_Tot,
+        function gross_enrolment_rate(TBEnsPrim_1Grau_Tot, TBEnsPrim_1Grau_Hom, TBEnsPrim_1Grau_Mulh,
+            TBEnsPrim_2Grau_Tot,
             TBEnsPrim_2Grau_Hom, TBEnsPrim_2Grau_Mulh, TBEnsiSec_1Ciclo_Tot, TBEnsiSec_1Ciclo_Hom,
             TBEnsiSec_1Ciclo_Mulh, TBEnsiSec_2Ciclo_Tot, TBEnsiSec_2Ciclo_Hom, TBEnsiSec_2Ciclo_Mulh) {
             // Convert input variables to float and log to the console
@@ -4027,7 +4254,9 @@
                     data: [elderly_rateDep_65_total, elderly_rateDep_65_men, elderly_rateDep_65_women]
                 }, {
                     name: 'Total Dep Ratio',
-                    data: [total_ratedep_014_Plus_65, men_ratedep_014_Plus_65, women_ratedep_014_Plus_65]
+                    data: [total_ratedep_014_Plus_65, men_ratedep_014_Plus_65,
+                        women_ratedep_014_Plus_65
+                    ]
                 }]
             });
         }
@@ -4101,7 +4330,8 @@
                     subtitle: {
                         useHTML: true, // Enable HTML in subtitle
                         text: '<div class="subtitle-container">' +
-                            '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL + '</b></div>' +
+                            '<div style="float: left; margin-left:10px ;" ><b>Total Pop = ' + T_TL +
+                            '</b></div>' +
                             '<div style="float: right; margin-right:65px">Census-2017</div>' +
                             '</div>',
                         align: 'left',
