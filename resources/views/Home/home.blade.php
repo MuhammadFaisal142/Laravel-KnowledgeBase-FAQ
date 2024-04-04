@@ -59,26 +59,26 @@
                     <div class="row">
                         <div class="col-12 col-sm">
                             <div class="counter-box female-population">
-                                <div class="counter" id="sex_ratio_by_birth">105</div>
+                                <div class="counter" id="sex_ratio_by_birth"></div>
                                 <h2>{{ trans('global.Sex_Ratio_at_Birth') }}</h2>
                             </div>
                         </div>
                         <div class="col-12 col-sm">
                             <div class="counter-box total-population">
-                                <div class="counter" id="population_growth_rate">2.6</div>
+                                <div class="counter" id="population_growth_rate"></div>
                                 <h2>{{ trans('global.population_growth') }}</h2>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm">
                             <div class="counter-box population_density">
-                                <div class="counter" id="population_density">40.3</div>
+                                <div class="counter" id="population_density"></div>
                                 <h2>{{ trans('global.population_density') }}</h2>
                             </div>
                         </div>
                         <div class="col-12 col-sm">
                             <div class="counter-box population_density">
-                                <div class="counter" id="Average_Number_of_Members_per_Household">4.3</div>
+                                <div class="counter" id="Average_Number_of_Members_per_Household"></div>
                                 <h2>{{ trans('global.Average_Number_Members_per_Household') }}</h2>
                             </div>
                         </div>
@@ -597,6 +597,11 @@
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map2);
+
+
+
+        // Code when page relaod than show data in the box from the full mozambique map
+        pageRelaodData();
 
         // Define global variable to track the highlighted layer
         var highlightedLayer;
@@ -1732,7 +1737,7 @@
         }
 
 
-        function update_pyramid_charts_2007_and_2017(selectedProvinceName){
+        function update_pyramid_charts_2007_and_2017(selectedProvinceName) {
             var selectedProvinceNameForFilter = selectedProvinceName;
             // console.log("Selected Province ", selectedProvinceNameForFilter, typeof selectedProvinceNameForFilter);
             // console.log("pyramid Is Update according to the selected Province" + " " + selectedProvinceName);
@@ -1915,6 +1920,7 @@
 
             }
         }
+
         function updateMap() {
             // Clear existing GeoJSON layer
             if (map2) {
@@ -1948,6 +1954,7 @@
                     map2.setZoom(20);
                 }
                 if (desiredProvince === "all_provinces") {
+                    pageRelaodData();
                     loadAllProvinceData(); // Call loadProvincesData function if desiredProvince is "all_provinces"
                     return; // Exit the function as we don't need to execute further
                 }
@@ -4557,6 +4564,186 @@
                     }]
                 });
             }
+        }
+
+
+        function pageRelaodData(){
+            const dataFromServerOfProvinces2017and2007 = @json($provinces_all_data_list_2007_2017);
+        const filteredData2017and2007 = dataFromServerOfProvinces2017and2007.filter(function(record) {
+            return record.Cod_Prov_2007 === 0;
+        });
+        const dataFromServerOfProvinces = @json($provinces_all_data);
+        const filteredData = dataFromServerOfProvinces.filter(function(record) {
+            return record.Cod_Prov === 0;
+        });
+
+        // Fours box Growth Rate Population
+        var popGrowthRate = filteredData[0].Taxa_Cresc_Pop;
+        // Fours box Growth Rate Population
+
+        var popSexRatioBybirth = filteredData2017and2007[0].Sex_ratio_birth;
+        // Fours box  Population Density
+        var populationDensity = filteredData[0].Densidade;
+        // Fours box  Population Density
+        var AverageNumberofMembersperHousehold = filteredData[0].NumeroMedio_Memb_Hab;
+        // Box within the housing tab
+        var Population_Company_Energy_Electric = filteredData[0].Pop_Com_EnergElect;
+        updatePopulationCounters(popSexRatioBybirth, popGrowthRate, populationDensity,
+            AverageNumberofMembersperHousehold, Population_Company_Energy_Electric);
+
+
+        // Percent distribution of the household population First paramyid Graph show on the right on the page
+        var {
+            District,
+            T_TL,
+            M_00_00_p,
+            F_00_00_p,
+            T_00_00_p,
+            M_01_04_p,
+            F_01_04_p,
+            T_01_04_p,
+            M_05_09_p,
+            F_05_09_p,
+            T_05_09_p,
+            M_10_14_p,
+            F_10_14_p,
+            T_10_14_p,
+            M_15_19_p,
+            F_15_19_p,
+            T_15_19_p,
+            M_20_24_p,
+            F_20_24_p,
+            T_20_24_p,
+            M_25_29_p,
+            F_25_29_p,
+            T_25_29_p,
+            M_30_34_p,
+            F_30_34_p,
+            T_30_34_p,
+            M_35_39_p,
+            F_35_39_p,
+            T_35_39_p,
+            M_40_44_p,
+            F_40_44_p,
+            T_40_44_p,
+            M_45_49_p,
+            F_45_49_p,
+            T_45_49_p,
+            M_50_54_p,
+            F_50_54_p,
+            T_50_54_p,
+            M_55_59_p,
+            F_55_59_p,
+            T_55_59_p,
+            M_60_64_p,
+            F_60_64_p,
+            T_60_64_p,
+            M_65_69_p,
+            F_65_69_p,
+            T_65_69_p,
+            M_70_74_p,
+            F_70_74_p,
+            T_70_74_p,
+            M_75_79_p,
+            F_75_79_p,
+            T_75_79_p,
+            M_80plus_p,
+            F_80plus_p,
+            T_80plus_p
+        } = filteredData2017and2007[0];
+        // Call the function and pass the variables
+        percent_distribution(
+            District, T_TL,
+            M_00_00_p, F_00_00_p, T_00_00_p,
+            M_01_04_p, F_01_04_p, T_01_04_p,
+            M_05_09_p, F_05_09_p, T_05_09_p,
+            M_10_14_p, F_10_14_p, T_10_14_p,
+            M_15_19_p, F_15_19_p, T_15_19_p,
+            M_20_24_p, F_20_24_p, T_20_24_p,
+            M_25_29_p, F_25_29_p, T_25_29_p,
+            M_30_34_p, F_30_34_p, T_30_34_p,
+            M_35_39_p, F_35_39_p, T_35_39_p,
+            M_40_44_p, F_40_44_p, T_40_44_p,
+            M_45_49_p, F_45_49_p, T_45_49_p,
+            M_50_54_p, F_50_54_p, T_50_54_p,
+            M_55_59_p, F_55_59_p, T_55_59_p,
+            M_60_64_p, F_60_64_p, T_60_64_p,
+            M_65_69_p, F_65_69_p, T_65_69_p,
+            M_70_74_p, F_70_74_p, T_70_74_p,
+            M_75_79_p, F_75_79_p, T_75_79_p,
+            M_80plus_p, F_80plus_p, T_80plus_p
+        );
+        // this 2007 data districts
+        var {
+            District,
+            T_TL_2007,
+            M_00_00_p_2007,
+            F_00_00_p_2007,
+            T_00_00_p_2007,
+            M_01_04_p_2007,
+            F_01_04_p_2007,
+            T_01_04_p_2007,
+            M_05_09_p_2007,
+            F_05_09_p_2007,
+            T_05_09_p_2007,
+            M_10_14_p_2007,
+            F_10_14_p_2007,
+            T_10_14_p_2007,
+            M_15_19_p_2007,
+            F_15_19_p_2007,
+            T_15_19_p_2007,
+            M_20_24_p_2007,
+            F_20_24_p_2007,
+            T_20_24_p_2007,
+            M_25_29_p_2007,
+            F_25_29_p_2007,
+            T_25_29_p_2007,
+            M_30_34_p_2007,
+            F_30_34_p_2007,
+            T_30_34_p_2007,
+            M_35_39_p_2007,
+            F_35_39_p_2007,
+            T_35_39_p_2007,
+            M_40_44_p_2007,
+            F_40_44_p_2007,
+            T_40_44_p_2007,
+            M_45_49_p_2007,
+            F_45_49_p_2007,
+            T_45_49_p_2007,
+            M_50_54_p_2007,
+            F_50_54_p_2007,
+            T_50_54_p_2007,
+            M_55_59_p_2007,
+            F_55_59_p_2007,
+            T_55_59_p_2007,
+            M_60_64_p_2007,
+            F_60_64_p_2007,
+            T_60_64_p_2007,
+            M_65_69_p_2007,
+            F_65_69_p_2007,
+            T_65_69_p_2007,
+            M_70_74_p_2007,
+            F_70_74_p_2007,
+            T_70_74_p_2007,
+            M_75_79_p_2007,
+            F_75_79_p_2007,
+            T_75_79_p_2007,
+            M_80plus_p_2007,
+            F_80plus_p_2007,
+            T_80plus_p_2007
+        } = filteredData2017and2007[0];
+
+        percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+            M_01_04_p_2007,
+            F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
+            F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
+            F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
+            F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
+            F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
+            F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
+            F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
+            F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
+            F_80plus_p_2007, T_80plus_p_2007);
         }
     </script>
 @endsection
