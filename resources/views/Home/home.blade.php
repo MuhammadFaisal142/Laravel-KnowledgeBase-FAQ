@@ -1201,12 +1201,14 @@
             // Update the desiredProvince variable with the selected province
             desiredProvince = selectedProvinceName;
             update_All_charts_by_Provinces_Vise_Data(selectedProvinceName);
+            update_pyramid_charts_2007_and_2017(selectedProvinceName);
             // Delay the updateMap function by 2 seconds
             setTimeout(function() {
                 // Update the map based on the selected province
                 updateMap();
                 const selectedProvinceName = document.getElementById('styledSelect2').value;
                 update_All_charts_by_Provinces_Vise_Data(selectedProvinceName);
+                update_pyramid_charts_2007_and_2017(selectedProvinceName);
             }, 1000);
 
         }
@@ -1370,11 +1372,15 @@
                 updateMap();
                 const selectedProvinceName = document.getElementById('styledSelect2').value;
                 update_All_charts_by_Provinces_Vise_Data(selectedProvinceName);
+                update_pyramid_charts_2007_and_2017(selectedProvinceName);
             }, 2000);
 
         }
 
         function update_All_charts_by_Provinces_Vise_Data(selectedProvinceName) {
+
+
+
 
             var selectedProvinceNameForFilter = selectedProvinceName;
             // console.log("Selected Province ", selectedProvinceNameForFilter, typeof selectedProvinceNameForFilter);
@@ -1599,163 +1605,6 @@
                 ownership_of_durable_goods(Bens_Dur_Radio, Bens_Dur_Telev, Bens_Dur_TelFixo, Bens_Dur_Comp, Bens_Dur_Inter,
                     Bens_Dur_FerEngom, Bens_Dur_FogCarvLenha, Bens_Dur_FogElectGas, Bens_Dur_GeleiCong, Bens_Dur_Carro,
                     Bens_Dur_Motoriza, Bens_Dur_Biciclet, Bens_Nenhum_Destes_Bens);
-
-
-
-                // this 2007 data districts
-                var {
-                    District,
-                    T_TL_2007,
-                    M_00_00_p_2007,
-                    F_00_00_p_2007,
-                    T_00_00_p_2007,
-                    M_01_04_p_2007,
-                    F_01_04_p_2007,
-                    T_01_04_p_2007,
-                    M_05_09_p_2007,
-                    F_05_09_p_2007,
-                    T_05_09_p_2007,
-                    M_10_14_p_2007,
-                    F_10_14_p_2007,
-                    T_10_14_p_2007,
-                    M_15_19_p_2007,
-                    F_15_19_p_2007,
-                    T_15_19_p_2007,
-                    M_20_24_p_2007,
-                    F_20_24_p_2007,
-                    T_20_24_p_2007,
-                    M_25_29_p_2007,
-                    F_25_29_p_2007,
-                    T_25_29_p_2007,
-                    M_30_34_p_2007,
-                    F_30_34_p_2007,
-                    T_30_34_p_2007,
-                    M_35_39_p_2007,
-                    F_35_39_p_2007,
-                    T_35_39_p_2007,
-                    M_40_44_p_2007,
-                    F_40_44_p_2007,
-                    T_40_44_p_2007,
-                    M_45_49_p_2007,
-                    F_45_49_p_2007,
-                    T_45_49_p_2007,
-                    M_50_54_p_2007,
-                    F_50_54_p_2007,
-                    T_50_54_p_2007,
-                    M_55_59_p_2007,
-                    F_55_59_p_2007,
-                    T_55_59_p_2007,
-                    M_60_64_p_2007,
-                    F_60_64_p_2007,
-                    T_60_64_p_2007,
-                    M_65_69_p_2007,
-                    F_65_69_p_2007,
-                    T_65_69_p_2007,
-                    M_70_74_p_2007,
-                    F_70_74_p_2007,
-                    T_70_74_p_2007,
-                    M_75_79_p_2007,
-                    F_75_79_p_2007,
-                    T_75_79_p_2007,
-                    M_80plus_p_2007,
-                    F_80plus_p_2007,
-                    T_80plus_p_2007
-                } = filteredData[0];
-
-                percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
-                    M_01_04_p_2007,
-                    F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
-                    F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
-                    F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
-                    F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
-                    F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
-                    F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
-                    F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
-                    F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
-                    F_80plus_p_2007, T_80plus_p_2007);
-                // Percent distribution of the household population First paramyid Graph show on the right on the page
-                var {
-                    District,
-                    T_TL,
-                    M_00_00_p,
-                    F_00_00_p,
-                    T_00_00_p,
-                    M_01_04_p,
-                    F_01_04_p,
-                    T_01_04_p,
-                    M_05_09_p,
-                    F_05_09_p,
-                    T_05_09_p,
-                    M_10_14_p,
-                    F_10_14_p,
-                    T_10_14_p,
-                    M_15_19_p,
-                    F_15_19_p,
-                    T_15_19_p,
-                    M_20_24_p,
-                    F_20_24_p,
-                    T_20_24_p,
-                    M_25_29_p,
-                    F_25_29_p,
-                    T_25_29_p,
-                    M_30_34_p,
-                    F_30_34_p,
-                    T_30_34_p,
-                    M_35_39_p,
-                    F_35_39_p,
-                    T_35_39_p,
-                    M_40_44_p,
-                    F_40_44_p,
-                    T_40_44_p,
-                    M_45_49_p,
-                    F_45_49_p,
-                    T_45_49_p,
-                    M_50_54_p,
-                    F_50_54_p,
-                    T_50_54_p,
-                    M_55_59_p,
-                    F_55_59_p,
-                    T_55_59_p,
-                    M_60_64_p,
-                    F_60_64_p,
-                    T_60_64_p,
-                    M_65_69_p,
-                    F_65_69_p,
-                    T_65_69_p,
-                    M_70_74_p,
-                    F_70_74_p,
-                    T_70_74_p,
-                    M_75_79_p,
-                    F_75_79_p,
-                    T_75_79_p,
-                    M_80plus_p,
-                    F_80plus_p,
-                    T_80plus_p
-                } = filteredData[0];
-                // Call the function and pass the variables
-                percent_distribution(
-                    District, T_TL,
-                    M_00_00_p, F_00_00_p, T_00_00_p,
-                    M_01_04_p, F_01_04_p, T_01_04_p,
-                    M_05_09_p, F_05_09_p, T_05_09_p,
-                    M_10_14_p, F_10_14_p, T_10_14_p,
-                    M_15_19_p, F_15_19_p, T_15_19_p,
-                    M_20_24_p, F_20_24_p, T_20_24_p,
-                    M_25_29_p, F_25_29_p, T_25_29_p,
-                    M_30_34_p, F_30_34_p, T_30_34_p,
-                    M_35_39_p, F_35_39_p, T_35_39_p,
-                    M_40_44_p, F_40_44_p, T_40_44_p,
-                    M_45_49_p, F_45_49_p, T_45_49_p,
-                    M_50_54_p, F_50_54_p, T_50_54_p,
-                    M_55_59_p, F_55_59_p, T_55_59_p,
-                    M_60_64_p, F_60_64_p, T_60_64_p,
-                    M_65_69_p, F_65_69_p, T_65_69_p,
-                    M_70_74_p, F_70_74_p, T_70_74_p,
-                    M_75_79_p, F_75_79_p, T_75_79_p,
-                    M_80plus_p, F_80plus_p, T_80plus_p
-                );
-
-
                 // Source of water
 
 
@@ -1882,6 +1731,190 @@
             }
         }
 
+
+        function update_pyramid_charts_2007_and_2017(selectedProvinceName){
+            var selectedProvinceNameForFilter = selectedProvinceName;
+            // console.log("Selected Province ", selectedProvinceNameForFilter, typeof selectedProvinceNameForFilter);
+            // console.log("pyramid Is Update according to the selected Province" + " " + selectedProvinceName);
+            const dataFromServerOfProvinces2017and2007 = @json($provinces_all_data_list_2007_2017);
+            // Find the object that matches selected Province and District
+            var matchingObject = dataFromServerOfProvinces2017and2007.find(function(item) {
+                return item.District == selectedProvinceNameForFilter;
+            });
+
+            if (matchingObject) {
+                // Extract the 'id' from the matching object
+                var Province_Name = matchingObject.Provincia;
+                var cod_Id = matchingObject.Cod_Prov_2007;
+                // console.log("Main ID:", cod_Id, "Provinces Name : ", Province_Name);
+            } else {
+                // console.log("Matching object not found");
+            }
+
+            const filteredData2017and2007 = dataFromServerOfProvinces2017and2007.filter(function(record) {
+                return record.Cod_Prov_2007 === cod_Id;
+            });
+
+            if (filteredData2017and2007.length > 0) {
+
+                // this 2007 data districts
+                var {
+                    District,
+                    T_TL_2007,
+                    M_00_00_p_2007,
+                    F_00_00_p_2007,
+                    T_00_00_p_2007,
+                    M_01_04_p_2007,
+                    F_01_04_p_2007,
+                    T_01_04_p_2007,
+                    M_05_09_p_2007,
+                    F_05_09_p_2007,
+                    T_05_09_p_2007,
+                    M_10_14_p_2007,
+                    F_10_14_p_2007,
+                    T_10_14_p_2007,
+                    M_15_19_p_2007,
+                    F_15_19_p_2007,
+                    T_15_19_p_2007,
+                    M_20_24_p_2007,
+                    F_20_24_p_2007,
+                    T_20_24_p_2007,
+                    M_25_29_p_2007,
+                    F_25_29_p_2007,
+                    T_25_29_p_2007,
+                    M_30_34_p_2007,
+                    F_30_34_p_2007,
+                    T_30_34_p_2007,
+                    M_35_39_p_2007,
+                    F_35_39_p_2007,
+                    T_35_39_p_2007,
+                    M_40_44_p_2007,
+                    F_40_44_p_2007,
+                    T_40_44_p_2007,
+                    M_45_49_p_2007,
+                    F_45_49_p_2007,
+                    T_45_49_p_2007,
+                    M_50_54_p_2007,
+                    F_50_54_p_2007,
+                    T_50_54_p_2007,
+                    M_55_59_p_2007,
+                    F_55_59_p_2007,
+                    T_55_59_p_2007,
+                    M_60_64_p_2007,
+                    F_60_64_p_2007,
+                    T_60_64_p_2007,
+                    M_65_69_p_2007,
+                    F_65_69_p_2007,
+                    T_65_69_p_2007,
+                    M_70_74_p_2007,
+                    F_70_74_p_2007,
+                    T_70_74_p_2007,
+                    M_75_79_p_2007,
+                    F_75_79_p_2007,
+                    T_75_79_p_2007,
+                    M_80plus_p_2007,
+                    F_80plus_p_2007,
+                    T_80plus_p_2007
+                } = filteredData2017and2007[0];
+
+                percent_distribution_2007(District, T_TL_2007, M_00_00_p_2007, F_00_00_p_2007, T_00_00_p_2007,
+                    M_01_04_p_2007,
+                    F_01_04_p_2007, T_01_04_p_2007, M_05_09_p_2007, F_05_09_p_2007, T_05_09_p_2007, M_10_14_p_2007,
+                    F_10_14_p_2007, T_10_14_p_2007, M_15_19_p_2007, F_15_19_p_2007, T_15_19_p_2007, M_20_24_p_2007,
+                    F_20_24_p_2007, T_20_24_p_2007, M_25_29_p_2007, F_25_29_p_2007, T_25_29_p_2007, M_30_34_p_2007,
+                    F_30_34_p_2007, T_30_34_p_2007, M_35_39_p_2007, F_35_39_p_2007, T_35_39_p_2007, M_40_44_p_2007,
+                    F_40_44_p_2007, T_40_44_p_2007, M_45_49_p_2007, F_45_49_p_2007, T_45_49_p_2007, M_50_54_p_2007,
+                    F_50_54_p_2007, T_50_54_p_2007, M_55_59_p_2007, F_55_59_p_2007, T_55_59_p_2007, M_60_64_p_2007,
+                    F_60_64_p_2007, T_60_64_p_2007, M_65_69_p_2007, F_65_69_p_2007, T_65_69_p_2007, M_70_74_p_2007,
+                    F_70_74_p_2007, T_70_74_p_2007, M_75_79_p_2007, F_75_79_p_2007, T_75_79_p_2007, M_80plus_p_2007,
+                    F_80plus_p_2007, T_80plus_p_2007);
+                // Percent distribution of the household population First paramyid Graph show on the right on the page
+                var {
+                    District,
+                    T_TL,
+                    M_00_00_p,
+                    F_00_00_p,
+                    T_00_00_p,
+                    M_01_04_p,
+                    F_01_04_p,
+                    T_01_04_p,
+                    M_05_09_p,
+                    F_05_09_p,
+                    T_05_09_p,
+                    M_10_14_p,
+                    F_10_14_p,
+                    T_10_14_p,
+                    M_15_19_p,
+                    F_15_19_p,
+                    T_15_19_p,
+                    M_20_24_p,
+                    F_20_24_p,
+                    T_20_24_p,
+                    M_25_29_p,
+                    F_25_29_p,
+                    T_25_29_p,
+                    M_30_34_p,
+                    F_30_34_p,
+                    T_30_34_p,
+                    M_35_39_p,
+                    F_35_39_p,
+                    T_35_39_p,
+                    M_40_44_p,
+                    F_40_44_p,
+                    T_40_44_p,
+                    M_45_49_p,
+                    F_45_49_p,
+                    T_45_49_p,
+                    M_50_54_p,
+                    F_50_54_p,
+                    T_50_54_p,
+                    M_55_59_p,
+                    F_55_59_p,
+                    T_55_59_p,
+                    M_60_64_p,
+                    F_60_64_p,
+                    T_60_64_p,
+                    M_65_69_p,
+                    F_65_69_p,
+                    T_65_69_p,
+                    M_70_74_p,
+                    F_70_74_p,
+                    T_70_74_p,
+                    M_75_79_p,
+                    F_75_79_p,
+                    T_75_79_p,
+                    M_80plus_p,
+                    F_80plus_p,
+                    T_80plus_p
+                } = filteredData2017and2007[0];
+                // Call the function and pass the variables
+                percent_distribution(
+                    District, T_TL,
+                    M_00_00_p, F_00_00_p, T_00_00_p,
+                    M_01_04_p, F_01_04_p, T_01_04_p,
+                    M_05_09_p, F_05_09_p, T_05_09_p,
+                    M_10_14_p, F_10_14_p, T_10_14_p,
+                    M_15_19_p, F_15_19_p, T_15_19_p,
+                    M_20_24_p, F_20_24_p, T_20_24_p,
+                    M_25_29_p, F_25_29_p, T_25_29_p,
+                    M_30_34_p, F_30_34_p, T_30_34_p,
+                    M_35_39_p, F_35_39_p, T_35_39_p,
+                    M_40_44_p, F_40_44_p, T_40_44_p,
+                    M_45_49_p, F_45_49_p, T_45_49_p,
+                    M_50_54_p, F_50_54_p, T_50_54_p,
+                    M_55_59_p, F_55_59_p, T_55_59_p,
+                    M_60_64_p, F_60_64_p, T_60_64_p,
+                    M_65_69_p, F_65_69_p, T_65_69_p,
+                    M_70_74_p, F_70_74_p, T_70_74_p,
+                    M_75_79_p, F_75_79_p, T_75_79_p,
+                    M_80plus_p, F_80plus_p, T_80plus_p
+                );
+
+
+            } else {
+
+            }
+        }
         function updateMap() {
             // Clear existing GeoJSON layer
             if (map2) {

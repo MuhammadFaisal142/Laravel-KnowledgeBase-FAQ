@@ -21,7 +21,8 @@ class HomeController extends Controller
     {
         $population_data = DB::table('districts_all_data_list')->get();
         $provinces_all_data = DB::table('provinces_all_data_list')->get();
-        return view('Home.home', compact('population_data','provinces_all_data'));
+        $provinces_all_data_list_2007_2017 = DB::table('provinces_all_data_list_2007_2017')->get();
+        return view('Home.home', compact('population_data','provinces_all_data','provinces_all_data_list_2007_2017'));
     }
     public function pyramid()
     {
